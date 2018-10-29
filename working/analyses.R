@@ -529,14 +529,12 @@ lonicera_cover <- data.frame()
 lonicera07$cover <- as.numeric(lonicera07$cover)
 for (plt in unique(lonicera07$plot)){
   temp <- sum(lonicera07$cover[which(lonicera07$plot == plt)])
-  lat <- liz_data$lat[which(liz_data$plots == plt)]
-  lon <- liz_data$lon[which(liz_data$plots == plt)]
-  cols <- cbind(plt, temp, lat, lon)
+  cols <- cbind(plt, temp)
   lonicera_cover <- rbind(lonicera_cover, cols)
 }
 
 ggplot() +
-  geom_point(aes(lonicera_cover$lon, lonicera_cover$lat), 
+  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)]), 
              color = lonicera_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
@@ -555,7 +553,7 @@ for (plt in unique(lonicera18$plot)){
 }
 
 ggplot() +
-  geom_point(aes(liz_data$lon[which(liz_data$plots %in% lonicera_cover$plt)], liz_data$lat[which(liz_data$plots %in% lonicera_cover$plt)])
+  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)])
              , color = lonicera_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
@@ -573,9 +571,8 @@ for (plt in unique(alliaria07$plot)){
   cols <- cbind(plt, temp)
   alliaria_cover <- rbind(alliaria_cover, cols)
 }
-alliaria_cover <- as.numeric(alliaria_cover)
 ggplot() +
-  geom_point(aes(liz_data$lon[which(liz_data$plots %in% alliaria07$plot)], liz_data$lat[which(liz_data$plots %in% alliaria07$plot)]), color = alliaria_cover) +
+  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -591,10 +588,9 @@ for (plt in unique(alliaria18$plot)){
   cols <- cbind(plt, temp)
   alliaria_cover <- rbind(alliaria_cover, cols)
 }
-alliaria18 <- data.frame(unique(alliaria18$plot))
-alliaria_cover <- as.numeric(alliaria_cover)
+
 ggplot() +
-  geom_point(aes(liz_data$lon[which(liz_data$plots %in% alliaria18$plot)], liz_data$lat[which(liz_data$plots %in% alliaria18$plot)]), color = alliaria_cover) +
+  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -602,16 +598,76 @@ ggplot() +
   coord_equal()
 
 # Rhamnus Cathartica (2007)
+rhamnus07 <- dat.07[grep('Rhamnus', dat.07$accepted_name),]
+rhamnus_cover <- data.frame()
+rhamnus07$cover <- as.numeric(rhamnus07$cover)
+for (plt in unique(rhamnus07$plot)){
+  temp <- sum(rhamnus07$cover[which(rhamnus07$plot == plt)])
+  cols <- cbind(plt, temp)
+  rhamnus_cover <- rbind(rhamnus_cover, cols)
+}
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rhamnus Distribution 2007') +
+  coord_equal()
 
 
-# Rhamuns Cathartica (2018)
+# Rhamnus Cathartica (2018)
+rhamnus18 <- dat.18[grep('Rhamnus', dat.18$accepted_name),]
+rhamnus_cover <- data.frame()
+rhamnus18$cover <- as.numeric(rhamnus18$cover)
+for (plt in unique(rhamnus18$plot)){
+  temp <- sum(rhamnus18$cover[which(rhamnus18$plot == plt)])
+  cols <- cbind(plt, temp)
+  rhamnus_cover <- rbind(rhamnus_cover, cols)
+}
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rhamnus Distribution 2018') +
+  coord_equal()
 
 
 # Rosa Multiflora (2007) 
-
+rosamult07 <- dat.07[grep('Rosa multiflora', dat.07$accepted_name),]
+rosamult_cover <- data.frame()
+rosamult07$cover <- as.numeric(rosamult07$cover)
+for (plt in unique(rosamult07$plot)){
+  temp <- sum(rosamult07$cover[which(rosamult07$plot == plt)])
+  cols <- cbind(plt, temp)
+  rosamult_cover <- rbind(rosamult_cover, cols)
+}
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rosa Multiflora Distribution 2007') +
+  coord_equal()
 
 # Rosa Multiflora (2018) 
+rosamult18 <- dat.18[grep('Rosa multiflora', dat.18$accepted_name),]
+rosamult_cover <- data.frame()
+rosamult18$cover <- as.numeric(rosamult18$cover)
+for (plt in unique(rosamult18$plot)){
+  temp <- sum(rosamult18$cover[which(rosamult18$plot == plt)])
+  cols <- cbind(plt, temp)
+  rosamult_cover <- rbind(rosamult_cover, cols)
+}
 
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rosa Multiflora Distribution 2018') +
+  coord_equal()
 
 
 
