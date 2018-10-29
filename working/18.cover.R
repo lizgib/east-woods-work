@@ -12,6 +12,10 @@ dat.all$cover <- as.numeric(dat.all$cover)
 dat.07$cover <- as.numeric(dat.07$cover)
 dat.18$cover <- as.numeric(dat.18$cover)
 
+dat.07$plot <- gsub('-', '', dat.07$plot)
+dat.all$plot <- gsub('-', '', dat.all$plot)
+
+
 ####################################################################################################################
 # ok looking at cover for 2007 herb layer
 herbs07 <- dat.07[which(dat.07$datset == 'H'),]
@@ -19,8 +23,8 @@ herb_plots <- data.frame(unique(herbs07$plot))
 
 total_cover <- c()
 for (i in herb_plots$unique.herbs07.plot.){
-  temp <- sum(herbs07[which(herbs07$plot == i),'cover'])
-  total_cover <- c(total_cover, temp)
+  temp <- sum(herbs07$cover[which(herbs07$plot == i)])
+  total_cover <- c(total_cover, temp/2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!
 }
 
 herb_plots$total_cover <- total_cover
@@ -55,7 +59,7 @@ for (c in trees07$cover){
   basal_area <- pi * (c/2)**2
   BA <- c(BA, basal_area)
 }
-trees07$cover <- BA #replace the DBH values with the basal area. we don't care about dbh anymore
+trees07$BA <- BA #add a column for BA
 
 tree_plots <- data.frame(unique(trees07$plot)) #get all the tree plots
 total_cover <- c() #doing the same thing i did for herbs, take all the basal areas in a plot and
@@ -99,7 +103,6 @@ for(cover in shrubs07$cover){ #...each spp in the plot takes up
 
 shrubs07$percent_total_cover <- percent_of_total_cover #add this percent of total area to the original
 
-
 # DO FOR 2018
 #####################################################################################################
 # herbs 2018
@@ -109,7 +112,7 @@ herb_plots <- data.frame(unique(herbs18$plot))
 total_cover <- c()
 for (i in herb_plots$unique.herbs18.plot.){
   temp <- sum(herbs18[which(herbs18$plot == i),'cover'])
-  total_cover <- c(total_cover, temp)
+  total_cover <- c(total_cover, temp/2)
 }
 herb_plots$total_cover <- total_cover
 

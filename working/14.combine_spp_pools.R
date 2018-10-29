@@ -97,5 +97,9 @@ dat.18$year <- 2018
 
 dat.all <- rbind(dat.18, dat.07)
 dat.all$plot <- gsub('-', '', dat.all$plot)
+dat.07$plot <- gsub('-', '', dat.07$plot)
+dat.herb.fall.07$plot <- gsub('-', '', dat.herb.fall.07$plot)
+dat.tree.fall.07$plot <- gsub('-', '', dat.tree.fall.07$plot)
+dat.shrub.fall.07$plot <- gsub('-', '', dat.shrub.fall.07$plot)
 
 
