@@ -1,0 +1,438 @@
+"","allspp","both_07_and_18","only_in_07","only_in_18"
+"1","",1,0,0
+"2","Acalypha virginica var. rhomboidea",1,0,0
+"3","Acer",1,0,0
+"4","Acer negundo",1,0,0
+"5","Acer platanoides",1,0,0
+"6","Acer rubrum",0,1,0
+"7","Acer saccharinum",1,0,0
+"8","Acer saccharum",1,0,0
+"9","Acer saccharum subsp. nigrum",1,0,0
+"10","Achillea millefolium",1,0,0
+"11","Actaea pachypoda",0,0,1
+"12","Aesculus",1,0,0
+"13","Aesculus glabra",0,1,0
+"14","Ageratina altissima",1,0,0
+"15","Agrimonia",1,0,0
+"16","Agrimonia gryposepala",1,0,0
+"17","Agrimonia pubescens",0,0,1
+"18","Agrostis",0,1,0
+"19","Ailanthus altissima",0,0,1
+"20","Alisma subcordatum",0,0,1
+"21","Alliaria petiolata",1,0,0
+"22","Allium",0,0,1
+"23","Allium canadense",1,0,0
+"24","Allium cernuum",1,0,0
+"25","Allium stellatum",0,1,0
+"26","Allium tricoccum",1,0,0
+"27","Allium tricoccum var. burdickii",0,0,1
+"28","Allium vineale",0,0,1
+"29","Alnus",0,1,0
+"30","Ambrosia artemisiifolia",1,0,0
+"31","Ambrosia trifida",1,0,0
+"32","Amorpha",0,0,1
+"33","Andropogon gerardii",1,0,0
+"34","Anemone",0,1,0
+"35","Anemone canadensis",0,0,1
+"36","Anemone caroliniana",0,1,0
+"37","Anemone hepatica var. acuta",1,0,0
+"38","Anemone quinquefolia",1,0,0
+"39","Anemone virginiana",1,0,0
+"40","Anemonella thalictroides",1,0,0
+"41","Antennaria plantaginifolia",0,0,1
+"42","Apocynum cannabinum",0,0,1
+"43","Aquilegia canadensis",0,1,0
+"44","Arctium minus",1,0,0
+"45","Arisaema dracontium",1,0,0
+"46","Arisaema triphyllum",1,0,0
+"47","Arnoglossum atriplicifolium",0,0,1
+"48","Aruncus dioicus var. pubescens",0,1,0
+"49","Asarum canadense",1,0,0
+"50","Asclepias meadii",0,1,0
+"51","Asclepias syriaca",0,1,0
+"52","Asclepias verticillata",0,1,0
+"53","Asimina",0,1,0
+"54","Asimina triloba",0,0,1
+"55","Asplenium",0,1,0
+"56","Aster",1,0,0
+"57","Barbarea vulgaris",1,0,0
+"58","Berberis thunbergii",1,0,0
+"59","Bidens cernua",0,1,0
+"60","Bidens frondosa",1,0,0
+"61","Boehmeria cylindrica",1,0,0
+"62","Brassica",0,0,1
+"63","Brassicaceae",0,1,0
+"64","Bromus",0,0,1
+"65","Bromus inermis",1,0,0
+"66","Bromus tectorum",0,0,1
+"67","Calluna vulgaris",0,0,1
+"68","Calystegia sepium",1,0,0
+"69","Camassia",0,0,1
+"70","Camassia scilloides",0,0,1
+"71","Campanula americana",1,0,0
+"72","Cardamine",0,0,1
+"73","Cardamine concatenata",0,0,1
+"74","Cardamine douglassii",0,0,1
+"75","Carex",1,0,0
+"76","Carex albursina",0,0,1
+"77","Carex blanda",1,0,0
+"78","Carex granularis",0,0,1
+"79","Carex gravida",0,1,0
+"80","Carex grisea",0,0,1
+"81","Carex hirtifolia",1,0,0
+"82","Carex jamesii",0,0,1
+"83","Carex lacustris",0,0,1
+"84","Carex muskingumensis",0,0,1
+"85","Carex pensylvanica",1,0,0
+"86","Carex rosea",0,1,0
+"87","Carex sparganioides",0,1,0
+"88","Carex tribuloides",0,1,0
+"89","Carex trichocarpa",0,0,1
+"90","Carex vulpinoidea",0,1,0
+"91","Carya",1,0,0
+"92","Carya cordiformis",1,0,0
+"93","Carya ovata",1,0,0
+"94","Caulophyllum thalictroides",1,0,0
+"95","Celastrus orbiculatus",0,0,1
+"96","Celastrus scandens",0,1,0
+"97","Celtis occidentalis",1,0,0
+"98","Cerastium",0,0,1
+"99","Cerastium glomeratum",0,0,1
+"100","Cercis canadensis",1,0,0
+"101","Chenopodium",0,0,1
+"102","Chenopodium album",1,0,0
+"103","Cinna arundinacea",0,0,1
+"104","Circaea lutetiana",0,0,1
+"105","Circaea lutetiana subsp. canadensis",1,0,0
+"106","Cirsium",0,0,1
+"107","Cirsium arvense",1,0,0
+"108","Cirsium vulgare",1,0,0
+"109","Cladrastis kentukea",0,0,1
+"110","Claytonia virginica",0,0,1
+"111","Clematis virginiana",0,0,1
+"112","Clinopodium vulgare",0,0,1
+"113","Convolvulus",1,0,0
+"114","Convolvulus arvensis",0,1,0
+"115","Coreopsis tripteris",0,0,1
+"116","Cornus",0,0,1
+"117","Cornus racemosa",1,0,0
+"118","Crataegus",1,0,0
+"119","Cryptotaenia canadensis",0,0,1
+"120","Cystopteris protrusa",0,0,1
+"121","Dactylis glomerata",1,0,0
+"122","Danthonia spicata",0,1,0
+"123","Daucus carota",1,0,0
+"124","Desmodium",0,1,0
+"125","Dicentra cucullaria",0,0,1
+"126","Dichanthelium",0,0,1
+"127","Dioscorea villosa",0,1,0
+"128","Dipsacus",0,0,1
+"129","Dipsacus fullonum",1,0,0
+"130","Dipsacus laciniatus",0,0,1
+"131","Dodecatheon meadia",1,0,0
+"132","Duchesnea indica",0,1,0
+"133","Ellisia nyctelea",0,0,1
+"134","Elymus",0,0,1
+"135","Elymus elymoides",0,0,1
+"136","Elymus repens",1,0,0
+"137","Elymus villosus",1,0,0
+"138","Elymus virginicus",0,0,1
+"139","Enemion biternatum",1,0,0
+"140","Epilobium coloratum",1,0,0
+"141","Equisetum arvense",0,0,1
+"142","Erechtites hieraciifolius",0,1,0
+"143","Erigeron",0,0,1
+"144","Erigeron annuus",1,0,0
+"145","Erigeron canadensis",0,0,1
+"146","Erigeron philadelphicus",0,0,1
+"147","Erigeron strigosus",0,1,0
+"148","Erythronium albidum",0,0,1
+"149","Euonymus",1,0,0
+"150","Euonymus alatus",1,0,0
+"151","Euonymus atropurpureus",0,1,0
+"152","Euonymus europaeus",0,0,1
+"153","Euonymus fortunei",0,0,1
+"154","Eupatorium",0,0,1
+"155","Eupatorium altissimum",0,0,1
+"156","Eupatorium maculatum",0,0,1
+"157","Eupatorium purpureum",0,0,1
+"158","Euthamia caroliniana",0,1,0
+"159","Euthamia graminifolia",0,1,0
+"160","Fallopia scandens",0,0,1
+"161","Festuca",1,0,0
+"162","Festuca arundinacea",1,0,0
+"163","Festuca pratensis",0,0,1
+"164","Festuca subverticillata",0,0,1
+"165","Ficaria verna",0,0,1
+"166","Floerkea proserpinacoides",0,0,1
+"167","Fragaria vesca subsp. americana",0,1,0
+"168","Fragaria virginiana",1,0,0
+"169","Frangula alnus",0,1,0
+"170","Fraxinus",1,0,0
+"171","Fraxinus americana",1,0,0
+"172","Fraxinus pennsylvanica",1,0,0
+"173","Fraxinus quadrangulata",1,0,0
+"174","Galium",1,0,0
+"175","Galium aparine",1,0,0
+"176","Galium asprellum",0,1,0
+"177","Galium circaezans",0,0,1
+"178","Galium obtusum",0,1,0
+"179","Galium triflorum",1,0,0
+"180","Geranium maculatum",1,0,0
+"181","Geum",0,0,1
+"182","Geum canadense",1,0,0
+"183","Geum vernum",0,0,1
+"184","Glechoma hederacea",1,0,0
+"185","Glyceria striata",1,0,0
+"186","Grias",0,1,0
+"187","Gymnocladus dioica",1,0,0
+"188","Hackelia virginiana",1,0,0
+"189","Helenium autumnale",0,0,1
+"190","Helianthus divaricatus",0,1,0
+"191","Helianthus grosseserratus",0,0,1
+"192","Helianthus strumosus",0,1,0
+"193","Hesperis matronalis",0,0,1
+"194","Hydrastis canadensis",0,1,0
+"195","Hydrophyllum",0,0,1
+"196","Hydrophyllum appendiculatum",0,0,1
+"197","Hydrophyllum virginianum",1,0,0
+"198","Hystrix patula",1,0,0
+"199","Impatiens",1,0,0
+"200","Impatiens capensis",1,0,0
+"201","Impatiens pallida",0,1,0
+"202","Juglans cinerea",0,1,0
+"203","Juglans nigra",1,0,0
+"204","Juncus",0,0,1
+"205","Juncus dudleyi",0,1,0
+"206","Juniperus virginiana",1,0,0
+"207","Lactuca canadensis",1,0,0
+"208","Lactuca floridana",1,0,0
+"209","Lactuca serriola",0,1,0
+"210","Lamium purpureum",0,0,1
+"211","Laportea canadensis",0,0,1
+"212","Leersia oryzoides",0,1,0
+"213","Leersia virginica",0,1,0
+"214","Leitneria floridana",0,0,1
+"215","Leucanthemum vulgare",1,0,0
+"216","Ligusticum",0,0,1
+"217","Ligustrum",1,0,0
+"218","Liriodendron tulipifera",1,0,0
+"219","Lonicera",1,0,0
+"220","Lonicera maackii",1,0,0
+"221","Lonicera prolifera",1,0,0
+"222","Lonicera reticulata",0,0,1
+"223","Lonicera tatarica",1,0,0
+"224","Lycopus americanus",0,1,0
+"225","Lysimachia ciliata",0,0,1
+"226","Lythrum alatum",0,0,1
+"227","Maclura pomifera",0,1,0
+"228","Magnolia acuminata",0,0,1
+"229","Maianthemum racemosum",1,0,0
+"230","Maianthemum stellatum",0,0,1
+"231","Malus",1,0,0
+"232","Malus pumila",0,0,1
+"233","Malus sieboldii",0,0,1
+"234","Marah",0,0,1
+"235","Melilotus",0,0,1
+"236","Melilotus officinalis subsp. alba",1,0,0
+"237","Menispermum",0,0,1
+"238","Menispermum canadense",1,0,0
+"239","Mertensia virginica",0,0,1
+"240","Moehringia lateriflora",0,1,0
+"241","Monarda fistulosa",1,0,0
+"242","Morus",0,0,1
+"243","Morus alba",1,0,0
+"244","Morus rubra",0,1,0
+"245","Nabalus albus",1,0,0
+"246","Nabalus crepidineus",0,0,1
+"247","Nonea",0,1,0
+"248","Onoclea sensibilis",1,0,0
+"249","Osa",0,0,1
+"250","Osmorhiza",0,0,1
+"251","Osmorhiza aristata var. aristata",0,0,1
+"252","Osmorhiza longistylis",0,1,0
+"253","Osmunda claytoniana",0,1,0
+"254","Ostrya virginiana",1,0,0
+"255","Oxalis",0,0,1
+"256","Oxalis stricta",1,0,0
+"257","Panicum",1,0,0
+"258","Panicum acuminatum",0,1,0
+"259","Parthenocissus",0,0,1
+"260","Parthenocissus quinquefolia",1,0,0
+"261","Pastinaca sativa",1,0,0
+"262","Persicaria amphibia",0,0,1
+"263","Persicaria lapathifolia",0,1,0
+"264","Persicaria punctata",0,1,0
+"265","Phaca",0,0,1
+"266","Phalaris arundinacea",1,0,0
+"267","Phellodendron amurense",0,0,1
+"268","Phleum pratense",1,0,0
+"269","Phlox divaricata",0,0,1
+"270","Phryma leptostachya",1,0,0
+"271","Physalis",0,1,0
+"272","Physalis virginiana",0,1,0
+"273","Phytolacca americana",1,0,0
+"274","Picea",1,0,0
+"275","Picea abies",0,0,1
+"276","Pilea pumila",1,0,0
+"277","Pinus",0,0,1
+"278","Pinus banksiana",0,1,0
+"279","Pinus resinosa",1,0,0
+"280","Plantago lanceolata",1,0,0
+"281","Plantago major",0,0,1
+"282","Plantago rugelii",0,1,0
+"283","Poa",1,0,0
+"284","Poa compressa",0,0,1
+"285","Poa nemoralis",0,1,0
+"286","Poa pratensis",1,0,0
+"287","Podophyllum peltatum",1,0,0
+"288","Polemonium reptans",1,0,0
+"289","Pollia",0,0,1
+"290","Polygonatum biflorum",1,0,0
+"291","Polygonum",1,0,0
+"292","Polygonum virginianum",1,0,0
+"293","Polypodium virginianum",0,1,0
+"294","Polystichum acrostichoides",0,0,1
+"295","Populus",0,1,0
+"296","Populus alba",1,0,0
+"297","Populus deltoides",1,0,0
+"298","Populus grandidentata",1,0,0
+"299","Potentilla norvegica",0,1,0
+"300","Potentilla recta",1,0,0
+"301","Potentilla simplex",1,0,0
+"302","Prunella vulgaris",1,0,0
+"303","Prunella vulgaris subsp. lanceolata",0,1,0
+"304","Prunus",1,0,0
+"305","Prunus americana",1,0,0
+"306","Prunus serotina",1,0,0
+"307","Prunus virginiana",1,0,0
+"308","Pseudotsuga menziesii",0,1,0
+"309","Ptelea trifoliata",1,0,0
+"310","Pyrus calleryana",0,0,1
+"311","Quercus",1,0,0
+"312","Quercus alba",1,0,0
+"313","Quercus bicolor",0,1,0
+"314","Quercus coccinea",0,1,0
+"315","Quercus ellipsoidalis",0,0,1
+"316","Quercus macrocarpa",1,0,0
+"317","Quercus palustris",1,0,0
+"318","Quercus rubra",1,0,0
+"319","Quercus velutina",0,0,1
+"320","Ranunculus",1,0,0
+"321","Ranunculus abortivus",1,0,0
+"322","Ranunculus hispidus",1,0,0
+"323","Ranunculus pensylvanicus",0,1,0
+"324","Ranunculus septentrionalis",0,0,1
+"325","Ratibida pinnata",0,1,0
+"326","Rhamnus",0,1,0
+"327","Rhamnus cathartica",1,0,0
+"328","Rhus glabra",0,1,0
+"329","Rhus typhina",0,1,0
+"330","Ribes",1,0,0
+"331","Ribes americanum",0,0,1
+"332","Ribes missouriense",1,0,0
+"333","Robinia pseudoacacia",1,0,0
+"334","Rosa",1,0,0
+"335","Rosa carolina",1,0,0
+"336","Rosa multiflora",1,0,0
+"337","Rubus",1,0,0
+"338","Rubus allegheniensis",1,0,0
+"339","Rubus hispidus",0,0,1
+"340","Rubus idaeus subsp. strigosus",1,0,0
+"341","Rubus occidentalis",1,0,0
+"342","Rubus pensilvanicus",0,0,1
+"343","Rudbeckia hirta",0,0,1
+"344","Rumex",0,0,1
+"345","Rumex britannica",0,1,0
+"346","Rumex crispus",1,0,0
+"347","Ruta",0,1,0
+"348","Salix",0,0,1
+"349","Salix amygdaloides",0,0,1
+"350","Salix interior",0,1,0
+"351","Salix nigra",1,0,0
+"352","Sambucus canadensis",1,0,0
+"353","Sanguinaria canadensis",1,0,0
+"354","Sanicula",0,0,1
+"355","Sanicula gregaria",0,0,1
+"356","Sanicula odorata",0,0,1
+"357","Schizachyrium scoparium",0,0,1
+"358","Scirpus",0,1,0
+"359","Scirpus atrovirens",0,0,1
+"360","Scrophularia",0,1,0
+"361","Scutellaria lateriflora",1,0,0
+"362","Securigera varia",1,0,0
+"363","Sedum",0,1,0
+"364","Setaria",0,1,0
+"365","Silene latifolia subsp. alba",0,0,1
+"366","Silphium integrifolium",1,0,0
+"367","Silphium laciniatum",0,0,1
+"368","Sium suave",1,0,0
+"369","Smilax",1,0,0
+"370","Smilax illinoensis",0,0,1
+"371","Smilax lasioneura",0,1,0
+"372","Smilax tamnoides",1,0,0
+"373","Solanum",0,1,0
+"374","Solanum dulcamara",1,0,0
+"375","Solidago",1,0,0
+"376","Solidago canadensis",1,0,0
+"377","Solidago flexicaulis",1,0,0
+"378","Solidago gigantea",1,0,0
+"379","Solidago rigida",0,0,1
+"380","Solidago ulmifolia",1,0,0
+"381","Sonchus arvensis",0,0,1
+"382","Sonchus asper",0,1,0
+"383","Sorghastrum nutans",1,0,0
+"384","Sparganium eurycarpum",0,0,1
+"385","Staphylea trifolia",0,1,0
+"386","Stylophorum diphyllum",1,0,0
+"387","Symphyotrichum",0,0,1
+"388","Symphyotrichum drummondii",1,0,0
+"389","Symphyotrichum ericoides",0,0,1
+"390","Symphyotrichum lanceolatum",0,0,1
+"391","Symphyotrichum lateriflorum",1,0,0
+"392","Symphyotrichum novae-angliae",0,0,1
+"393","Symphyotrichum pilosum",1,0,0
+"394","Symphyotrichum shortii",1,0,0
+"395","Symphyotrichum undulatum",0,1,0
+"396","Taraxacum campylodes",1,0,0
+"397","Teucrium canadense",0,0,1
+"398","Thalictrum dasycarpum",0,0,1
+"399","Thalictrum dioicum",1,0,0
+"400","Thelypteris confluens",0,0,1
+"401","Tilia americana",1,0,0
+"402","Torilis",0,0,1
+"403","Torilis japonica",0,0,1
+"404","Toxicodendron radicans",1,0,0
+"405","Tragopogon dubius",0,1,0
+"406","Trema",0,1,0
+"407","Trifolium",0,0,1
+"408","Trifolium repens",1,0,0
+"409","Trillium grandiflorum",0,0,1
+"410","Trillium recurvatum",0,0,1
+"411","Typha angustifolia",0,1,0
+"412","Typha latifolia",1,0,0
+"413","Ulmus",1,0,0
+"414","Ulmus americana",1,0,0
+"415","Ulmus pumila",1,0,0
+"416","Ulmus rubra",1,0,0
+"417","Urtica dioica",1,0,0
+"418","Uvularia grandiflora",0,0,1
+"419","Uvularia sessilifolia",0,1,0
+"420","Verbena urticifolia",0,0,1
+"421","Verbesina alternifolia",1,0,0
+"422","Vernonia gigantea",0,0,1
+"423","Veronica",0,0,1
+"424","Veronicastrum virginicum",0,0,1
+"425","Viburnum",1,0,0
+"426","Viburnum dentatum",0,0,1
+"427","Viburnum lentago",1,0,0
+"428","Viburnum opulus",1,0,0
+"429","Viburnum prunifolium",1,0,0
+"430","Viburnum rafinesquianum",0,1,0
+"431","Viburnum recognitum",0,1,0
+"432","Viola",1,0,0
+"433","Viola pubescens",1,0,0
+"434","Viola sororia",0,0,1
+"435","Viola sororia var. missouriensis",0,0,1
+"436","Vitis",0,0,1
+"437","Vitis vulpina",1,0,0
