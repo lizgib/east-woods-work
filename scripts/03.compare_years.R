@@ -9,9 +9,9 @@ length(spp07)   # 285 species reported in 2007
 length(spp18)   # 347 species reported in 2018 
 length(allspp)  # 438 species between years 
 
-both_07_and_18 <- sort(intersect(spp07, spp18))
-in_07_not_18 <- sort(setdiff(spp07, spp18))
-in_18_not_07 <- sort(setdiff(spp18, spp07))
+both_07_and_18 <- sort(intersect(spp07, spp18))  # 194 species in both 2007 and 2018
+in_07_not_18 <- sort(setdiff(spp07, spp18))  # 91 species found only in 2007 
+in_18_not_07 <- sort(setdiff(spp18, spp07))  # 152 species found only in 2018
 
 both <- c()
 only_07 <- c()
@@ -29,3 +29,6 @@ for (sp in whatschanged$allspp){
 whatschanged$both_07_and_18 <- both
 whatschanged$only_in_07 <- only_07
 whatschanged$only_in_18 <- only_18
+
+write.csv(whatschanged, 'spp_compare_years.csv')
+
