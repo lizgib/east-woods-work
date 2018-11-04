@@ -26,7 +26,7 @@ Morton Project: June 2018 - December 2018
 	year = 2007 or 2018 
 	
 	"plot"    "code"       "species"    "cover"    "datset"   "year"  
-	A107			QUEALB			Quercus alba	 54.6 			   T 			 2007 
+	A107	  QUEALB     Quercus alba      54.6 	   T 	   2007 
 	
 	
 02.falltranslationkey.R	
