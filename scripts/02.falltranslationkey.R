@@ -20,6 +20,8 @@ write.csv(dat.all.sorted, '../OUTPUTS/complete_spp_list.csv')
 # make the translation key with original species name in one column and 
 # accepted species name in another
 
+# LAST UPDATED TRANSLATION KEY: 11/3
+
 tnrs_all <- data.frame(read.csv('../OUTPUTS/complete_tnrs_list.csv', as.is = T))
 
 ###################################################################################################
