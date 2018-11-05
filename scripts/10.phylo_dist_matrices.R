@@ -2,8 +2,8 @@
 #tells you how phylogenetically dissimilar each plot is from each other
 
 library(picante)
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/19.1.community_data_matrices.pres_abs.R')
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/17.envt_data.R')
+source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R')
+source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
  ##################################################################################################################
  # will probably move this part to a different script later on... need to filter out which plots are
  # included in the analyses bc there are a number of different "filters" i need to look at

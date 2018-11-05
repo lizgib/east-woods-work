@@ -2,8 +2,9 @@
 # read in data from various sources to create plot by plot dataframe for envt variables
 #OUTPUT: liz_data.csv
 library(dict)
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/18.cover.R')
-point_info_GIS <- read.csv('~/Documents/morton arb/east_woods_phylogeny/DATA/Analyses_Rollinson/point_info_GIS.csv')
+source('~/Documents/GitHub/east_woods_work/scripts/06.cover.R')
+source('~/Documents/GitHub/east_woods_work/scripts/05.speciesinfo.R')
+point_info_GIS <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/Analyses_Rollinson/point_info_GIS.csv')
 
 plots <- point_info_GIS$PlotID
 plots <- gsub('-', '', plots)
@@ -27,7 +28,7 @@ liz_data$com_class <- point_info_GIS$ComClass
 ##################
 # BURN FREQUENCY 
 ##################
-burn_data <- read.csv('~/Documents/morton arb/east_woods_phylogeny/DATA/Analyses_Rollinson/point_info_GIS_burnhistory_2017-12.csv')
+burn_data <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/Analyses_Rollinson/point_info_GIS_burnhistory_2017-12.csv')
 burned_plots <- burn_data$PlotID[which(!is.na(burn_data$Burn_Date))]
 burned_plots <- gsub('-', '', burned_plots)
 burned_plots <- as.data.frame(sort(table(burned_plots)))
@@ -36,7 +37,7 @@ liz_data$burn_count <- burned_plots$Freq[match(liz_data$plots, burned_plots$burn
 ##################
 # SOIL DATA
 ##################
-soil_data <- read.csv('~/Documents/morton arb/east_woods_phylogeny/DATA/Analyses_Rollinson/point_info_GIS_soils.csv')
+soil_data <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/Analyses_Rollinson/point_info_GIS_soils.csv')
 soil_data$PlotID <- gsub('-', '', soil_data$PlotID) 
 soil_data <- soil_data[match(liz_data$plots, soil_data$PlotID),]
 liz_data$soil_texture <- soil_data$texture
@@ -45,7 +46,7 @@ liz_data$drainage <- soil_data$Drainage
 ######################
 # DOMINANT TREE GROUP
 ######################
-marlin_data <- read.csv('~/Documents/morton arb/east_woods_phylogeny/DATA/marlins_data.csv')
+marlin_data <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/marlins_data.csv')
 marlin_data$Plot <- gsub('-', '', marlin_data$Plot)
 marlin_data <- marlin_data[match(liz_data$plots, marlin_data$Plot),]
 liz_data$tree_group <- marlin_data$Grp
@@ -105,7 +106,7 @@ liz_data$canopy_18 <- plot_tree_cover_18$plot_tree_cover[match(liz_data$plots, p
 #############
 # INVASIVES  
 #############
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/16.speciesinfo.R')
+
 # make invasive species vect from the species info dataframe
 invasives <- spp_info$Accepted_name[which(spp_info$native == 'i')]
 

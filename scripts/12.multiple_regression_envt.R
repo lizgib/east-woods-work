@@ -1,7 +1,8 @@
 # EXAMINING ENVIRONMENTAL VARIABLES EFFECT ON EACH OTHER 
 
 # Read in all of the environmental variables 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/analyzez.R')
+source('~/Documents/GitHub/east_woods_work/scripts/11.analyses.R')
+source()
 # Instead of doing plot dissimilarity im going to try first with just the plot level
 
 # doing multiple regression 

@@ -1,8 +1,8 @@
 # ANALYSIS FALL 2018 
 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/17.envt_data.R')
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/19.1.community_data_matrices.pres_abs.R')
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/20.phylo_dist_matrices.R')
+source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
+source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R')
+source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_dist_matrices.R')
 library(picante)
 library(ggplot2)
 library(ape)

@@ -3,14 +3,13 @@
 # NATIVE STATUS
 #################
 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/14.combine_spp_pools.R') 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/15.falltranslationkey.R')
-
-usda_spp_dat <- read.csv('usda_spp_info.csv')
+source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
+setwd('~/Documents/GitHub/east_woods_work/data/')
+usda_spp_dat <- read.csv('species_data/usda_spp_info.csv')
 native_id <- data.frame(usda_spp_dat[,c('Scientific.Name', 'Native.Status')])
 names(native_id) <- c('Accepted_name', 'native')
 native_id$native <- 'n'
-invasive_tnrs <- read.csv('../DATA/invasives_tnrs.csv')
+invasive_tnrs <- read.csv('species_data/invasives_tnrs.csv')
 invasive_tnrs$native <- 'i'
 native_id <- rbind(native_id, invasive_tnrs[,c('Accepted_name', 'native')])
 
@@ -19,10 +18,10 @@ dat.all$nativestatus <- native_id$native[match(dat.all$accepted_name, native_id$
 missing_natives <- unique(dat.all$accepted_name[which(is.na(dat.all$nativestatus))]) # I have this number trimmed down to 86!!
 
 #############################################################################################
-# manually go through list of 86 spp and get IDs for them --> Dr. Hipp
+# manually go through list of 86 spp and get IDs for them --> Dr. Hipp did this part 
 
 # read back in the missing natives file
-revised_missing_invasives <- read.csv('missing_natives - missing_natives.csv')[,2:3]
+revised_missing_invasives <- read.csv('species_data/missing_natives - missing_natives.csv')[,2:3] # 11/4 7:32 PM is wondering what this file is?? 
 names(revised_missing_invasives) <- c('Accepted_name', 'native')
 
 # append the missing names/statuses to native_id

@@ -4,11 +4,11 @@
 # 2018 
 # 2018 and 2007
 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/15.falltranslationkey.R')
+source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
 library(ape)
 #source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/17.tree_generation.R')
 # probably want to just read in the tree instead of sourcing it every time
-tr.ewv4 <- read.tree('~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/tr.ewv4')
+tr.ewv4 <- read.tree('~/Documents/GitHub/east_woods_work/outputs/tr.ewv4')
 ###################################################################################################
 
 ##########

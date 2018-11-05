@@ -12,7 +12,7 @@
 # NATIVE STATUS
 #################
 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/natives.R')
+source('~/Documents/GitHub/east_woods_work/scripts/04.natives.R')
 spp_info <- unique(native_id)
 
 ###################

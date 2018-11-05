@@ -7,7 +7,7 @@
 # I am not going to be comparing the relative quantities of trees to shrubs to herbs 
 # I am comparing the composition of shrubs, herbs, trees, between plots
 
-source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/15.falltranslationkey.R')
+source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
 dat.all$cover <- as.numeric(dat.all$cover)
 dat.07$cover <- as.numeric(dat.07$cover)
 dat.18$cover <- as.numeric(dat.18$cover)
@@ -24,7 +24,7 @@ herb_plots <- data.frame(unique(herbs07$plot))
 total_cover <- c()
 for (i in herb_plots$unique.herbs07.plot.){
   temp <- sum(herbs07$cover[which(herbs07$plot == i)])
-  total_cover <- c(total_cover, temp/2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!
+  total_cover <- c(total_cover, temp/2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!  10/27
 }
 
 herb_plots$total_cover <- total_cover

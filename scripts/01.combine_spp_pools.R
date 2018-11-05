@@ -4,9 +4,9 @@
 #OUTPUT: 2007_spp_pool.csv, 2018_spp_pool.csv, 2007_2018_spp_pool.csv
 
 
-setwd('~/Documents/morton arb/east_woods_phylogeny/DATA/')
+#setwd('~/Documents/morton arb/east_woods_phylogeny/DATA/')
 #git version 
-#setwd('~/Documents/GitHub/east-woods-work/data/')
+setwd('~/Documents/GitHub/east_woods_work/data/survey_data/')
 #################
 # READ IN DATA
 ################
@@ -35,14 +35,8 @@ dat.shrub.spring.18.o <- read.csv('final.shrubs.2018.csv', as.is = T)
 dat.shrub.spring.18 <- dat.shrub.spring.18.o[3:8]
 dat.shrub.spring.18$Category..Seedling.S...Sapling.U...Shrub.SH. <- NULL
 dat.shrub.spring.18$Sapling.Category...5cm.or...5cm <- NULL
-# dat.shrub.fall.18.o <- read.csv('final.shrubs.2018.csv', as.is = T)
-# dat.shrub.fall.18 <- dat.shrub.fall.18.o[3:8]
-# dat.shrub.fall.18$Category..Seedling.S...Sapling.U...Shrub.SH. <- NULL
-# dat.shrub.fall.18$Sapling.Category...5cm.or...5cm <- NULL
 dat.tree.spring.18.o <- read.csv('final.trees.2018.csv', as.is = T)
 dat.tree.spring.18 <- dat.tree.spring.18.o[3:6]
-# dat.tree.fall.18.o <- read.csv('final.trees.2018.csv', as.is = T)
-# dat.tree.fall.18 <- dat.tree.fall.18.o[3:6]
 
 #########################################################################################
 # COMBINE SPP POOLS 
