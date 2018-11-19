@@ -6,6 +6,9 @@ source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pr
 library(picante)
 library(ggplot2)
 library(ape)
+
+regression_coeffs <- data.frame() # making this dataframe to keep track of the R2 values each time I do a linear model 
+
 # PHYLOGENETIC DIVERSITY OF EACH PLOT
 #tr.ewv4 <- read.tree('~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/tr.ewv4')
 phylo_understory_07 <- pd(dat.mat.understory.07, tr.ewv4, include.root = F)
@@ -26,12 +29,6 @@ pbd_understory_18 <- mntd(dat.mat.understory.18, cophenetic(tr.ewv4))
 pbd_trees_18 <- mntd(dat.mat.trees.18, cophenetic(tr.ewv4))
 pbd_all_18 <- mntd(dat.mat.all.18, cophenetic(tr.ewv4))
 
-# doing burn frequency first because I think all the data is ready for that
-liz_data$burn_count <- as.numeric(liz_data$burn_count)
-for (c in unique(liz_data$plots)){ # go through each of the burn numbers 
-  burn_freq <- sum(liz_data$burn_count[which(liz_data$plots== c)])
-}
-dis_burn <- dist(liz_data$burn_count, method = 'euclidean')
 
 ##############
 # TREE TYPE
@@ -338,10 +335,10 @@ fit18 <- aov(PD ~ tree_group, data = groups2018)
 sig18 <- TukeyHSD(fit18)
 
 ###########
-# PLOTS 
+# FIGURES
 # average phylogenetic diversity as function of plot tree group
 ggplot() +
-  aes(average_diversity$treegrp,average_diversity$average_diversity, fill = average_diversity$treegrp) +
+  aes(average_diversity$treegrp, average_diversity$average_diversity, fill = average_diversity$treegrp) +
   geom_col() +
   ggtitle('Phylogenetic Diversity as Effect of Tree group Marlin') +
   xlab('Tree Group') +
@@ -350,10 +347,19 @@ ggplot() +
 treegrp_aov <- aov(average_diversity ~ treegrp, data = average_diversity)
 tuk_tre <- TukeyHSD(treegrp_aov)
 
+
 ggplot() +
-  aes(average_diversity2$average_diversity2, average_diversity2$average_diversity2, fill = average_diversity2$treegrp07) +
+  aes(row.names(average_diversity07), average_diversity07$average_diversity07, fill = row.names(average_diversity07)) +
   geom_col() +
   ggtitle('Phylogenetic Diversity as Effect of Tree group 2007') +
+  xlab('Tree Group') +
+  ylab('Average Phylogenetic Diversity')
+
+
+ggplot() +
+  aes(row.names(average_diversity18), average_diversity18$average_diversity18, fill = row.names(average_diversity18)) +
+  geom_col() +
+  ggtitle('Phylogenetic Diversity as Effect of Tree group 2018') +
   xlab('Tree Group') +
   ylab('Average Phylogenetic Diversity')
 
@@ -444,32 +450,33 @@ ggplot() +
 
 
 # what is canopy's effect on herb diversity 
-rownames(phylo_understory_07) <- gsub('-', '', rownames(phylo_understory_07))
-phylo_understory_07 <- phylo_understory_07[which(rownames(phylo_understory_07) %in% intersect(rownames(phylo_understory_07), liz_data$plots)),]
+
+fit = lm(liz_data$canopy_07 ~ phylo_understory_07$PD)
 
 ggplot() + 
   geom_point(aes(liz_data$canopy_07,phylo_understory_07$PD), color = 'dark blue') + 
-  ggtitle('Canopy effect on phylodiversity 07') + 
+  ggtitle('Canopy effect on understory phylodiversity 07') + 
   xlab('Canopy Cover') + 
-  ylab('Plot Phylogenetic Diversity')
+  ylab('Plot Phylogenetic Diversity') + 
+  geom_smooth(method = 'lm', formula = x ~ y)
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_07,phylo_understory_07$SR), color = 'dark blue') + 
-  ggtitle('Canopy effect on Species richness 07') + 
+  geom_point(aes(liz_data$canopy_07,phylo_understory_07$SR), color = 'blue') + 
+  ggtitle('Canopy effect on Understory Species richness 07') + 
   xlab('Canopy Cover') + 
   ylab('Species richness')
 
 phylo_understory_18 <- phylo_understory_18[which(rownames(phylo_understory_18) %in% intersect(rownames(phylo_understory_18), liz_data$plots)),]
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_18,phylo_understory_18$PD), color = 'dark blue') + 
-  ggtitle('Canopy effect on phylodiversity 18') + 
+  geom_point(aes(liz_data$canopy_18,phylo_understory_18$PD), color = 'dark green') + 
+  ggtitle('Canopy effect on understory phylodiversity 18') + 
   xlab('Canopy Cover') + 
   ylab('Plot Phylogenetic Diversity')
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_18,phylo_understory_18$SR), color = 'dark blue') + 
-  ggtitle('Canopy effect on Species richness 18') + 
+  geom_point(aes(liz_data$canopy_18,phylo_understory_18$SR), color = 'green') + 
+  ggtitle('Canopy effect on understory Species richness 18') + 
   xlab('Canopy Cover') + 
   ylab('Species richness')
 
@@ -488,6 +495,28 @@ ggplot()+
   ggtitle('Canopy Cover in 2007 and 2018') + 
   xlab('2007') + 
   ylab('2018')
+
+
+# how correlated is this value for canopy with just tree species richness 
+ggplot() + 
+  geom_point(aes(phylo_trees_07$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_07))])) +
+  xlab('Tree Species Richness') +
+  ylab('Calculated Canopy') + 
+  ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2007')
+
+ggplot() + 
+  geom_point(aes(phylo_trees_18$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_18))])) +
+  xlab('Tree Species Richness') +
+  ylab('Calculated Canopy') + 
+  ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2018')
+
+
+# what about the marlin data? how does that look in comparison to teh 2007 calculations? 
+ggplot() + 
+  geom_point(aes(liz_data$marlin_canopy[which(liz_data$marlin_canopy < 40)], liz_data$canopy_07[which(liz_data$marlin_canopy < 40)])) +
+  xlab('Marlin Canopy') +
+  ylab('Calculated Canopy') + 
+  ggtitle('Marlin Data compared to my calculated canopy')
 
 ##################################################################################################################
 
@@ -513,6 +542,32 @@ ggplot() +
   scale_size () + 
   ggtitle('Invasive Species Distribution 2018') +
   coord_equal()
+
+
+ggplot() +
+  geom_point(aes(liz_data$invasive_ratio_07, phylo_all_07$SR), color = 'maroon') +
+  ylab('Invasives Abundance') + 
+  xlab('PD') + 
+  ggtitle('Invasive Species Effects on Diversity 2007')
+
+ggplot() + 
+  geom_point(aes(liz_data$plot_invasive_cover_18, phylo_all_18$PD), color = 'turquoise4') + 
+  ylab('Invasives Abundance') + 
+  xlab('PD') + 
+  ggtitle('Invasive Species Effects on Diversity 2018')
+
+ggplot() +
+  geom_point(aes(phylo_all_07$SR, liz_data$plot_invasive_cover_07), color = 'maroon') +
+  ylab('Invasives Abundance') + 
+  xlab('SR') + 
+  ggtitle('Invasive Species Effects on Species Richness 2007')
+
+ggplot() + 
+  geom_point(aes(phylo_all_18$SR, liz_data$plot_invasive_cover_18), color = 'turquoise4') + 
+  ylab('Invasives Abundance') + 
+  xlab('SR') + 
+  ggtitle('Invasive Species Effects on Species Richness 2018')
+
 
 
 ##---------------------------------------------------------------------------------------------------------- 
@@ -669,9 +724,55 @@ ggplot() +
   ggtitle('Rosa Multiflora Distribution 2018') +
   coord_equal()
 
+#----------------------------------------------------------------------------------------------------------------
+
+# another thing I forgot to look at was the SR and PD correlation with invasive ratios
+shared_plots <- intersect(as.factor(rownames(phylo_all_18)), liz_data$plots)
+
+pd_plots_18 <- phylo_all_18$PD[which(rownames(phylo_all_18) %in% shared_plots)]
+
+ggplot() + 
+  geom_point(aes(liz_data$invasive_ratio_18[which(liz_data$plots %in% shared_plots)], pd_plots_18), color = 'dark blue') + 
+  ggtitle('Invasive presence impact on phylodiversity 18') + 
+  xlab('Invasive Presence(Ratio)') + 
+  ylab('Plot Phylogenetic Diversity')
+
+ggplot() + 
+  geom_point(aes(liz_data$invasive_ratio_18,phylo_understory_18$SR), color = 'dark blue') + 
+  ggtitle('Invasive presence impact on Species richness 18') + 
+  xlab('Invasive Presence (Ratio)') + 
+  ylab('Species richness')
+
 
 ##################################################################################################################
+# making plot filters based on com_class variable 
+wooded_com_class <- c(liz_data$plots[which(liz_data$com_class == "Mesic woodland")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic forest, Mesic-wet mesic shrubland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Savanna")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic woodland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic woodland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Mesic savanna, Mesic woodland")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic savanna, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Mesic woodland")])
+wooded_plots <- liz_data$plots[match(wooded_com_class, rownames(liz_data))]
 
+
+savanna_com_class <- c(savanna_com_class, liz_data$plots[which(liz_data$com_class =="Wet mesic prairie and savanna")], 
+                        liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland")], 
+                        savanna_com_class, liz_data$plots[which(liz_data$com_class == "Savanna")])
+
+
+savanna_plots <- liz_data$plots[match(savanna_com_class, rownames(liz_data))]
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)], phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)]),
+  color = 'dark blue') + 
+  ggtitle('Canopy in Wooded Plots 18') + 
+  xlab('Canopy') + 
+  ylab('Phylogenetic Diversity 18')
+
+fit <- lm(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)] ~ phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)])
 
 
 

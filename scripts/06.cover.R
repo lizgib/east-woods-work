@@ -23,9 +23,13 @@ herb_plots <- data.frame(unique(herbs07$plot))
 
 total_cover <- c()
 for (i in herb_plots$unique.herbs07.plot.){
-  temp <- sum(herbs07$cover[which(herbs07$plot == i)])
-  total_cover <- c(total_cover, temp/2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!  10/27
-}
+  temp <- herbs07$cover[which(herbs07$plot == i)]
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!  10/27
+}                                       # I think the problem for this may be redundancy between the spring and summer 
+                                        # survey data. Looking at herbs07 now, it looks like the summed 
+                                        # cover value calculated matches, but there are almost like two sets 
+                                        # of the same numbers for each plot. I think this may be causing problems. (11/14 9:39 AM)
 
 herb_plots$total_cover <- total_cover
 
@@ -36,13 +40,8 @@ for (plt in herbs07$plot){
 herbs07$plot_herb_cover <- plot_herb_cover
 
 herbs07 <- herbs07[which(!herbs07$cover == 0),]
-percent_of_total_cover <- c() #creating a new column which will have the percent of total plot area that
-for(cover in herbs07$cover){ #...each spp in the plot takes up
-  ptc <- cover/herb_plots$total_cover[which(herb_plots$unique.herbs07.plot. == herbs07$plot[cover])] 
-  percent_of_total_cover <- c(percent_of_total_cover, ptc)
-} ####>>>>?>?>>?>?>? this is almost perfect but i have total covers over 100% which i dont want......<<<<<??
-herbs07$percent_total_cover <- percent_of_total_cover #add this percent of total area to the original
 
+herbs07$percent_total_cover <- herbs07$cover/herbs07$plot_herb_cover
 #########################################################
 # THIS WORKS !!! DONT TOUCH IT 10:20 PM 10-6-18
 #########################################################
@@ -64,9 +63,11 @@ trees07$BA <- BA #add a column for BA
 tree_plots <- data.frame(unique(trees07$plot)) #get all the tree plots
 total_cover <- c() #doing the same thing i did for herbs, take all the basal areas in a plot and
 for (plt in tree_plots$unique.trees07.plot.){ #... add them together so you have the total area
-  temp <- sum(trees07$cover[which(trees07$plot == plt)]) # .. that is occupied by trees07
-  total_cover <- c(total_cover, temp)
+  temp <- trees07$BA[which(trees07$plot == plt)] # .. that is occupied by trees07
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2)
 }
+
 tree_plots$total_cover <- total_cover
 plot_tree_cover <- c()
 for (plt in trees07$plot){
@@ -74,46 +75,46 @@ for (plt in trees07$plot){
 }
 trees07$plot_tree_cover <- plot_tree_cover
 
-percent_of_total_cover <- c()
-for(x in 1:length(trees07$plot)){ #for each spp in the original data
-  temp <-
-    trees07$cover[x]/tree_plots$total_cover[which(tree_plots$unique.trees07.plot. == trees07$plot[x])]
-  #divide the cover that species occupies by the total tree cover value for that plot
-  percent_of_total_cover <- c(percent_of_total_cover, temp)
-}
-trees07$percent_total_cover <- percent_of_total_cover
+trees07$percent_total_cover <- trees07$BA/trees07$plot_tree_cover
 
 #####################################################################################################################
 #adjust shrubs to be in percent cover
 shrubs07 <- dat.07[which(dat.07$datset == 'S'),]
+shrubs07 <- shrubs07[which(!shrubs07$cover == 0),] #I get rid of any rows that I won't be able to divide on
+shrubs07 <- shrubs07[which(!is.na(shrubs07$cover)),]
+
 shrub_plots <- data.frame(unique(shrubs07$plot)) #get all the shrub plots
 total_cover <- c()
 for (plt in shrub_plots$unique.shrubs07.plot.){ #for each shrub plot I find the sum of all the percent covers
-  temp <- sum(shrubs07$cover[which(shrubs07 == plt)]) #this will be over 100% for some plots
-  total_cover <- c(total_cover, temp)
+  temp <- shrubs07$cover[which(shrubs07 == plt)] #this will be over 100% for some plots
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2)
 }
 shrub_plots$total_cover <- total_cover #I make a new dataframe that has the total cover for each plot
 
-shrubs07 <- shrubs07[which(!shrubs07$cover == 0),] #I get rid of any rows that I won't be able to divide on
-percent_of_total_cover <- c() #creating a new column which will have the percent of total plot area that
-for(cover in shrubs07$cover){ #...each spp in the plot takes up
-  ptc <- cover/shrub_plots$total_cover[which(shrub_plots$unique.shrubs07.plot. == shrubs07$plot[cover])]
-  percent_of_total_cover <- c(percent_of_total_cover, ptc)
+plot_shrub_cover <- c()
+for (plt in shrubs07$plot){
+  print(shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs07.plot.)])
+  plot_shrub_cover <- c(plot_shrub_cover, shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs07.plot.)])
 }
-
-shrubs07$percent_total_cover <- percent_of_total_cover #add this percent of total area to the original
+shrubs07$plot_shrub_cover <- plot_shrub_cover
+shrubs07$percent_total_cover <- shrubs07$cover/shrubs07$plot_shrub_cover #add this percent of total area to the original
 
 # DO FOR 2018
 #####################################################################################################
 # herbs 2018
+
 herbs18 <- dat.18[which(dat.18$datset == 'H'),]
 herb_plots <- data.frame(unique(herbs18$plot))
 
 total_cover <- c()
 for (i in herb_plots$unique.herbs18.plot.){
-  temp <- sum(herbs18[which(herbs18$plot == i),'cover'])
-  total_cover <- c(total_cover, temp/2)
+  temp <- herbs18$cover[which(herbs18$plot == i)]
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2) 
 }
+
+
 herb_plots$total_cover <- total_cover
 
 plot_herb_cover <- c()
@@ -123,12 +124,8 @@ for (plt in herbs18$plot){
 herbs18$plot_herb_cover <- plot_herb_cover
 
 herbs18 <- herbs18[which(!herbs18$cover == 0),]
-percent_of_total_cover <- c() #creating a new column which will have the percent of total plot area that
-for(cover in herbs18$cover){ #...each spp in the plot takes up
-  ptc <- cover/herb_plots$total_cover[which(herb_plots$unique.herbs18.plot. == herbs18$plot[cover])] 
-  percent_of_total_cover <- c(percent_of_total_cover, ptc)
-} 
-herbs18$percent_total_cover <- percent_of_total_cover #add this percent of total area to the original
+
+herbs18$percent_total_cover <- herbs18$cover/herbs18$plot_herb_cover
 
 ##########################################################################################################
 #adjust the trees to be in basal area
@@ -142,14 +139,16 @@ for (c in trees18$cover){
   basal_area <- pi * (c/2)**2
   BA <- c(BA, basal_area)
 }
-trees18$cover <- BA #replace the DBH values with the basal area. we don't care about dbh anymore
+trees18$BA <- BA #add a column for BA
 
 tree_plots <- data.frame(unique(trees18$plot)) #get all the tree plots
 total_cover <- c() #doing the same thing i did for herbs, take all the basal areas in a plot and
 for (plt in tree_plots$unique.trees18.plot.){ #... add them together so you have the total area
-  temp <- sum(trees18$cover[which(trees18$plot == plt)]) # .. that is occupied by trees18
-  total_cover <- c(total_cover, temp)
+  temp <- trees18$BA[which(trees18$plot == plt)] # .. that is occupied by trees18
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2)
 }
+
 tree_plots$total_cover <- total_cover
 plot_tree_cover <- c()
 for (plt in trees18$plot){
@@ -157,33 +156,28 @@ for (plt in trees18$plot){
 }
 trees18$plot_tree_cover <- plot_tree_cover
 
-percent_of_total_cover <- c()
-for(x in 1:length(trees18$plot)){ #for each spp in the original data
-  temp <-
-    trees18$cover[x]/tree_plots$total_cover[which(tree_plots$unique.trees18.plot. == trees18$plot[x])]
-  # divide the cover that species occupies by the total tree cover value for that plot
-  percent_of_total_cover <- c(percent_of_total_cover, temp)
-}
-trees18$percent_total_cover <- percent_of_total_cover
+trees18$percent_total_cover <- trees18$BA/trees18$plot_tree_cover
 
 ##########################################################################################################
 #adjust shrubs to be in percent cover
 
 shrubs18 <- dat.18[which(dat.18$datset == 'S'),]
+shrubs18 <- shrubs18[which(!shrubs18$cover == 0),] #I get rid of any rows that I won't be able to divide on
+shrubs18 <- shrubs18[which(!is.na(shrubs18$cover)),]
+
 shrub_plots <- data.frame(unique(shrubs18$plot)) #get all the shrub plots
 total_cover <- c()
 for (plt in shrub_plots$unique.shrubs18.plot.){ #for each shrub plot I find the sum of all the percent covers
-  temp <- sum(shrubs18$cover[which(shrubs18$plot == plt)]) #this will be over 100% for some plots
-  total_cover <- c(total_cover, temp)
+  temp <- shrubs18$cover[which(shrubs18 == plt)] #this will be over 100% for some plots
+  temp2 <- sum(temp)
+  total_cover <- c(total_cover, temp2)
 }
 shrub_plots$total_cover <- total_cover #I make a new dataframe that has the total cover for each plot
 
-shrubs18 <- shrubs18[which(!shrubs18$cover == 0),] #I get rid of any rows that I won't be able to divide on
-percent_of_total_cover <- c() #creating a new column which will have the percent of total plot area that
-for(i in 1:length(shrubs18$plot)){ #...each spp in the plot takes up
-  percent_of_total_cover <-
-    c(percent_of_total_cover, ((shrubs18[i,'cover'])/(shrub_plots[which(shrub_plots$unique.shrubs18.plot. == shrubs18[i,'plot']), 'total_cover'])))
+plot_shrub_cover <- c()
+for (plt in shrubs18$plot){
+  plot_shrub_cover <- c(plot_shrub_cover, shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs18.plot.)])
 }
-
-shrubs18$percent_total_cover <- percent_of_total_cover #add this percent of total area to the original
+shrubs18$plot_shrub_cover <- plot_shrub_cover
+shrubs18$percent_total_cover <- shrubs18$cover/shrubs18$plot_shrub_cover #add this percent of total area to the original
 

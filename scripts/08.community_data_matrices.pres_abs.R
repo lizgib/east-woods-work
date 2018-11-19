@@ -5,10 +5,20 @@
 # 2018 and 2007
 
 source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
+source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
 library(ape)
 #source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/17.tree_generation.R')
 # probably want to just read in the tree instead of sourcing it every time
 tr.ewv4 <- read.tree('~/Documents/GitHub/east_woods_work/outputs/tr.ewv4')
+###################################################################################################
+# this step will prevent problems later on when using the community matrix
+# GET RID OF ANY PLOTS THAT AREN'T IN LIZ_DATA
+
+dat.07 <- dat.07[which(dat.07$plot %in% liz_data$plots),]
+dat.18 <- dat.18[which(dat.18$plot %in% liz_data$plots),]
+liz_data <- liz_data[which(liz_data$plots %in% dat.07$plot),] # this shouldnt get rid of anything but im 
+                                                              # doing it just to be sure 
+
 ###################################################################################################
 
 ##########

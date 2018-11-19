@@ -33,3 +33,9 @@ dat.07$accepted_name <- tnrs_all$Accepted_name[match(dat.07$species, tnrs_all$Na
 
 dat.18$accepted_name <- tnrs_all$Accepted_name[match(dat.18$species, tnrs_all$Name_submitted)]
 
+
+# write.csv(dat.07, '../data/dat.07.csv')
+# write.csv(dat.18, '../data/dat.18.csv')
+# write.csv(dat.all, '../data/dat.all.csv')
+
+

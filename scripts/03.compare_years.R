@@ -1,10 +1,10 @@
 source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
 
-spp07_cleaned <- sort(unique(dat.07$accepted_name))
-spp18_cleaned <- sort(unique(dat.18$accepted_name))
+spp07_cleaned <- sort(unique(dat.07$accepted_name)) # get unique sorted names from tnrs 
+spp18_cleaned <- sort(unique(dat.18$accepted_name)) # for each year/group
 allspp_cleaned <- sort(unique(dat.all$accepted_name))
 
-spp07_uncleaned <- sort(unique(dat.07$species))
+spp07_uncleaned <- sort(unique(dat.07$species)) # do the same for the uncleaned names 
 spp18_uncleaned <- sort(unique(dat.18$species))
 allspp_uncleaned <- sort(unique(dat.all$species))
 
