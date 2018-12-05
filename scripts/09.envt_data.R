@@ -3,7 +3,6 @@
 #OUTPUT: liz_data.csv
 library(dict)
 source('~/Documents/GitHub/east_woods_work/scripts/06.cover.R')
-source('~/Documents/GitHub/east_woods_work/scripts/05.speciesinfo.R')
 point_info_GIS <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/Analyses_Rollinson/point_info_GIS.csv', as.is = T)
 
 point_info_GIS$PlotID <- gsub('-', '', point_info_GIS$PlotID)
@@ -44,7 +43,6 @@ liz_data$burn_count <- burned_plots$Freq[match(liz_data$plots, burned_plots$burn
 plot_tree_cover_07 <- data.frame(trees07$plot)
 plot_tree_cover_07$plot_tree_cover <- trees07$plot_tree_cover
 plot_tree_cover_07 <- unique(plot_tree_cover_07)
-
 liz_data$canopy_07 <- plot_tree_cover_07$plot_tree_cover[match(liz_data$plots, plot_tree_cover_07$trees07.plot)]
 
 # get the plot_tree_cover for 2018 plots 
@@ -60,56 +58,8 @@ liz_data$canopy_18 <- plot_tree_cover_18$plot_tree_cover[match(liz_data$plots, p
 # INVASIVES  
 #############
 
-# make invasive species vect from the species info dataframe
-invasives <- spp_info$Accepted_name[which(spp_info$native == 'i')]
-
-## first find total plot invasive cover 
-# make vector total invasive cover (throughout east woods) for comparison between years 
-
-### NOTE: I AM ONLY EVALUATING HERBS RIGHT NOW 
-
-###################
-# RUNNING INTO PROBLEMS ALREADY... MY TOTAL COVER IS 2X its supposed to be????
-#### I TEMPORARILY FIXED THIS TODAY 10/28.... just divided the plot total cover value by 2...
-#### I NEED TO GO BACK TO THE COVER SCRIPT AND SEE WHY THIS IS HAPPENING!!!!! 
-#### ALSO need to check the other covers (shrubs and trees) to make sure theyre not double as well... 
-########### COULD SCREW UP CANOPY TOOOOO!!!!!! 
-###################
-
-# 2007 
-
-# for each plot in liz_data
-invasive_cover <- data.frame()
-for(p in sort(liz_data$plots)){
-  slice <- herbs07[which(herbs07$plot == p),]
-  slice$cover <- as.numeric(slice$cover)
-  temp <- sum(slice$cover[which(slice$accepted_name %in% invasives)])
-  plotlist <- cbind(p, temp)
-  invasive_cover <- rbind(invasive_cover, plotlist)
-}
-liz_data$plot_invasive_cover_07 <- invasive_cover$temp[match(liz_data$plots, invasive_cover$p)]
-
-## get the total plot cover 
-liz_data$total_herb_cover_07 <- herbs07$plot_herb_cover[match(liz_data$plots, herbs07$plot)]
-liz_data$invasive_ratio_07 <- (as.double(liz_data$plot_invasive_cover_07)/as.double(liz_data$total_herb_cover_07))
-# THIS CALUCLATION DOESNT LOOK RIGHT..... ^^^ 4:31 PM 10/28 
-
-# 2018 
-
-invasive_cover <- data.frame()
-for(p in sort(liz_data$plots)){
-  slice <- herbs18[which(herbs18$plot == p),]
-  slice$cover <- as.numeric(slice$cover)
-  temp <- sum(slice$cover[which(slice$accepted_name %in% invasives)])
-  plotlist <- cbind(p, temp)
-  invasive_cover <- rbind(invasive_cover, plotlist)
-}
-liz_data$plot_invasive_cover_18 <- invasive_cover$temp[match(liz_data$plots, invasive_cover$p)]
-
-## get the total plot cover 
-liz_data$total_herb_cover_18 <- herbs18$plot_herb_cover[match(liz_data$plots, herbs18$plot)]
-liz_data$invasive_ratio_18 <- as.numeric(liz_data$plot_invasive_cover_18)/as.numeric(liz_data$total_herb_cover_18)
-
+liz_data$invasives07 <- invasives$invasives07[match(liz_data$plots, invasives$plot)]
+liz_data$invasives18 <- invasives$invasives18[match(liz_data$plots, invasives$plot)]
 
 ##################
 # SOIL DATA
@@ -155,15 +105,56 @@ for (plt in unique(trees18$plot)){
 
 liz_data$tree_group_18 <- tree_type_plots_18$tree_type[match(liz_data$plots, tree_type_plots_18$plt)]
 
+#############
+# SOIL INDEX 
+#############
+
+# only two different soil textures (silt loam and silt clay loam)-- giving them IDs 1 and 2 respectively
+
+# temp_soil_text <- ifelse(liz_data$soil_texture == 'silt loam', 1, 2)
+# temp_soil_drainage <- c()
+# for(i in liz_data$drainage){
+#   if(i == "very poorly drained"){
+#     temp_soil_drainage <- c(temp_soil_drainage, 1)}
+#   if(i == "poorly drained"){
+#     temp_soil_drainage <- c(temp_soil_drainage, 2)}
+#   if(i == "moderately well-drained"){
+#     temp_soil_drainage <- c(temp_soil_drainage, 3)}
+#   if(i == "well-drained"){
+#     temp_soil_drainage <- c(temp_soil_drainage, 4)}
+#   if(i == "excellently drained"){
+#     temp_soil_drainage <- c(temp_soil_drainage, 5)}
+# }
+
+# ^^^ not working rn 11/30 but I dont have time to fix it right now 
+# liz_data$soil_index <- temp_soil_text * temp_soil_drainage
+
+####################
+# PERCENT ACM ECM  
+###################
+percent_acm <- c()
+
+# for each tree in the plot
+
+# if the genus in ACM trees
+
+# sum the total cover 
+
+# divide the sum of ACM trees by the total plot tree cover 
+
+# add to percent_acm 
+
+
 ####################
 # SOME OTHER STUFF 
 ###################
 liz_data$area_name <- point_info_GIS$AreaName
 liz_data$com_class <- point_info_GIS$ComClass
-
+liz_data$soil_index <- 0 # blank for now. this will be continuous translation of the soil variables 
+liz_data$geo_drainage <- 0 # also will be continous coding of some soil variables and combination of slope aspect and elevation 
+liz_data$ECM_ACM <- 0 # continuous, percent of trees which are ACM or ECM 
 
 
 # there is an extra plot in here that the species dataframes
 
 liz_data <- liz_data[which(liz_data$plots %in% unique(dat.all$plot)),]
-liz_data_2 <- liz_data[order(plots),]

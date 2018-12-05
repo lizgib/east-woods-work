@@ -8,43 +8,29 @@
 # I am comparing the composition of shrubs, herbs, trees, between plots
 
 source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
+source('~/Documents/GitHub/east_woods_work/scripts/04.natives.R')
 dat.all$cover <- as.numeric(dat.all$cover)
-dat.07$cover <- as.numeric(dat.07$cover)
-dat.18$cover <- as.numeric(dat.18$cover)
 
-dat.07$plot <- gsub('-', '', dat.07$plot)
-dat.all$plot <- gsub('-', '', dat.all$plot)
-
+dat.07 <- dat.all[which(dat.all$year == '2007'),]
+dat.18 <- dat.all[which(dat.all$year == '2018'),]
 
 ####################################################################################################################
 # ok looking at cover for 2007 herb layer
 herbs07 <- dat.07[which(dat.07$datset == 'H'),]
 herb_plots <- data.frame(unique(herbs07$plot))
 
-total_cover <- c()
-for (i in herb_plots$unique.herbs07.plot.){
-  temp <- herbs07$cover[which(herbs07$plot == i)]
-  temp2 <- sum(temp)
-  total_cover <- c(total_cover, temp2) #### OMG THIS IS A MeSS SOME HOW ITS DOUBLING MY HERB COVER!!!!!  10/27
-}                                       # I think the problem for this may be redundancy between the spring and summer 
-                                        # survey data. Looking at herbs07 now, it looks like the summed 
-                                        # cover value calculated matches, but there are almost like two sets 
-                                        # of the same numbers for each plot. I think this may be causing problems. (11/14 9:39 AM)
+total_cover <- 
+  data.frame(
+    cov = sapply(unique(herbs07$plot), function(x){
+      sum(herbs07$cover[herbs07$plot == x], na.rm = T)
+    }
+  )
+)
+total_cover$cov <- as.numeric(as.character(total_cover$cov))
 
-herb_plots$total_cover <- total_cover
+herbs07$plot_herb_cover <- total_cover$cov[match(herbs07$plot, row.names(total_cover))]
 
-plot_herb_cover <- c()
-for (plt in herbs07$plot){
-  plot_herb_cover <- c(plot_herb_cover, herb_plots$total_cover[which(plt == herb_plots$unique.herbs07.plot.)])
-}
-herbs07$plot_herb_cover <- plot_herb_cover
-
-herbs07 <- herbs07[which(!herbs07$cover == 0),]
-
-herbs07$percent_total_cover <- herbs07$cover/herbs07$plot_herb_cover
-#########################################################
-# THIS WORKS !!! DONT TOUCH IT 10:20 PM 10-6-18
-#########################################################
+herbs07$spp_percent_total_herb_cover <- herbs07$cover/herbs07$plot_herb_cover
 
 ####################################################################################################################
 #adjust the trees to be in basal area
@@ -60,20 +46,17 @@ for (c in trees07$cover){
 }
 trees07$BA <- BA #add a column for BA
 
-tree_plots <- data.frame(unique(trees07$plot)) #get all the tree plots
-total_cover <- c() #doing the same thing i did for herbs, take all the basal areas in a plot and
-for (plt in tree_plots$unique.trees07.plot.){ #... add them together so you have the total area
-  temp <- trees07$BA[which(trees07$plot == plt)] # .. that is occupied by trees07
-  temp2 <- sum(temp)
-  total_cover <- c(total_cover, temp2)
-}
+total_cover <- 
+  data.frame(
+    cov = sapply(unique(trees07$plot), function(x){
+      sum(trees07$BA[trees07$plot == x], na.rm = T)
+    }
+    #row.names = unique(trees07$plot)
+    )
+  )
+total_cover$cov <- as.numeric(as.character(total_cover$cov))
 
-tree_plots$total_cover <- total_cover
-plot_tree_cover <- c()
-for (plt in trees07$plot){
-  plot_tree_cover <- c(plot_tree_cover, tree_plots$total_cover[which(plt == tree_plots$unique.trees07.plot.)])
-}
-trees07$plot_tree_cover <- plot_tree_cover
+trees07$plot_tree_cover <- total_cover$cov[match(trees07$plot, row.names(total_cover))]
 
 trees07$percent_total_cover <- trees07$BA/trees07$plot_tree_cover
 
@@ -83,21 +66,16 @@ shrubs07 <- dat.07[which(dat.07$datset == 'S'),]
 shrubs07 <- shrubs07[which(!shrubs07$cover == 0),] #I get rid of any rows that I won't be able to divide on
 shrubs07 <- shrubs07[which(!is.na(shrubs07$cover)),]
 
-shrub_plots <- data.frame(unique(shrubs07$plot)) #get all the shrub plots
-total_cover <- c()
-for (plt in shrub_plots$unique.shrubs07.plot.){ #for each shrub plot I find the sum of all the percent covers
-  temp <- shrubs07$cover[which(shrubs07 == plt)] #this will be over 100% for some plots
-  temp2 <- sum(temp)
-  total_cover <- c(total_cover, temp2)
-}
-shrub_plots$total_cover <- total_cover #I make a new dataframe that has the total cover for each plot
+total_cover <- 
+  data.frame(
+    cov = sapply(unique(shrubs07$plot), function(x){
+      sum(shrubs07$cover[shrubs07$plot == x], na.rm = T)
+    }
+    )
+  )
+total_cover$cov <- as.numeric(as.character(total_cover$cov))
 
-plot_shrub_cover <- c()
-for (plt in shrubs07$plot){
-  print(shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs07.plot.)])
-  plot_shrub_cover <- c(plot_shrub_cover, shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs07.plot.)])
-}
-shrubs07$plot_shrub_cover <- plot_shrub_cover
+shrubs07$plot_shrub_cover <- total_cover$cov[match(shrubs07$plot, row.names(total_cover))]
 shrubs07$percent_total_cover <- shrubs07$cover/shrubs07$plot_shrub_cover #add this percent of total area to the original
 
 # DO FOR 2018
@@ -107,25 +85,19 @@ shrubs07$percent_total_cover <- shrubs07$cover/shrubs07$plot_shrub_cover #add th
 herbs18 <- dat.18[which(dat.18$datset == 'H'),]
 herb_plots <- data.frame(unique(herbs18$plot))
 
-total_cover <- c()
-for (i in herb_plots$unique.herbs18.plot.){
-  temp <- herbs18$cover[which(herbs18$plot == i)]
-  temp2 <- sum(temp)
-  total_cover <- c(total_cover, temp2) 
-}
+total_cover <- 
+  data.frame(
+    cov = sapply(unique(herbs18$plot), function(x){
+      sum(herbs18$cover[herbs18$plot == x], na.rm = T)
+    }
+    #row.names = unique(herbs18$plot)
+    )
+  )
+total_cover$cov <- as.numeric(as.character(total_cover$cov))
 
+herbs18$plot_herb_cover <- total_cover$cov[match(herbs18$plot, row.names(total_cover))]
 
-herb_plots$total_cover <- total_cover
-
-plot_herb_cover <- c()
-for (plt in herbs18$plot){
-  plot_herb_cover <- c(plot_herb_cover, herb_plots$total_cover[which(plt == herb_plots$unique.herbs18.plot.)])
-}
-herbs18$plot_herb_cover <- plot_herb_cover
-
-herbs18 <- herbs18[which(!herbs18$cover == 0),]
-
-herbs18$percent_total_cover <- herbs18$cover/herbs18$plot_herb_cover
+herbs18$spp_percent_total_herb_cover <- herbs18$cover/herbs18$plot_herb_cover
 
 ##########################################################################################################
 #adjust the trees to be in basal area
@@ -165,19 +137,53 @@ shrubs18 <- dat.18[which(dat.18$datset == 'S'),]
 shrubs18 <- shrubs18[which(!shrubs18$cover == 0),] #I get rid of any rows that I won't be able to divide on
 shrubs18 <- shrubs18[which(!is.na(shrubs18$cover)),]
 
-shrub_plots <- data.frame(unique(shrubs18$plot)) #get all the shrub plots
-total_cover <- c()
-for (plt in shrub_plots$unique.shrubs18.plot.){ #for each shrub plot I find the sum of all the percent covers
-  temp <- shrubs18$cover[which(shrubs18 == plt)] #this will be over 100% for some plots
-  temp2 <- sum(temp)
-  total_cover <- c(total_cover, temp2)
-}
-shrub_plots$total_cover <- total_cover #I make a new dataframe that has the total cover for each plot
+total_cover <- 
+  data.frame(
+    cov = sapply(unique(shrubs18$plot), function(x){
+      sum(shrubs18$cover[shrubs18$plot == x], na.rm = T)
+    }
+    #row.names = unique(herbs18$plot)
+    )
+  )
+total_cover$cov <- as.numeric(as.character(total_cover$cov))
 
-plot_shrub_cover <- c()
-for (plt in shrubs18$plot){
-  plot_shrub_cover <- c(plot_shrub_cover, shrub_plots$total_cover[which(plt == shrub_plots$unique.shrubs18.plot.)])
-}
-shrubs18$plot_shrub_cover <- plot_shrub_cover
-shrubs18$percent_total_cover <- shrubs18$cover/shrubs18$plot_shrub_cover #add this percent of total area to the original
+shrubs18$plot_shrub_cover <- total_cover$cov[match(shrubs18$plot, row.names(total_cover))]
+shrubs18$spp_percent_total_shrub_cover <- shrubs18$cover/shrubs18$plot_shrub_cover #add this percent of total area to the original
+
+##########################################################################################################
+
+# invasive cover 
+
+# 2007 
+
+invasives <- dat.all[which(dat.all$nativestatus == 'i'),]
+invasives07 <- invasives[which(invasives$year == '2007'),]
+invasives18 <- invasives[which(invasives$year == '2018'),]
+
+invasives07 <- invasives07[which(!is.na(invasives07$cover)),]
+invasives07 <- invasives07[which(!invasives07$cover == 0),]
+
+total_cover <- data.frame(
+  cov = sapply(unique(invasives07$plot), function(x){
+    sum(invasives07$cover[invasives07$plot == x], na.rm = T)
+  }
+  )
+)
+total_cover$cov <- as.numeric(total_cover$cov)
+invasives$invasives07 <- total_cover$cov[match(invasives$plot, row.names(total_cover))]
+
+# 2018
+
+invasives18 <- invasives18[which(!is.na(invasives18$cover)),]
+invasives18 <- invasives18[which(!invasives18$cover == 0),]
+
+total_cover <- data.frame(
+  cov = sapply(unique(invasives18$plot), function(x){
+    sum(invasives18$cover[invasives18$plot == x], na.rm = T)
+  }
+  )
+)
+total_cover$cov <- as.numeric(total_cover$cov)
+invasives$invasives18 <- total_cover$cov[match(invasives$plot, row.names(total_cover))]
+
 

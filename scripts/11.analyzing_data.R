@@ -1,0 +1,783 @@
+# ANALYSIS FALL 2018 
+
+source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
+source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R')
+#source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
+source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
+library(picante)
+library(ggplot2)
+library(ape)
+
+##############
+# TREE TYPE
+##############
+
+# MARLIN
+#########
+ashelm <- lapply("AshElm", function(x)  liz_data$plots[which(liz_data$tree_group == x)])
+cherry <- lapply("Cherry", function(x) liz_data$plots[which(liz_data$tree_group == x)])
+bwood <- lapply("B.wood", function(x) liz_data$plots[which(liz_data$tree_group == x)])
+woak <- lapply("WOak", function(x) liz_data$plots[which(liz_data$tree_group == x)])
+buroak <- lapply('BurOak', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+roak <- lapply('ROak', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+maple <-lapply('Maple', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+gash <- lapply('GAsh', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+wnutelm <- lapply('WnutElm', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+
+### ALRIGHT NOT SURE WHAT TIME IT IS BUT 10/27 NOTES:
+# so we are having a problem with the types being returned from lapply and sapply 
+# right now I am very close to having what I want, a master dataframe with a column
+# for 1. plot ID 2. PD  3. tree group 
+# from this I will be able to do an anova of groups based on the plot PD levels
+
+ashelm_dat <- sapply(ashelm[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+ashelm_avg <- mean(ashelm_dat)
+marlin_groups <- cbind(ashelm[[1]], ashelm_dat, 'ashelm')
+
+cherry_dat <- sapply(cherry[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+cherry_avg <- mean(cherry_dat)
+cherry_cols <- cbind(cherry[[1]], cherry_dat, 'cherry')
+marlin_groups <- rbind(marlin_groups, cherry_cols)
+
+bwood_dat <- sapply(bwood[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+bwood_dat <- bwood_dat[which(!is.na(bwood_dat))]
+bwood_avg <- mean(bwood_dat)
+bwood_cols <- cbind(bwood[[1]], bwood_dat, 'bwood')
+marlin_groups <- rbind(marlin_groups, bwood_cols)
+
+woak_dat <- sapply(woak[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+woak_dat <- woak_dat[which(!is.na(woak_dat))]
+woak_avg <- mean(woak_dat)
+woak_cols <- cbind(woak[[1]], woak_dat, 'woak')
+marlin_groups <- rbind(marlin_groups, woak_cols)
+
+buroak_dat <- sapply(buroak[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+buroak_dat <- buroak_dat[which(!is.na(buroak_dat))]
+buroak_avg <- mean(buroak_dat)
+buroak_cols <- cbind(buroak[[1]], buroak_dat, 'buroak')
+marlin_groups <- rbind(marlin_groups, buroak_cols)
+
+roak_dat <- sapply(roak[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+roak_dat <- roak_dat[which(!is.na(roak_dat))]
+roak_avg <- mean(roak_dat)
+roak_cols <- cbind(roak[[1]], roak_dat, 'roak')
+marlin_groups <- rbind(marlin_groups, roak_cols)
+
+maple_dat <- sapply(maple[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+maple_avg <- mean(maple_dat)
+maple_cols <-cbind(maple[[1]], maple_dat, 'maple')
+marlin_groups <- rbind(marlin_groups, maple_cols)
+
+gash_dat <- sapply(gash[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+gash_avg <- mean(gash_dat)
+gash_col <- cbind(gash[[1]], gash_dat, 'gash')
+marlin_groups <- rbind(marlin_groups, gash_col)
+
+wnutelm_dat <- sapply(wnutelm[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+wnutelm_avg <- mean(wnutelm_dat)
+wnutelm_cols <- cbind(wnutelm[[1]], wnutelm_dat, 'wnutelm')
+marlin_groups <- rbind(marlin_groups, wnutelm_cols)
+
+average_diversity <- c(ashelm_avg, cherry_avg, bwood_avg, woak_avg, buroak_avg, roak_avg, maple_avg, gash_avg, wnutelm_avg)
+average_diversity <- data.frame(average_diversity)
+average_diversity$treegrp <- c('ashelm_avg', 'cherry_avg', 'bwood_avg', 'woak_avg', 'buroak_avg', 'roak_avg', 'maple_avg', 'gash_avg', 'wnutelm_avg')
+#########
+
+
+# 2007 
+#########
+
+
+elm <- lapply("Ulmus", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+ash <- lapply("Fraxinus", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+bwood <- lapply("Tilia", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+oak <- lapply('Quercus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+maple <-lapply('Acer', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+wnut <- lapply('Juglans', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+hickory <- lapply('Carya', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+cherry <- lapply('Prunus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+locust <- lapply('Robinia', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+mulberry <- lapply('Morus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+birch <- lapply('Ostrya', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+willow <- lapply('Salix', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+poplar <- lapply('Populus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+spruce <- lapply('Picea', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+pine <- lapply('Pinus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)]) 
+fir <- lapply('Pseudotsuga', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+
+#### NOTE 10/24 1:23 AM  GO BACK AND SEE THAT YOU ACCOUNTED FOR ALL GENUSES... I KNOW YOU DIDNT BUT WE NEED TO COME UP WITH A WAY OF DOING THIS.
+## MAYBE WILL JUST HAVE TO USE ALL OF THE GENUSES ? 
+
+# get all the PD of each plot with given tree genus
+#####
+
+elm_dat <- sapply(elm[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+elm_avg <- mean(elm_dat)
+groups2007 <- cbind(elm[[1]], elm_dat, 'elm')
+
+ash_dat <- sapply(ash[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+ash_avg <- mean(ash_dat)
+ash_cols <- cbind(ash[[1]], ash_dat, 'ash')
+groups2007 <- rbind(groups2007, ash_cols)
+
+bwood_dat <- sapply(bwood[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+bwood_dat <- bwood_dat[which(!is.na(bwood_dat))]
+bwood_avg <- mean(bwood_dat)
+bwood_cols <- cbind(bwood[[1]], bwood_dat, 'bwood')
+groups2007 <- rbind(groups2007, bwood_cols)
+
+oak_dat <- sapply(oak[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+oak_dat <- oak_dat[which(!is.na(oak_dat))] # had to add these in for some reason ... I was getting NAs for IDed plots??
+oak_avg <- mean(oak_dat)
+oak_cols <- cbind(oak[[1]], oak_dat, 'oak')
+groups2007 <- rbind(groups2007, oak_cols)
+
+maple_dat <- sapply(maple[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+maple_avg <- mean(maple_dat)
+maple_cols <- NULL
+maple_cols <- cbind(maple[[1]], maple_dat, 'maple')
+groups2007 <- rbind(groups2007, maple_cols)
+
+wnut_dat <- sapply(wnut[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+wnut_avg <- mean(wnut_dat)
+wnut_cols <- cbind(wnut[[1]], wnut_dat, 'wnut')
+groups2007 <- rbind(groups2007, wnut_cols)
+
+hickory_dat <- sapply(hickory[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+hickory_avg <- mean(hickory_dat)
+hickory_cols <- cbind(hickory[[1]], hickory_dat, 'hickory')
+groups2007 <- rbind(groups2007, hickory_cols)
+
+cherry_dat <- sapply(cherry[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+cherry_avg <- mean(cherry_dat)
+cherry_cols <- NULL
+cherry_cols <- cbind(cherry[[1]], cherry_dat, 'cherry')
+groups2007 <- rbind(groups2007, cherry_cols)
+
+locust_dat <- sapply(locust[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+locust_avg <- mean(locust_dat)
+locust_cols <- cbind(locust[[1]], locust_dat, 'locust')
+groups2007 <- rbind(groups2007, locust_cols)
+
+mulberry_dat <- sapply(mulberry[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+mulberry_avg <- mean(mulberry_dat)
+mulberry_cols <- cbind(mulberry[[1]], mulberry_dat, 'mulberry')
+groups2007 <- rbind(groups2007, mulberry_cols)
+
+birch_dat <- sapply(birch[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+birch_avg <- mean(birch_dat)
+birch_cols <- cbind(birch[[1]], birch_dat, 'birch')
+groups2007 <- rbind(groups2007, birch_cols)
+
+willow_dat <- sapply(willow[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+willow_avg <- mean(willow_dat)
+willow_cols <- cbind(willow[[1]], willow_dat, 'willow')
+groups2007 <- rbind(groups2007, willow_cols)
+
+poplar_dat <- sapply(poplar[[1]], function(x) phylo_understory_07$PD[which(rownames(phylo_understory_07) == x)])
+poplar_avg <- mean(poplar_dat)
+poplar_cols <- cbind(poplar[[1]], poplar_dat, 'poplar')
+groups2007 <- rbind(groups2007, poplar_cols)
+groups2007 <- data.frame(groups2007)
+
+#conifer_dat <- sapply(c('Picea', 'Pinus', 'Pseudotsuga'), function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+#conifer_avg <- mean(conifer_dat) # THIS IS PROBLEMATIC MAYABE WILL HAVE TO EVALUATE THESE GENUSES ONO THEIR OWN 
+######
+
+# ITS LATE SO IM JUST MAKING THIS AS ITS OWN DATAFRAME INSTEAD OF APPENDING TO THE ORIGINAL AVERAGE DIVERSITY DATAFRAME LIKE I WANTED TO
+# THEY JUST HAVE DIFFERENT NUMBER OF ROWS/SAMPLES SO I CANT CBIND THEM NICELY HAVE TO ADD NAS TO MARLIN MAYBE??
+
+average_diversity07 <- c(elm_avg, ash_avg, bwood_avg, oak_avg, maple_avg, wnut_avg, hickory_avg, cherry_avg, locust_avg, mulberry_avg, birch_avg, willow_avg, poplar_avg)
+average_diversity07 <- data.frame(average_diversity07)
+rownames(average_diversity07) <- c('elm_avg', 'ash_avg', 'bwood_avg', 'oak_avg', 'maple_avg', 'wnut_avg', 
+                                  'hickory_avg', 'cherry_avg','locust_avg', 'mulberry_avg', 'birch_avg', 'willow_avg', 'poplar_avg')
+
+# 2018 
+###########
+
+
+elm <- lapply("Ulmus", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+ash <- lapply("Fraxinus", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+bwood <- lapply("Tilia", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+oak <- lapply('Quercus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+maple <-lapply('Acer', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+wnut <- lapply('Juglans', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+hickory <- lapply('Carya', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+cherry <- lapply('Prunus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+locust <- lapply('Robinia', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+mulberry <- lapply('Morus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+birch <- lapply('Ostrya', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+willow <- lapply('Salix', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+poplar <- lapply('Populus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+spruce <- lapply('Picea', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+pine <- lapply('Pinus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)]) 
+fir <- lapply('Pseudotsuga', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+
+# get all the PD of each plot with given tree genus
+#####
+
+elm_dat <- sapply(elm[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+elm_avg <- mean(elm_dat)
+groups2018 <- cbind(elm[[1]], elm_dat, 'elm')
+
+ash_dat <- sapply(ash[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+ash_avg <- mean(ash_dat)
+ash_cols <- NULL
+ash_cols <- cbind(ash[[1]], ash_dat, 'ash')
+groups2018 <- rbind(groups2018, ash_cols)
+
+bwood_dat <- sapply(bwood[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+bwood_dat <- bwood_dat[which(!is.na(bwood_dat))]
+bwood_avg <- mean(bwood_dat)
+bwood_cols <- NULL
+bwood_cols <- cbind(bwood[[1]], bwood_dat, 'bwood')
+groups2018 <- rbind(groups2018, bwood_cols)
+
+oak_dat <- sapply(oak[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+oak_dat <- oak_dat[which(!is.na(oak_dat))] # had to add these in for some reason ... I was getting NAs for IDed plots??
+oak_avg <- mean(oak_dat)
+oak_cols <- NULL
+oak_cols <- cbind(oak[[1]], oak_dat, 'oak')
+groups2018 <- rbind(groups2018, oak_cols)
+
+maple_dat <- sapply(maple[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+maple_avg <- mean(maple_dat)
+maple_cols <- NULL
+maple_cols <- cbind(maple[[1]], maple_dat, 'maple')
+groups2018 <- rbind(groups2018, maple_cols)
+
+wnut_dat <- sapply(wnut[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+wnut_avg <- mean(wnut_dat)
+wnut_cols <- NULL
+wnut_cols <- cbind(wnut[[1]], wnut_dat, 'wnut')
+groups2018 <- rbind(groups2018, wnut_cols)
+
+hickory_dat <- sapply(hickory[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+hickory_avg <- mean(hickory_dat)
+hickory_cols <- NULL
+hickory_cols <- cbind(hickory[[1]], hickory_dat, 'hickory')
+groups2018 <- rbind(groups2018, hickory_cols)
+
+cherry_dat <- sapply(cherry[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+cherry_avg <- mean(cherry_dat)
+cherry_cols <- NULL
+cherry_cols <- cbind(cherry[[1]], cherry_dat, 'cherry')
+groups2018 <- rbind(groups2018, cherry_cols)
+
+locust_dat <- sapply(locust[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+locust_avg <- mean(locust_dat)
+locust_cols <- NULL
+locust_cols <- cbind(locust[[1]], locust_dat, 'locust')
+groups2018 <- rbind(groups2018, locust_cols)
+
+mulberry_dat <- sapply(mulberry[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+mulberry_avg <- mean(mulberry_dat)
+mulberry_cols <- NULL
+mulberry_cols <- cbind(mulberry[[1]], mulberry_dat, 'mulberry')
+groups2018 <- rbind(groups2018, mulberry_cols)
+
+birch_dat <- sapply(birch[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+birch_avg <- mean(birch_dat)
+birch_cols <- NULL
+birch_cols <- cbind(birch[[1]], birch_dat, 'birch')
+groups2018 <- rbind(groups2018, birch_cols)
+
+willow_dat <- sapply(willow[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+willow_avg <- mean(willow_dat)
+willow_cols <- NULL
+willow_cols <- cbind(willow[[1]], willow_dat, 'willow')
+groups2018 <- rbind(groups2018, willow_cols)
+
+poplar_dat <- sapply(poplar[[1]], function(x) phylo_understory_18$PD[which(rownames(phylo_understory_18) == x)])
+poplar_avg <- mean(poplar_dat)
+poplar_cols <- NULL
+poplar_cols <- cbind(poplar[[1]], poplar_dat, 'poplar')
+groups2018 <- rbind(groups2018, poplar_cols)
+groups2018 <- data.frame(groups2018)
+
+average_diversity18 <- c(elm_avg, ash_avg, bwood_avg, oak_avg, maple_avg, wnut_avg, hickory_avg, cherry_avg, locust_avg, mulberry_avg, birch_avg, willow_avg, poplar_avg)
+average_diversity18 <- data.frame(average_diversity18)
+rownames(average_diversity18) <- c('elm_avg', 'ash_avg', 'bwood_avg', 'oak_avg', 'maple_avg', 'wnut_avg', 
+                                   'hickory_avg', 'cherry_avg','locust_avg', 'mulberry_avg', 'birch_avg', 'willow_avg', 'poplar_avg')
+
+###########
+# ANOVA 
+names(groups2007) <- c('plotID', 'PD', 'tree_group')
+names(groups2018) <- c('plotID', 'PD', 'tree_group')
+
+fit07 <- aov(PD ~ tree_group, data = groups2007)
+sig07 <- TukeyHSD(fit07) # 3:52 PM 10/27 this isnt working for some reason.. havent investigated 
+                         # but it looks like something with numeric data?? 
+
+fit18 <- aov(PD ~ tree_group, data = groups2018)
+sig18 <- TukeyHSD(fit18)
+
+###########
+# FIGURES
+# average phylogenetic diversity as function of plot tree group
+ggplot() +
+  aes(average_diversity$treegrp, average_diversity$average_diversity, fill = average_diversity$treegrp) +
+  geom_col() +
+  ggtitle('Phylogenetic Diversity as Effect of Tree group Marlin') +
+  xlab('Tree Group') +
+  ylab('Average Phylogenetic Diversity')
+
+treegrp_aov <- aov(average_diversity ~ treegrp, data = average_diversity)
+tuk_tre <- TukeyHSD(treegrp_aov)
+
+
+ggplot() +
+  aes(row.names(average_diversity07), average_diversity07$average_diversity07, fill = row.names(average_diversity07)) +
+  geom_col() +
+  ggtitle('Phylogenetic Diversity as Effect of Tree group 2007') +
+  xlab('Tree Group') +
+  ylab('Average Phylogenetic Diversity')
+
+
+ggplot() +
+  aes(row.names(average_diversity18), average_diversity18$average_diversity18, fill = row.names(average_diversity18)) +
+  geom_col() +
+  ggtitle('Phylogenetic Diversity as Effect of Tree group 2018') +
+  xlab('Tree Group') +
+  ylab('Average Phylogenetic Diversity')
+
+#diagnostic (how many plots are which tree type)
+num_group <- as.data.frame(table(liz_data$tree_group))
+labels <- num_group$Var1
+ggplot() + 
+  aes(liz_data$tree_group) +
+  geom_histogram(stat = 'count') + 
+  xlab('Dominant Tree Group') + 
+  ylab('Frequency') +
+  ggtitle('Frequency of Plot Dominant Tree Group Marlin')
+
+freq_07 <- as.data.frame(table(liz_data$tree_group_07))
+labels <-freq_07$Var1
+ggplot() + 
+  aes(liz_data$tree_group_07) +
+  geom_histogram(stat = 'count') + 
+  xlab('Dominant Tree Group') + 
+  ylab('Frequency') +
+  ggtitle('Frequency of Plot Dominant Tree Group 2007')
+
+freq_18 <- as.data.frame(table(liz_data$tree_group_18))
+labels <-freq_18$Var1
+ggplot() + 
+  aes(liz_data$tree_group_18) +
+  geom_histogram(stat = 'count') + 
+  xlab('Dominant Tree Group') + 
+  ylab('Frequency') +
+  ggtitle('Frequency of Plot Dominant Tree Group 2018')
+
+#where/how are they distributed
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  coord_equal() + 
+  ggtitle('Marlin Dominant Tree Group')
+# 2007
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group_07)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  coord_equal() + 
+  ggtitle('Dominant Tree Group 2007')
+# 2018
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group_18)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  coord_equal() + 
+  ggtitle('Dominant Tree Group 2018')
+
+##################################################################################################################
+
+###########
+# CANOPY 
+###########
+
+# first... diagnostic stuff
+hist(liz_data$canopy_18)
+liz_data$canopy_18[which(liz_data$canopy_18 > 200)] <- NA
+hist(liz_data$canopy_18)
+hist(liz_data$canopy_07)
+
+
+## how is the canopy distributed around the east woods? 
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$canopy_07)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Canopy 07') +
+  coord_equal()
+
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$canopy_18)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Canopy 18') +
+  coord_equal()
+
+# what is canopy's effect on herb density
+
+
+# what is canopy's effect on herb diversity 
+
+fit = lm(liz_data$canopy_07 ~ phylo_understory_07$PD)
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_07,phylo_understory_07$PD), color = 'dark blue') + 
+  ggtitle('Canopy effect on understory phylodiversity 07') + 
+  xlab('Canopy Cover') + 
+  ylab('Plot Phylogenetic Diversity') + 
+  geom_smooth(method = 'lm', formula = x ~ y)
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_07,phylo_understory_07$SR), color = 'blue') + 
+  ggtitle('Canopy effect on Understory Species richness 07') + 
+  xlab('Canopy Cover') + 
+  ylab('Species richness')
+
+phylo_understory_18 <- phylo_understory_18[which(rownames(phylo_understory_18) %in% intersect(rownames(phylo_understory_18), liz_data$plots)),]
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_18,phylo_understory_18$PD), color = 'dark green') + 
+  ggtitle('Canopy effect on understory phylodiversity 18') + 
+  xlab('Canopy Cover') + 
+  ylab('Plot Phylogenetic Diversity')
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_18,phylo_understory_18$SR), color = 'green') + 
+  ggtitle('Canopy effect on understory Species richness 18') + 
+  xlab('Canopy Cover') + 
+  ylab('Species richness')
+
+liz_data$marlin_canopy[which(liz_data$marlin_canopy > 60)] <- NA
+ggplot()+
+  geom_point(aes(liz_data$plots, liz_data$canopy_07), color = 'dark blue') +
+  geom_point(aes(liz_data$plots, liz_data$canopy_18), color = 'blue') +
+  geom_point(aes(liz_data$plots, liz_data$marlin_canopy), color = 'purple') +
+  ggtitle('Marlin Canopy vs BA approximation') + 
+  xlab('Canopy (2007 and 2018)') + 
+  ylab('Marlin Canopy Openness')
+
+ggplot()+
+  geom_col(aes(liz_data$plots, liz_data$canopy_18), color = 'blue') +
+  geom_col(aes(liz_data$plots, liz_data$canopy_07), color = 'dark blue')+
+  ggtitle('Canopy Cover in 2007 and 2018') + 
+  xlab('2007') + 
+  ylab('2018')
+
+
+# how correlated is this value for canopy with just tree species richness 
+ggplot() + 
+  geom_point(aes(phylo_trees_07$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_07))])) +
+  xlab('Tree Species Richness') +
+  ylab('Calculated Canopy') + 
+  ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2007')
+
+ggplot() + 
+  geom_point(aes(phylo_trees_18$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_18))])) +
+  xlab('Tree Species Richness') +
+  ylab('Calculated Canopy') + 
+  ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2018')
+
+
+# what about the marlin data? how does that look in comparison to teh 2007 calculations? 
+ggplot() + 
+  geom_point(aes(liz_data$marlin_canopy[which(liz_data$marlin_canopy < 40)], liz_data$canopy_07[which(liz_data$marlin_canopy < 40)])) +
+  xlab('Marlin Canopy') +
+  ylab('Calculated Canopy') + 
+  ggtitle('Marlin Data compared to my calculated canopy')
+
+##################################################################################################################
+
+#############
+# INVASIVES  
+#############
+
+# make plot of invasive ratio distribution (where are invasives the thickest in EW)
+# make plot of invasive distribution 2007 
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$invasive_ratio_07)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Invasive Species Distribution 2007') +
+  coord_equal()
+
+# make plot of invasive distribution in 2018
+ggplot() +
+  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$invasive_ratio_18)) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Invasive Species Distribution 2018') +
+  coord_equal()
+
+
+ggplot() +
+  geom_point(aes(liz_data$invasive_ratio_07, phylo_all_07$SR), color = 'maroon') +
+  ylab('Invasives Abundance') + 
+  xlab('PD') + 
+  ggtitle('Invasive Species Effects on Diversity 2007')
+
+ggplot() + 
+  geom_point(aes(liz_data$plot_invasive_cover_18, phylo_all_18$PD), color = 'turquoise4') + 
+  ylab('Invasives Abundance') + 
+  xlab('PD') + 
+  ggtitle('Invasive Species Effects on Diversity 2018')
+
+ggplot() +
+  geom_point(aes(phylo_all_07$SR, liz_data$plot_invasive_cover_07), color = 'maroon') +
+  ylab('Invasives Abundance') + 
+  xlab('SR') + 
+  ggtitle('Invasive Species Effects on Species Richness 2007')
+
+ggplot() + 
+  geom_point(aes(phylo_all_18$SR, liz_data$plot_invasive_cover_18), color = 'turquoise4') + 
+  ylab('Invasives Abundance') + 
+  xlab('SR') + 
+  ggtitle('Invasive Species Effects on Species Richness 2018')
+
+
+
+##---------------------------------------------------------------------------------------------------------- 
+
+## AS OF 10/28 8:03 PM I HAVE MADE THESE FIGURES BUT I SUSPECT THE RATIO IS INCORRECT... WILL FIX/REDO!!
+
+##---------------------------------------------------------------------------------------------------------- 
+
+# PLOT THE DISTRIBUTION OF SPECIFIC INVASIVES IN THE EW 
+
+# Lonicera (2007) 
+lonicera07 <- dat.07[grep('Lonicera', dat.07$accepted_name),]
+lonicera_cover <- data.frame()
+lonicera07$cover <- as.numeric(lonicera07$cover)
+for (plt in unique(lonicera07$plot)){
+  temp <- sum(lonicera07$cover[which(lonicera07$plot == plt)])
+  cols <- cbind(plt, temp)
+  lonicera_cover <- rbind(lonicera_cover, cols)
+}
+
+lonicera_cover <-
+  data.frame(cov = sapply(unique(lonicera07$plot), function(x) {
+      sum(lonicera07$cover[lonicera07$plot == x], na.rm = T)
+    }, row.names =   unique(lonicera07$plot))
+    
+
+
+lonicera_cover$temp <- as.character(lonicera_cover)
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)]), 
+             color = lonicera_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Lonicera Distribution 2007') +
+  coord_equal()
+
+# Lonicera (2018)
+lonicera18 <- dat.18[grep('Lonicera', dat.18$accepted_name),]
+lonicera_cover <- data.frame()
+lonicera18$cover <- as.numeric(lonicera18$cover)
+for (plt in unique(lonicera18$plot)){
+  temp <- sum(lonicera18$cover[which(lonicera18$plot == plt)])
+  cols <- cbind(plt, temp)
+  lonicera_cover <- rbind(lonicera_cover, cols)
+}
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)])
+             , color = lonicera_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Lonicera Distribution 2018') +
+  coord_equal()
+
+
+# Alliara Petiolata (2007)
+alliaria07 <- dat.07[grep('Alliaria', dat.07$accepted_name),]
+alliaria_cover <- data.frame()
+alliaria07$cover <- as.numeric(alliaria07$cover)
+for (plt in unique(alliaria07$plot)){
+  temp <- sum(alliaria07$cover[which(alliaria07$plot == plt)])
+  cols <- cbind(plt, temp)
+  alliaria_cover <- rbind(alliaria_cover, cols)
+}
+ggplot() +
+  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Alliaria Distribution 2007') +
+  coord_equal()
+
+# Alliara Petiolata (2018)
+alliaria18 <- dat.18[grep('Alliaria', dat.18$accepted_name),]
+alliaria_cover <- data.frame()
+alliaria18$cover <- as.numeric(alliaria18$cover)
+for (plt in unique(alliaria18$plot)){
+  temp <- sum(alliaria18$cover[which(alliaria18$plot == plt)])
+  cols <- cbind(plt, temp)
+  alliaria_cover <- rbind(alliaria_cover, cols)
+}
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Alliaria Distribution 2018') +
+  coord_equal()
+
+# Rhamnus Cathartica (2007)
+rhamnus07 <- dat.07[grep('Rhamnus', dat.07$accepted_name),]
+rhamnus_cover <- data.frame()
+rhamnus07$cover <- as.numeric(rhamnus07$cover)
+for (plt in unique(rhamnus07$plot)){
+  temp <- sum(rhamnus07$cover[which(rhamnus07$plot == plt)])
+  cols <- cbind(plt, temp)
+  rhamnus_cover <- rbind(rhamnus_cover, cols)
+}
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rhamnus Distribution 2007') +
+  coord_equal()
+
+
+# Rhamnus Cathartica (2018)
+rhamnus18 <- dat.18[grep('Rhamnus', dat.18$accepted_name),]
+rhamnus_cover <- data.frame()
+rhamnus18$cover <- as.numeric(rhamnus18$cover)
+for (plt in unique(rhamnus18$plot)){
+  temp <- sum(rhamnus18$cover[which(rhamnus18$plot == plt)])
+  cols <- cbind(plt, temp)
+  rhamnus_cover <- rbind(rhamnus_cover, cols)
+}
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rhamnus Distribution 2018') +
+  coord_equal()
+
+
+# Rosa Multiflora (2007) 
+rosamult07 <- dat.07[grep('Rosa multiflora', dat.07$accepted_name),]
+rosamult_cover <- data.frame()
+rosamult07$cover <- as.numeric(rosamult07$cover)
+for (plt in unique(rosamult07$plot)){
+  temp <- sum(rosamult07$cover[which(rosamult07$plot == plt)])
+  cols <- cbind(plt, temp)
+  rosamult_cover <- rbind(rosamult_cover, cols)
+}
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rosa Multiflora Distribution 2007') +
+  coord_equal()
+
+# Rosa Multiflora (2018) 
+rosamult18 <- dat.18[grep('Rosa multiflora', dat.18$accepted_name),]
+rosamult_cover <- data.frame()
+rosamult18$cover <- as.numeric(rosamult18$cover)
+for (plt in unique(rosamult18$plot)){
+  temp <- sum(rosamult18$cover[which(rosamult18$plot == plt)])
+  cols <- cbind(plt, temp)
+  rosamult_cover <- rbind(rosamult_cover, cols)
+}
+
+ggplot() +
+  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  ylab('Latitude') + 
+  xlab('Longitude') + 
+  scale_size () + 
+  ggtitle('Rosa Multiflora Distribution 2018') +
+  coord_equal()
+
+#----------------------------------------------------------------------------------------------------------------
+
+# another thing I forgot to look at was the SR and PD correlation with invasive ratios
+shared_plots <- intersect(as.factor(rownames(phylo_all_18)), liz_data$plots)
+
+pd_plots_18 <- phylo_all_18$PD[which(rownames(phylo_all_18) %in% shared_plots)]
+
+ggplot() + 
+  geom_point(aes(liz_data$invasive_ratio_18[which(liz_data$plots %in% shared_plots)], pd_plots_18), color = 'dark blue') + 
+  ggtitle('Invasive presence impact on phylodiversity 18') + 
+  xlab('Invasive Presence(Ratio)') + 
+  ylab('Plot Phylogenetic Diversity')
+
+ggplot() + 
+  geom_point(aes(liz_data$invasive_ratio_18,phylo_understory_18$SR), color = 'dark blue') + 
+  ggtitle('Invasive presence impact on Species richness 18') + 
+  xlab('Invasive Presence (Ratio)') + 
+  ylab('Species richness')
+
+
+##################################################################################################################
+# making plot filters based on com_class variable 
+wooded_com_class <- c(liz_data$plots[which(liz_data$com_class == "Mesic woodland")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic forest, Mesic-wet mesic shrubland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Savanna")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic woodland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic woodland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Mesic savanna, Mesic woodland")], 
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic savanna, Mesic woodland")],
+                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Mesic woodland")])
+wooded_plots <- liz_data$plots[match(wooded_com_class, rownames(liz_data))]
+
+
+savanna_com_class <- c(savanna_com_class, liz_data$plots[which(liz_data$com_class =="Wet mesic prairie and savanna")], 
+                        liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland")], 
+                        savanna_com_class, liz_data$plots[which(liz_data$com_class == "Savanna")])
+
+
+savanna_plots <- liz_data$plots[match(savanna_com_class, rownames(liz_data))]
+
+ggplot() + 
+  geom_point(aes(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)], phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)]),
+  color = 'dark blue') + 
+  ggtitle('Canopy in Wooded Plots 18') + 
+  xlab('Canopy') + 
+  ylab('Phylogenetic Diversity 18')
+
+fit <- lm(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)] ~ phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)])
+
+fit2 <- lm(liz_data$canopy_18 ~ phylo_understory_18$PD)
+
+fit3 <- lm(liz_data$canopy_07 ~ phylo_understory_07$PD)
+
+##################################################################################################################
+ # EAST WOODS PLOTS ONLY 
+
+east_woods <- liz_data$plots[which(liz_data$area_name == 'East Woods')]
+
+fit4 <- lm(liz_data$canopy_18[which(liz_data$plots %in% east_woods)] ~ phylo_understory_18$PD[which(liz_data$plots %in% east_woods)])
+fit5 <- lm(liz_data$canopy_07[which(liz_data$plots %in% east_woods)] ~ phylo_understory_07$PD[which(liz_data$plots %in% east_woods)])
+
+hidden_lake <- liz_data$plots[which(liz_data$area_name == 'Hidden Lake')]
+
+fit6 <- lm(liz_data$canopy_18[which(liz_data$plots %in% hidden_lake)] ~ phylo_understory_18$PD[which(liz_data$plots %in% hidden_lake)])
+fit7 <- lm(liz_data$canopy_07[which(liz_data$plots %in% hidden_lake)] ~ phylo_understory_07$PD[which(liz_data$plots %in% hidden_lake)])
+
+
+
+

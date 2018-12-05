@@ -1,42 +1,49 @@
 #analyses on 2007  
 library(ggplot2)
-source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_dist_matrices.R')
+source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
 source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
-source('~/Documents/GitHub/east_woods_work/scripts/11.analyses.R')
-
-# all continous data I have so far 
-dist_aspect <- dist(liz_data$aspect)
-slope <- dist(liz_data$slope)
-elevation <- dist(liz_data$elevation)
-burn_count <- dist(liz_data$burn_count)
-marlin_canopy <- dist(liz_data$marlin_canopy)
-invasives_18 <- dist(liz_data$invasive_ratio_18)
-invasives_07 <- dist(liz_data$invasive_ratio_07)
-canopy18 <- dist(liz_data$canopy_18)
-canopy07 <- dist(liz_data$canopy_07)
-
-
-
-
-# pdiversity_07 <- dist(phylo_all) <- this one shold use the phylogenetic distance metric not euclidean
-# percent_ACM <-dist(liz_data$percent_ACM)
-# percent_ECM <- dist(liz_data$percent_ECM)  # NEDD TO CALCULATE THESE STILL 
-# tree phylogenetic diversity
+source('~/Documents/GitHub/east_woods_work/scripts/11.analyzing_data.R')
+source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
 
 ##################################################################################################################
 
 source('https://raw.githubusercontent.com/andrew-hipp/morton/master/R/mantelMultiple.R')
 
-all_mantel <- mantelMultiple(beta_Dpw_all.pa.07, X = list(aspect = dist_aspect, slope = slope, 
-                                                          elevation = elevation, canopy07 = canopy07, canopy18 = canopy18, 
-                                                          invasives07 = invasives_07, invasives18  = invasives_18 ))
+# all_mantel.07 <- mantelMultiple(beta_Dnn_all.07, X = list(aspect = aspect, slope = slope, 
+#                                                           elevation = elevation, canopy07 = canopy07, 
+#                                                           invasives07 = invasives07 ))
 
-#if DPw is nonsignificant....maybe try a terminal metric (see p 150 in Cadotte)
-#terminal metrics sensitive to turnover at tips of tree
-#basal metrics (such as Dpw) are sensitive to turnover deeper in phylogeny
-#in the book, with his sample dataset he found that the terminal metrics were more significantly 
-#related to environmental distances
+# MY mantel test isnt working with nearest neighbor!! Cuz some rows have NAs for some reason??
+# trying mpd instead...
+
+# so 12/3 what I think is happening is that something is wrong with canopy and invasive ratio!! 
+# the test runs when I take care of those 
+
+# ok but it also only works with mean pairwise not mean nearest neighbor 
+
+all_mantel.07 <- mantelMultiple(beta_Dnn_all.07, X = list(aspect = aspect, slope = slope,
+                                                          elevation = elevation))
+
+
+all_mantel.18 <- mantelMultiple(beta_Dnn_all.18, X = list(aspect = aspect, slope = slope, 
+                                                          elevation = elevation, canopy18 = canopy18, 
+                                                          invasives18 = invasives18))
+
+# use phytools or vegan for multiple mantel 
+
+
 ##################################################################################################################
+
+# plot by plot
+
+fit07 <- lm(phylo_all_07$pd.obs ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy_07
+           + liz_data$plot_invasive_cover_07)
+
+
+fit18 <- lm(phylo_all_18$pd.obs ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy_18
+            + liz_data$plot_invasive_cover_18)
+
+
 
 
 
