@@ -3,9 +3,11 @@
 # and sumbit to TNRS for cleaned names list 
 # OUTPUT: fall_translation_key.csv, 2007_spp_pool.csv, 2018_spp_pool.csv, 
 # 2007_2018_spp_pool.csv (will just append a column with accepted name to spp pool)
-
-source('~/Documents/GitHub/east_woods_work/scripts/01.combine_spp_pools.R')
+setwd('~/Documents/GitHub/east_woods_work/')
+dat.all <- read.csv('data/dat.all.csv')
 library(magrittr)
+
+
 dat.all.sorted <- sapply(dat.all$species, function(x) x) %>%
   unlist %>%
   trimws %>%
@@ -13,7 +15,7 @@ dat.all.sorted <- sapply(dat.all$species, function(x) x) %>%
   sort
 
 dat.all.sorted <- data.frame(dat.all.sorted)
-write.csv(dat.all.sorted, '../../outputs/complete_spp_list.csv')
+write.csv(dat.all.sorted, 'outputs/complete_spp_list.csv')
 #take these species lists and run through http://tnrs.iplantcollaborative.org/TNRSapp.html
 #TNRS OUTPUT: complete_tnrs_list.csv
 ###################################################################################################
@@ -22,20 +24,12 @@ write.csv(dat.all.sorted, '../../outputs/complete_spp_list.csv')
 
 # LAST UPDATED TRANSLATION KEY: 11/3
 
-tnrs_all <- data.frame(read.csv('../../outputs/complete_tnrs_list.csv', as.is = T))
+tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is = T))
 
 ###################################################################################################
 #append the accepted name to each of the spp pool dataframes
 
 dat.all$accepted_name <- tnrs_all$Accepted_name[match(dat.all$species, tnrs_all$Name_submitted)] 
-
-dat.07$accepted_name <- tnrs_all$Accepted_name[match(dat.07$species, tnrs_all$Name_submitted)]
-
-dat.18$accepted_name <- tnrs_all$Accepted_name[match(dat.18$species, tnrs_all$Name_submitted)]
-
-
-# write.csv(dat.07, '../data/dat.07.csv')
-# write.csv(dat.18, '../data/dat.18.csv')
-# write.csv(dat.all, '../data/dat.all.csv')
-
+write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
+rm(list = ls())
 

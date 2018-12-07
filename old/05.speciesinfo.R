@@ -12,7 +12,7 @@
 # NATIVE STATUS
 #################
 
-source('~/Documents/GitHub/east_woods_work/scripts/04.natives.R')
+dat.all <- read.csv('data/dat.all.csv')
 spp_info <- unique(native_id)
 
 ###################

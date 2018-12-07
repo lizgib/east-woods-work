@@ -1,4 +1,7 @@
-source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
+
+dat.all <- read.csv('data/dat.all.csv')
+dat.07 <- dat.all[which(dat.all$year == '2007'),]
+dat.18 <- dat.all[which(dat.all$year == '2018'),]
 
 spp07_cleaned <- sort(unique(dat.07$accepted_name)) # get unique sorted names from tnrs 
 spp18_cleaned <- sort(unique(dat.18$accepted_name)) # for each year/group
@@ -47,7 +50,7 @@ spp_counts_18 <- data.frame(table(dat.18$accepted_name))
 whatschanged$freq_07  <- spp_counts_07$Freq[match(whatschanged$allspp_cleaned, spp_counts_07$Var1)]
 whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_cleaned, spp_counts_18$Var1)]
 
-write.csv(whatschanged, '../../outputs/tnrs.spp_compare_years.csv')
+write.csv(whatschanged, 'outputs/tnrs.spp_compare_years.csv', row.names = F, quote = F)
 
 #####################################################################################################
 
@@ -80,7 +83,7 @@ spp_counts_18 <- data.frame(table(dat.18$species))
 whatschanged$freq_07  <- spp_counts_07$Freq[match(whatschanged$allspp_uncleaned, spp_counts_07$Var1)]
 whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_uncleaned, spp_counts_18$Var1)]
 
-write.csv(whatschanged, '../../outputs/uncleaned.spp_compare_years.csv')
+write.csv(whatschanged, 'outputs/uncleaned.spp_compare_years.csv', row.names = F, quote = F)
 
 
 ######################################################################################################
@@ -112,5 +115,5 @@ new_dat$num_plots_18 <- num_plots_18
 # Raw name -- Cleaned name from TNRS -- 2007 total plots -- 2018 total plots
 names(new_dat) <- c('Raw_name', 'Cleaned_name_from_TNRS', '2007_total_plots', '2018_total_plots')
 
-write.csv(new_dat, '../../outputs/plot_species_record.csv')
-
+write.csv(new_dat, 'outputs/plot_species_record.csv', row.names = F, quote = F)
+rm(list = ls())

@@ -58,8 +58,8 @@ liz_data$canopy_18 <- plot_tree_cover_18$plot_tree_cover[match(liz_data$plots, p
 # INVASIVES  
 #############
 
-liz_data$invasives07 <- invasives$invasives07[match(liz_data$plots, invasives$plot)]
-liz_data$invasives18 <- invasives$invasives18[match(liz_data$plots, invasives$plot)]
+liz_data$invasives07 <- invasives07$cover[match(liz_data$plots, invasives07$plot)]
+liz_data$invasives18 <- invasives18$cover[match(liz_data$plots, invasives18$plot)]
 
 ##################
 # SOIL DATA
@@ -111,23 +111,20 @@ liz_data$tree_group_18 <- tree_type_plots_18$tree_type[match(liz_data$plots, tre
 
 # only two different soil textures (silt loam and silt clay loam)-- giving them IDs 1 and 2 respectively
 
-# temp_soil_text <- ifelse(liz_data$soil_texture == 'silt loam', 1, 2)
-# temp_soil_drainage <- c()
-# for(i in liz_data$drainage){
-#   if(i == "very poorly drained"){
-#     temp_soil_drainage <- c(temp_soil_drainage, 1)}
-#   if(i == "poorly drained"){
-#     temp_soil_drainage <- c(temp_soil_drainage, 2)}
-#   if(i == "moderately well-drained"){
-#     temp_soil_drainage <- c(temp_soil_drainage, 3)}
-#   if(i == "well-drained"){
-#     temp_soil_drainage <- c(temp_soil_drainage, 4)}
-#   if(i == "excellently drained"){
-#     temp_soil_drainage <- c(temp_soil_drainage, 5)}
-# }
+liz_data$soil_texture <- gsub('silt loam', 1, liz_data$soil_texture)
+liz_data$soil_texture <- gsub('silty clay loam', 2, liz_data$soil_texture)
+
+liz_data$drainage <- gsub('very poorly drained', 1, liz_data$drainage)
+liz_data$drainage <- gsub('poorly drained', 2, liz_data$drainage)
+liz_data$drainage <- gsub('moderately well-drained', 3, liz_data$drainage)
+liz_data$drainage <- gsub('well-drained', 4, liz_data$drainage)
+liz_data$drainage <- gsub('excellently drained', 5, liz_data$drainage)
+
+liz_data$drainage <- as.numeric(liz_data$drainage)
+liz_data$soil_texture <- as.numeric(liz_data$soil_texture)
 
 # ^^^ not working rn 11/30 but I dont have time to fix it right now 
-# liz_data$soil_index <- temp_soil_text * temp_soil_drainage
+liz_data$soil_index <- liz_data$soil_texture * liz_data$drainage
 
 ####################
 # PERCENT ACM ECM  
@@ -158,3 +155,4 @@ liz_data$ECM_ACM <- 0 # continuous, percent of trees which are ACM or ECM
 # there is an extra plot in here that the species dataframes
 
 liz_data <- liz_data[which(liz_data$plots %in% unique(dat.all$plot)),]
+liz_data$plots == sort(unique(dat.all$plot))
