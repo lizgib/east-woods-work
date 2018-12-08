@@ -3,9 +3,9 @@
 # 2007
 # 2018 
 # 2018 and 2007
-
-source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
-source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
+setwd('~/Documents/GitHub/east_woods_work/')
+liz_data <- read.csv('data/liz_data.csv')
+dat.all <- read.csv('data/dat.all.csv')
 library(ape)
 #source('~/Documents/morton arb/east_woods_phylogeny/SCRIPTS/17.tree_generation.R')
 # probably want to just read in the tree instead of sourcing it every time

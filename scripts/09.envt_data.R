@@ -1,8 +1,8 @@
 #DATA WRANGLING 
 # read in data from various sources to create plot by plot dataframe for envt variables
 #OUTPUT: liz_data.csv
-library(dict)
-source('~/Documents/GitHub/east_woods_work/scripts/06.cover.R')
+understory.all <- read.csv('data/understory.all.csv')
+trees.all <- read.csv('data/trees.all.csv')
 point_info_GIS <- read.csv('~/Documents/GitHub/east_woods_work/data/plot_data/Analyses_Rollinson/point_info_GIS.csv', as.is = T)
 
 point_info_GIS$PlotID <- gsub('-', '', point_info_GIS$PlotID)
@@ -36,8 +36,8 @@ liz_data$burn_count <- burned_plots$Freq[match(liz_data$plots, burned_plots$burn
 ##################
 # CANOPY COVER 
 ##################
-
-# get the marlin canopy values in for comparison
+trees07 <- trees.all[which(trees.all$year == '2007'),]
+trees18 <- trees.all[which(trees.all$year == '2018'),]
 
 # get the plot_tree_cover for 2007 plots 
 plot_tree_cover_07 <- data.frame(trees07$plot)
@@ -78,6 +78,7 @@ marlin_data$Plot <- gsub('-', '', marlin_data$Plot)
 marlin_data <- marlin_data[match(liz_data$plots, marlin_data$Plot),]
 liz_data$tree_group <- marlin_data$Grp
 
+trees07 <- dat.07[which(dat.07$datset == 'T'),]
 trees07$genus <- gsub(' .*', '', trees07$accepted_name)
 
 # go through each plot in liz_data
@@ -93,6 +94,7 @@ for (plt in unique(trees07$plot)){
 
 liz_data$tree_group_07 <- tree_type_plots_07$tree_type[match(liz_data$plots, tree_type_plots_07$plt)]
 
+trees18 <- dat.18[which(dat.18$datset == 'T'),]
 trees18$genus <- gsub(' .*', '', trees18$accepted_name)
 
 tree_type_plots_18 <- data.frame()
