@@ -3,8 +3,9 @@
 # and sumbit to TNRS for cleaned names list 
 # OUTPUT: fall_translation_key.csv, 2007_spp_pool.csv, 2018_spp_pool.csv, 
 # 2007_2018_spp_pool.csv (will just append a column with accepted name to spp pool)
+#dat.all <- read.csv('data/dat.all.csv')
+source('~/Documents/GitHub/east_woods_work/scripts/01.combine_spp_pools.R')
 setwd('~/Documents/GitHub/east_woods_work/')
-dat.all <- read.csv('data/dat.all.csv')
 library(magrittr)
 
 dat.all.sorted <- sapply(dat.all$species, function(x) x) %>%
@@ -31,5 +32,5 @@ tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is =T))
 dat.all$accepted_name <- tnrs_all$Accepted_name[match(dat.all$species, tnrs_all$Name_submitted)] 
 dat.all <- dat.all[which(dat.all$plot != '2018'),]
 write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
-rm(list = ls())
+#rm(list = ls())
 
