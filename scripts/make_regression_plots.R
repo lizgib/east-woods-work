@@ -5,9 +5,7 @@ source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
 liz_data <- read.table('~/Documents/GitHub/east_woods_work/data/liz_data.csv', sep = ',')
 theme_set(theme_minimal())
 
-plt_format <- theme(
- 
-)
+#plt_format <- theme()
 
 # INDIVIDUAL PLOT 07
 plotting_data_07 <- NULL

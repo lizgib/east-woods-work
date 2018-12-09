@@ -7,7 +7,6 @@ setwd('~/Documents/GitHub/east_woods_work/')
 dat.all <- read.csv('data/dat.all.csv')
 library(magrittr)
 
-
 dat.all.sorted <- sapply(dat.all$species, function(x) x) %>%
   unlist %>%
   trimws %>%
@@ -24,12 +23,13 @@ write.csv(dat.all.sorted, 'outputs/complete_spp_list.csv')
 
 # LAST UPDATED TRANSLATION KEY: 11/3
 
-tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is = T))
+tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is =T))
 
 ###################################################################################################
 #append the accepted name to each of the spp pool dataframes
 
 dat.all$accepted_name <- tnrs_all$Accepted_name[match(dat.all$species, tnrs_all$Name_submitted)] 
+dat.all <- dat.all[which(dat.all$plot != '2018'),]
 write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
 rm(list = ls())
 

@@ -23,9 +23,9 @@ missing_natives <- unique(dat.all$accepted_name[which(is.na(dat.all$nativestatus
 # manually go through list of 86 spp and get IDs for them --> Dr. Hipp did this part 
 
 # read back in the missing natives file
-revised_missing_invasives <- read.csv('data/species_data/missing_natives - missing_natives.csv')[,2:3] # 11/4 7:32 PM is wondering what this file is?? 
+revised_missing_invasives <- read.csv('data/species_data/missing_natives - missing_natives.csv') # key from Dr. Hipp with his comments 
+revised_missing_invasives <- revised_missing_invasives[,c('x', 'native.exotic.invasive')]
 names(revised_missing_invasives) <- c('Accepted_name', 'native')
-
 # append the missing names/statuses to native_id
 native_id <- rbind(native_id, revised_missing_invasives)
 
@@ -34,3 +34,5 @@ dat.all$nativestatus <- native_id$native[match(dat.all$accepted_name, native_id$
 
 write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
 rm(list = ls())
+
+

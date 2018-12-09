@@ -36,7 +36,6 @@ Allium stellatum,Allium stellatum,,1,Accepted,Allium stellatum,Nutt. ex Ker Gawl
 Allium tricoccum,Allium tricoccum,,1,Accepted,Allium tricoccum,Aiton,Amaryllidaceae,tpl;tropicos;usda, ,
 Allium vineale,Allium vineale,,1,Accepted,Allium vineale,L.,Amaryllidaceae,tpl;tropicos;usda, ,
 Alnus species,Alnus,,0.9,Accepted,Alnus,,Betulaceae,tpl, ,
-Amaranthus tuberculatus,Amaranthus tuberculatus,,1,Accepted,Amaranthus tuberculatus,(Moq.) Sauer,Amaranthaceae,tpl;usda, ,
 Ambrosia artemisiifolia,Ambrosia artemisiifolia,,1,Accepted,Ambrosia artemisiifolia,L.,Asteraceae,gcc;tropicos;usda, ,urn:lsid:compositae.org:names:5717C1D3-5B5F-4298-95E3-25D4AFE147CE
 Ambrosia artemisiifolia elatior,Ambrosia artemisiifolia var. elatior,,0.96,Synonym,Ambrosia artemisiifolia,L.,Asteraceae,gcc;tropicos, ,urn:lsid:compositae.org:names:5717C1D3-5B5F-4298-95E3-25D4AFE147CE
 Ambrosia trifida,Ambrosia trifida,,1,Accepted,Ambrosia trifida,L.,Asteraceae,gcc;tropicos;usda, ,urn:lsid:compositae.org:names:A2275973-D61B-486C-9905-0E305DA158A6
@@ -69,7 +68,6 @@ Asimina triloba,Asimina triloba,,1,Accepted,Asimina triloba,(L.) Dunal,Annonacea
 Asplenium species,Asplenium,,0.9,Accepted,Asplenium,,Aspleniaceae,tpl, ,
 Aster lateriflorus,Aster lateriflorus,,1,Synonym,Symphyotrichum lateriflorum,(L.) ç.Lšve & D.Lšve,Asteraceae,gcc, ,urn:lsid:compositae.org:names:FABA6C06-F343-4CEC-AF2B-17DFE6A11170
 Aster pilosus,Aster pilosus,,1,Synonym,Symphyotrichum pilosum,(Willd.) G.L.Nesom,Asteraceae,gcc, ,urn:lsid:compositae.org:names:B8851780-07FE-4029-8726-66EFF3A4DCE4
-Aster sagittifolius,Aster sagittifolius,,1,Synonym,Symphyotrichum undulatum,(L.) G.L.Nesom,Asteraceae,gcc, [Ambiguous match] ,urn:lsid:compositae.org:names:7C79C5C4-11F5-4181-B835-6FDCD6F00B62
 Aster sagittifolius drummondii,Aster sagittifolius var. drummondii,,0.96,Synonym,Symphyotrichum drummondii,(Lindl.) G.L.Nesom,Asteraceae,gcc, ,urn:lsid:compositae.org:names:7E92236A-AF44-4120-8AEE-A4E040BA893F
 Aster shortii,Aster shortii,,1,Synonym,Symphyotrichum shortii,(Lindl.) G.L.Nesom,Asteraceae,gcc, ,urn:lsid:compositae.org:names:7E7882FC-95AC-439F-A4BF-A43E23C22D8D
 Aster species,Aster,,0.9,Accepted,Aster,,Asteraceae,tpl;usda, ,
@@ -337,8 +335,6 @@ Oxalis europaea,Oxalis europaea,,1,Synonym,Oxalis stricta,L.,Oxalidaceae,tpl;tro
 Oxalis sp.,Oxalis,,0.9,Accepted,Oxalis,,Oxalidaceae,tpl, ,
 Oxalis stricta,Oxalis stricta,,1,Accepted,Oxalis stricta,L.,Oxalidaceae,tpl;tropicos;usda, ,
 Packera sp.,Packera,,0.9,Accepted,Packera,,Asteraceae,tpl;usda, ,
-Panicum capillare,Panicum capillare,,1,Accepted,Panicum capillare,L.,Poaceae,tpl;tropicos;usda, ,
-Panicum dichotomiflorum,Panicum dichotomiflorum,,1,Accepted,Panicum dichotomiflorum,Michx.,Poaceae,tpl;tropicos;usda, ,
 Panicum implicatum,Panicum implicatum,,1,Synonym,Panicum acuminatum,Sw.,Poaceae,tpl, ,
 Panicum sp.,Panicum,,0.9,Accepted,Panicum,,Poaceae,tpl;usda, ,
 Panicum species,Panicum,,0.9,Accepted,Panicum,,Poaceae,tpl;usda, ,

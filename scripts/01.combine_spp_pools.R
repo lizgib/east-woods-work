@@ -117,9 +117,6 @@ dat.18$year <- 2018
 
 dat.all <- rbind(dat.18, dat.07)
 
-# git version 
-#write.csv(dat.all, '../outputs/dat.all.csv')
-
 # Noww... I think this may be a problem with the new survey data. the plots between 2007 and 2018 are not matching up:
 
 plots_both_years <- intersect(dat.07$plot, dat.18$plot)
