@@ -174,7 +174,7 @@ liz_data$ECM_ACM <- 0 # continuous, percent of trees which are ACM or ECM
 # there is an extra plot in here that the species dataframes
 dat.all <- rbind(trees.all, understory.all)
 liz_data <- liz_data[which(liz_data$plots %in% unique(dat.all$plot)),]
-liz_data$plots == sort(unique(dat.all$plot))
+#liz_data$plots == sort(unique(dat.all$plot))
 
 write.csv(liz_data, 'data/liz_data.csv')
 

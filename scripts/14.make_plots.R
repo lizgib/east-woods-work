@@ -1,7 +1,6 @@
 # plotting the plot by plot and pllot dissimilarity regressions 
 library(ggplot2)
 library(colorspace)
-source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
 liz_data <- read.table('~/Documents/GitHub/east_woods_work/data/liz_data.csv', sep = ',')
 theme_set(theme_minimal())
 
