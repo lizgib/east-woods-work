@@ -41,7 +41,6 @@ trees18 <- trees.all[which(trees.all$year == '2018'),]
 
 # get the plot_tree_cover for 2007 plots 
 liz_data$canopy07 <- trees07$plot_cover[match(liz_data$plots, trees07$plot)]
-
 # get the plot_tree_cover for 2018 plots 
 liz_data$canopy18 <- trees18$plot_cover[match(liz_data$plots, trees18$plot)]
 
@@ -167,7 +166,7 @@ percent_acm <- c()
 liz_data$area_name <- point_info_GIS$AreaName
 liz_data$com_class <- point_info_GIS$ComClass
 liz_data$soil_index <- 0 # blank for now. this will be continuous translation of the soil variables 
-liz_data$geo_drainage <- 0 # also will be continous coding of some soil variables and combination of slope aspect and elevation 
+liz_data$geo_drainage <- liz_data$elevation + (liz_data$slope * liz_data$aspect) # also will be continous coding of some soil variables and combination of slope aspect and elevation 
 liz_data$ECM_ACM <- 0 # continuous, percent of trees which are ACM or ECM 
 
 

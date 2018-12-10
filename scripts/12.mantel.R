@@ -1,9 +1,6 @@
 #analyses on 2007  
 library(ggplot2)
-source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
-source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
-source('~/Documents/GitHub/east_woods_work/scripts/11.analyzing_data.R')
-source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
+library(vegan)
 
 ##################################################################################################################
 
@@ -34,16 +31,12 @@ all_mantel.18 <- mantelMultiple(beta_Dnn_all.18, X = list(aspect = aspect, slope
 
 ##################################################################################################################
 
-# plot by plot
 
-fit07 <- lm(phylo_all_07$pd.obs ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy_07
-           + liz_data$plot_invasive_cover_07)
+all.mantel.07 <- mantel(beta_Dnn_all.07, aspect, slope, elevation, burn_count, 
+                        canopy07, invasives07, soilindex, drainage)
 
-
-fit18 <- lm(phylo_all_18$pd.obs ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy_18
-            + liz_data$plot_invasive_cover_18)
-
-
+all.mantel.18 <- mante(beta_Dnn_all.18, aspect, slope, elevation, burn_count, 
+                       canopy18, invasives18, soilindex, drainage)
 
 
 

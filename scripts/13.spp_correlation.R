@@ -1,23 +1,29 @@
 #species correlation with environmental data
 
-setwd('~/Documents/GitHub/east_woods_work/scripts/')
-source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R')
-source('~/Documents/GitHub/east_woods_work/scripts/11.analyzing_data.R')
-
+setwd('~/Documents/GitHub/east_woods_work/')
+dat.mat.all.07 <- read.csv('data/dat.mat.all.07.csv', row.names = 1)
+dat.mat.all.18 <- read.csv('data/dat.mat.all.18.csv', row.names = 1)
+liz_data <- read.csv('data/liz_data.csv')
 library(ggtree)
 
 ##############################################################################################################
+dat.mat.all.18 <- dat.mat.all.18[which(rownames(dat.mat.all.18) %in% liz_data$plots),]
 liz_data <- liz_data[which(liz_data$plots %in% rownames(dat.mat.all.18)),]
+liz_data$burn_count <- as.numeric(as.character(liz_data$burn_count))
+liz_data$soil_index <- as.numeric(as.character(liz_data$soil_index))
+liz_data$geo_drainage <- as.numeric(as.character(liz_data$geo_drainage))
+liz_data$canopy18 <- as.numeric(as.character(liz_data$canopy18))
+liz_data$inv_ratio18 <- as.numeric(as.character(liz_data$inv_ratio18))
 
-all.r.aspect <- apply(dat.mat.all.18, 2, cor, liz_data$aspect)
-all.r.slope <- apply(dat.mat.all.18, 2, cor, liz_data$slope)
-all.r.elevation <- apply(dat.mat.all.18, 2, cor, liz_data$elevation)
-all.r.canopy18 <- apply(dat.mat.all.18, 2, cor, liz_data$canopy_18)
-all.r.invasive_ratio18 <- apply(dat.mat.all.18, 2, cor, liz_data$invasive_ratio_18)
+all.r.burn_count <- apply(dat.mat.all.18, 2, cor, liz_data$burn_count)
+all.r.soil_index <- apply(dat.mat.all.18, 2, cor, liz_data$soil_index)
+all.r.drainage <- apply(dat.mat.all.18, 2, cor, liz_data$geo_drainage)
+all.r.canopy18 <- apply(dat.mat.all.18, 2, cor, liz_data$canopy18)
+all.r.invasive_ratio18 <- apply(dat.mat.all.18, 2, cor, liz_data$inv_ratio18)
 
-all_cor <- data.frame(all.r.aspect)
-all_cor$slope <- cbind(all.r.slope)
-all_cor$elevation <- cbind(all.r.elevation)
+all_cor <- data.frame(all.r.burn_count)
+all_cor$soil_index <- cbind(all.r.soil_index)
+all_cor$drainage <- cbind(all.r.drainage)
 all_cor$canopy18 <- cbind(all.r.canopy18)
 all_cor$invasive_ratio18 <- cbind(all.r.invasive_ratio18)
 

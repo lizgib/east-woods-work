@@ -7,65 +7,69 @@ theme_set(theme_minimal())
 #plt_format <- theme()
 
 # INDIVIDUAL PLOT 07
-plotting_data_07 <- NULL
-InvasiveRatio07 <- as.factor(liz_data$plot_invasive_cover_07)
-Canopy07 <-as.factor(liz_data$canopy_07)
-Elevation <- as.factor(liz_data$elevation)
-Slope <- as.factor(liz_data$slope)
-Aspect <- as.factor(liz_data$aspect)
-plotting_data_07 <- data.frame(cbind(plotting_data_07, InvasiveRatio07, Canopy07, Elevation, Slope, Aspect, phylo_all_07$pd.obs, phylo_all_07$ntaxa))
 
-titles <- c('InvasiveRatio07', 'Canopy07', 'Elevation', 'Slope', 'Aspect')
-
-for(i in plotting_data_07[,1:5]){
-  for (n in titles){
-    p1 <- ggplot()+
-      geom_point(data = plotting_data_07, aes(i, V6), color = 'mediumseagreen') +
+make_plot_07 <- function(liz_data, xvar, xlabel){
+p1 <- ggplot()+
+      geom_point(aes(xvar, liz_data$PD07), color = 'mediumseagreen') +
       #ggtitle((paste(n, 'effect on MNTD', sep = ' '))) +
-      xlab(n) +
+      xlab(xlabel) +
       ylab(' ') # just gonna make one axis in ppt
-    ggsave(filename = paste(n, 'effect on MNTD07.png', sep = ''), plot = p1,
-           device = 'png', width = 4, height = 4, path = '~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/Fall Figures/2007/')
-    p2 <- ggplot()+
-      geom_point(data = plotting_data_07, aes(i, V7), color = 'mediumblue') +
+p1 + stat_smooth(method = 'lm', formula = y ~ x)
+pr2 = summary(lm(xvar ~ liz_data$PD07))$r.squared
+print(paste('PD', xlabel, 'R2 = ', pr2))
+ggsave(filename = paste(xlabel, 'effect on MNTD07.png', sep = ''), plot = p1,
+        device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2007')
+p2 <- ggplot()+
+      geom_point(aes(xvar, liz_data$SR07), color = 'mediumblue') +
       #ggtitle((paste(n, 'effect on SR', sep = ' '))) +
-      xlab(n) +
+      xlab(xlabel) +
       ylab(' ')
-    ggsave(filename = paste(n, 'effect on SR07.png', sep = ''), plot = p2,
-           device = 'png', width = 4, height = 4, path = '~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/Fall Figures/2007/')
-  }
+p2 + stat_smooth(method = 'lm', formula = y ~ x)
+pr2 = summary(lm(xvar ~ liz_data$SR07))$r.squared
+print(paste('SR', xlabel, 'R2 = ', pr2))
+ggsave(filename = paste(xlabel, 'effect on SR07.png', sep = ''), plot = p2,
+        device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2007')
 }
 
+make_plot_07(liz_data, liz_data$burn_count, 'burn_count')
+make_plot_07(liz_data, liz_data$canopy07, 'canopy07')
+make_plot_07(liz_data, liz_data$inv_ratio07, 'inv_ratio07')
+make_plot_07(liz_data, liz_data$soil_index, 'soil_index')
+make_plot_07(liz_data, liz_data$geo_drainage, 'drainage')
 
-# INDIVIDUAL PLOT 18 
-plotting_data_18 <- NULL
-InvasiveRatio18 <- as.factor(liz_data$plot_invasive_cover_18)
-Canopy18 <-as.factor(liz_data$canopy_18)
-Elevation <- as.factor(liz_data$elevation)
-Slope <- as.factor(liz_data$slope)
-Aspect <- as.factor(liz_data$aspect)
-plotting_data_18 <- data.frame(cbind(plotting_data_18, InvasiveRatio18, Canopy18, Elevation, Slope, Aspect, phylo_all_18$pd.obs, phylo_all_18$ntaxa))
 
-titles <- c('InvasiveRatio18', 'Canopy18', 'Elevation', 'Slope', 'Aspect')
+# INDIVIDUAL PLOT 18
 
-for(i in plotting_data_18[,1:5]){
-  for (n in titles){
-    p1 <- ggplot()+
-      geom_point(data = plotting_data_18, aes(i, V6), color = 'mediumseagreen') +
-      #ggtitle((paste(n, 'effect on MNTD', sep = ' '))) +
-      xlab(n) + 
-      ylab(' ') # just gonna make one axis in ppt 
-    ggsave(filename = paste(n, 'effect on MNTD18.png', sep = ''), plot = p1,
-           device = 'png', width = 4, height = 4, path = '~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/Fall Figures/2018/')
-    p2 <- ggplot()+
-      geom_point(data = plotting_data_18, aes(i, V7), color = 'mediumblue') +
-      #ggtitle((paste(n, 'effect on SR', sep = ' '))) +
-      xlab(n) + 
-      ylab(' ')
-    ggsave(filename = paste(n, 'effect on SR18.png', sep = ''), plot = p2,
-           device = 'png', width = 4, height = 4, path = '~/Documents/morton arb/east_woods_phylogeny/OUTPUTS/Fall Figures/2018/')
-  }
+make_plot_18 <- function(liz_data, xvar, xlabel){
+  p1 <- ggplot()+
+    geom_point(aes(xvar, liz_data$PD18), color = 'mediumseagreen') +
+    #ggtitle((paste(n, 'effect on MNTD', sep = ' '))) +
+    xlab(xlabel) +
+    ylab(' ') # just gonna make one axis in ppt
+  p1 <- p1 + stat_smooth(method = 'lm', formula = y ~ x)
+  pr2 = summary(lm(xvar ~ liz_data$PD18))$r.squared
+  print(paste('PD', xlabel, 'R2 = ', pr2))
+  ggsave(filename = paste(xlabel, 'effect on MNTD18.png', sep = ''), plot = p1,
+         device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2018')
+  p2 <- ggplot()+
+    geom_point(aes(xvar, liz_data$SR18), color = 'mediumblue') +
+    #ggtitle((paste(n, 'effect on SR', sep = ' '))) +
+    xlab(xlabel) +
+    ylab(' ')
+  p2 <- p2 + stat_smooth(method = 'lm', formula = y ~ x)
+  pr2 = summary(lm(xvar ~ liz_data$SR18))$r.squared
+  print(paste('SR', xlabel, 'R2 = ', pr2))
+  ggsave(filename = paste(xlabel, 'effect on SR18.png', sep = ''), plot = p2,
+         device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2018')
 }
+
+make_plot_18(liz_data, liz_data$burn_count, 'burn_count')
+make_plot_18(liz_data, liz_data$canopy18, 'canopy18')
+make_plot_18(liz_data, liz_data$inv_ratio18, 'inv_ratio18')
+make_plot_18(liz_data, liz_data$soil_index, 'soil_index')
+make_plot_18(liz_data, liz_data$geo_drainage, 'drainage')
+
+
 
 
 ##################################################################################################################################

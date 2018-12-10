@@ -30,3 +30,4 @@ tre.ewv2 <- weldTaxa(tre.ewv1)
 tre.ewv2.pruned <- drop.tip(tre.ewv2, which(!tre.ewv2$tip.label %in% row.names(tre.ewv1$matrix.renaming)))
 write.tree(tre.ewv2.pruned, 'OUTPUTS/tr.ewv3')
 
+

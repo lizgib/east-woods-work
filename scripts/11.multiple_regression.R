@@ -53,4 +53,13 @@ summary(aspect.18.pd)
 aspect.18.sr <- lm(phylo_all_18$SR ~ liz_data$aspect)
 summary(aspect.18.sr)
 
+# plot by plot
+
+fit07 <- lm(liz_data$PD07 ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy07
+            + liz_data$inv_ratio07 + liz_data$geo_drainage + liz_data$soil_index)
+
+
+fit18 <- lm(liz_data$PD18 ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy18
+            + liz_data$inv_ratio18 + liz_data$geo_drainage + liz_data$soil_index)
+
 
