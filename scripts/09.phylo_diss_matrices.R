@@ -30,9 +30,11 @@ dat.mat.all.07 <- dat.mat.all.07[which(rownames(dat.mat.all.07) %in% intersect(l
 # OKEEEE 11/29 these work but theyre giving me rows with NAs which I dont understand...
 # for now im going to try running the mantel test with mean pairwise distance instead of nearest neighbor dissimilarity...
 
+temp07 <- dat.mat.all.07[which(rownames(dat.mat.all.07) %in% liz_data$plots),]
+
 beta_Dpw_all.07 <- comdist(dat.mat.all.07, tree)
 
-beta_Dnn_all.07 <- comdistnt(dat.mat.all.07, tree)
+beta_Dnn_all.07 <- comdistnt(temp07, tree)
 
 ##################################################################################################################
 
@@ -42,10 +44,11 @@ beta_Dnn_all.07 <- comdistnt(dat.mat.all.07, tree)
 
 #dat.mat.understory.18 <- dat.mat.understory.18[which(rownames(dat.mat.understory.18) %in% intersect(liz_data$plots, rownames(dat.mat.understory.18))),]
 #dat.mat.trees.18 <- dat.mat.trees.18[which(rownames(dat.mat.trees.18) %in% intersect(liz_data$plots, rownames(dat.mat.trees.18))),]
-dat.mat.all.18 <- dat.mat.all.18[which(rownames(dat.mat.all.18) %in% intersect(liz_data$plots, rownames(dat.mat.all.18))),]
+temp18 <- dat.mat.all.18[which(rownames(dat.mat.all.18) %in% intersect(liz_data$plots, rownames(dat.mat.all.18))),]
 ##################################################################################################################
 
 #pairwise nearest neighbor similarity 
+beta_Dnn_all.18 <- comdistnt(temp18, tree)
 
 ##################################################################################################################
 # Since these metrics dont automatically compute a species richness equivalent, will do so here with 
