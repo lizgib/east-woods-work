@@ -11,7 +11,6 @@ setwd('~/Documents/GitHub/east_woods_work/')
 # dat.all <- read.csv('data/dat.all.csv')
 
 # gonna use source for this script because im having problems :( 
-setwd('~/Documents/GitHub/east_woods_work/')
 dat.all <- read.csv('data/dat.all.csv')
 library(ape)
 library(reshape2)
@@ -51,12 +50,21 @@ com_mat <- function(dat, tr.ewv4){
 }
 
 num_spp_per_plot <- function(dat){
-  tally <- c()
+  tally <- data.frame()
   for( p in unique(dat$plot)){
     x <- length(unique(dat$accepted_name[which(dat$plot == p)]))
-    tally <- c(tally, x)
+    rw <- cbind(p, x)
+    print(rw)
+    tally <- rbind(tally, rw)
   }
   return(tally)
+}
+
+suspicious <- function(bad_plots, dat){
+  for(p in bad_plots){
+    print(p)
+    print('' %in% dat$accepted_name[dat$plot == p])
+  }
 }
 
 
@@ -72,19 +80,20 @@ write.csv(dat.mat.all.07, 'data/dat.mat.all.07.csv')
 write.csv(dat.mat.all.18, 'data/dat.mat.all.18.csv')
 
 tally07 <- num_spp_per_plot(dat.07)
+row.names(tally07) <- tally07$p
+tally07 <- tally07[order(tally07$p),]
+tally07$p <- NULL
 tally07
 temp <- data.frame(rowSums(dat.mat.all.07))
-temp$rowSums.dat.mat.all.07. == tally07
+temp$dat.07_counts <- tally07$x[match(row.names(temp), row.names(tally07))]
 
-# magical thing I was trying to get to work (doesnt quite work perfect go back to this!!! 12/9)
-# for(p in unique(dat$plot)){
-#   spp_occur <- as.data.frame(table(dat$accepted_name[which(dat$plot == p)]))
-#   print(spp_occur)
-#   for (spp in spp_occur$Var1){
-#     if(!spp %in% dimnames(dat.mat)[[2]]) next
-#     dat.mat[p, spp] <- 1
-#   }
-# }
+
+# OK after some testing I've figured it out. The discrepancy between the original data and 
+# the community matrix are coming from '' (species names being removed via the tnrs key)
+# the community matrix does not include these 
+# all the plots that have differing numbers between original data and com_mat should only be off by one
+# 12/31
+
 
 
 
