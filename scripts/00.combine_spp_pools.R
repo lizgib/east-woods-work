@@ -125,6 +125,6 @@ dat.18 <- dat.18[which(dat.18$plot %in% plots_both_years),]
 dat.all <- dat.all[which(dat.all$plot %in% plots_both_years),]
 
 write.csv(dat.all, '../dat.all.csv', row.names = F, quote = F)
-#rm(list = ls())
+rm(list = ls())
 
 

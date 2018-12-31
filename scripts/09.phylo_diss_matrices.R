@@ -3,15 +3,12 @@
 
 library(picante)
 library(vegan)
-source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R') # gets the dat.mat objects 
-source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')  # makes the liz_data object
-
 # trying to make things faster... cophenetic tree to use here 
-
+tr.ewv4 <- read.tree('outputs/tr.ewv4')
 tree <- cophenetic(tr.ewv4)
 dat.mat.all.07 <- read.csv('data/dat.mat.all.07.csv', row.names = 1)
 dat.mat.all.18 <- read.csv('data/dat.mat.all.18.csv', row.names = 1)
-
+liz_data <- read.csv('data/liz_data.csv')
  ##################################################################################################################
  # will probably move this part to a different script later on... need to filter out which plots are
  # included in the analyses bc there are a number of different "filters" i need to look at

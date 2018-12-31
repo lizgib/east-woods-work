@@ -1,7 +1,7 @@
 # ANALYSIS FALL 2018 
 
-source('~/Documents/GitHub/east_woods_work/scripts/09.envt_data.R')
-source('~/Documents/GitHub/east_woods_work/scripts/08.community_data_matrices.pres_abs.R')
+liz_data <- read.csv('data/liz_data.csv')
+dat.mat.all.07 <- 
 #source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
 source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
 library(picante)
@@ -569,7 +569,7 @@ for (plt in unique(lonicera07$plot)){
 lonicera_cover <-
   data.frame(cov = sapply(unique(lonicera07$plot), function(x) {
       sum(lonicera07$cover[lonicera07$plot == x], na.rm = T)
-    }, row.names =   unique(lonicera07$plot))
+    }, row.names =   unique(lonicera07$plot)))
     
 
 

@@ -39,10 +39,26 @@ com_mat <- function(dat, tr.ewv4){
     }
   }
   colnames(dat.mat) <- gsub('[-, ]', '_', colnames(dat.mat))
-  names_in_tree <- intersect(tr.ewv4$tip.label, colnames(dat.mat))
-  dat.mat.out <- dat.mat[,which(colnames(dat.mat) %in% names_in_tree)]
-  return(dat.mat.out)
+  return(dat.mat)
+  # Commenting this out right now because I think that the dsicrepancy in 
+  # numb spp per plot I am seeing is due to me only including 
+  # spp in the tree. This is is a test dont keep it you idiot
+  # make sure the lines below are included in final run it will fuck everything else up
+  
+  #names_in_tree <- intersect(tr.ewv4$tip.label, colnames(dat.mat))
+  #dat.mat.out <- dat.mat[,which(colnames(dat.mat) %in% names_in_tree)]
+  #return(dat.mat.out) #
 }
+
+num_spp_per_plot <- function(dat){
+  tally <- c()
+  for( p in unique(dat$plot)){
+    x <- length(unique(dat$accepted_name[which(dat$plot == p)]))
+    tally <- c(tally, x)
+  }
+  return(tally)
+}
+
 
 #---------------------------------------------------------------------------------------------------
 # FUNCTION CALL
@@ -55,6 +71,10 @@ dat.mat.all.18 <- com_mat(dat.18, tr.ewv4)
 write.csv(dat.mat.all.07, 'data/dat.mat.all.07.csv')
 write.csv(dat.mat.all.18, 'data/dat.mat.all.18.csv')
 
+tally07 <- num_spp_per_plot(dat.07)
+tally07
+temp <- data.frame(rowSums(dat.mat.all.07))
+temp$rowSums.dat.mat.all.07. == tally07
 
 # magical thing I was trying to get to work (doesnt quite work perfect go back to this!!! 12/9)
 # for(p in unique(dat$plot)){

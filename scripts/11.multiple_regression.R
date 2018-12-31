@@ -4,6 +4,7 @@
 liz_data <- read.csv('~/Documents/GitHub/east_woods_work/data/liz_data.csv')
 source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
 source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
+source('~/Downloads/ppcor/R/ppcor_v1.01.R')
 
 # 2007 
 inv.07.pd <- lm(phylo_all_07$PD ~ liz_data$plot_invasive_cover_07)
@@ -57,7 +58,6 @@ summary(aspect.18.sr)
 
 fit07 <- lm(liz_data$PD07 ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy07
             + liz_data$inv_ratio07 + liz_data$geo_drainage + liz_data$soil_index)
-
 
 fit18 <- lm(liz_data$PD18 ~ liz_data$elevation + liz_data$slope + liz_data$aspect + liz_data$burn_count + liz_data$canopy18
             + liz_data$inv_ratio18 + liz_data$geo_drainage + liz_data$soil_index)

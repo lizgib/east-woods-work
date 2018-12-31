@@ -165,7 +165,6 @@ percent_acm <- c()
 ###################
 liz_data$area_name <- point_info_GIS$AreaName
 liz_data$com_class <- point_info_GIS$ComClass
-liz_data$soil_index <- 0 # blank for now. this will be continuous translation of the soil variables 
 liz_data$geo_drainage <- liz_data$elevation + (liz_data$slope * liz_data$aspect) # also will be continous coding of some soil variables and combination of slope aspect and elevation 
 liz_data$ECM_ACM <- 0 # continuous, percent of trees which are ACM or ECM 
 

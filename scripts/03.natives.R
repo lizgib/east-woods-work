@@ -5,7 +5,7 @@
 
 
 #dat.all <- read.csv('data/dat.all.csv')
-source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
+#source('~/Documents/GitHub/east_woods_work/scripts/01.falltranslationkey.R')
 setwd('~/Documents/GitHub/east_woods_work/')
 usda_spp_dat <- read.csv('data/species_data/usda_spp_info.csv')
 
@@ -35,6 +35,6 @@ dat.all$nativestatus <- native_id$native[match(dat.all$accepted_name, native_id$
  # run this again we should have all our species covered 
 
 write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
-#rm(list = ls())
+rm(list = ls())
 
 

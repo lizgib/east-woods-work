@@ -29,14 +29,18 @@ pr2 = summary(lm(xvar ~ liz_data$SR07))$r.squared
 print(paste('SR', xlabel, 'R2 = ', pr2))
 ggsave(filename = paste(xlabel, 'effect on SR07.png', sep = ''), plot = p2,
         device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2007')
+plts <- list(p1, p2)
+return(plts)
 }
 
-make_plot_07(liz_data, liz_data$burn_count, 'burn_count')
-make_plot_07(liz_data, liz_data$canopy07, 'canopy07')
-make_plot_07(liz_data, liz_data$inv_ratio07, 'inv_ratio07')
-make_plot_07(liz_data, liz_data$soil_index, 'soil_index')
-make_plot_07(liz_data, liz_data$geo_drainage, 'drainage')
+burnplts07 <- make_plot_07(liz_data, liz_data$burn_count, 'burn_count')
+canopyplts07 <- make_plot_07(liz_data, liz_data$canopy07, 'canopy07')
+invplts07 <- make_plot_07(liz_data, liz_data$inv_ratio07, 'inv_ratio07')
+soilplts07 <- make_plot_07(liz_data, liz_data$soil_index, 'soil_index')
+drainplts07 <- make_plot_07(liz_data, liz_data$geo_drainage, 'drainage')
 
+pdplts07 <- multiplot(burnplts07[1], canopyplts07[1], invplts07[1], soilplts07[1], drainplts07[1], ncol = 2)
+pdplts07
 
 # INDIVIDUAL PLOT 18
 
@@ -61,134 +65,20 @@ make_plot_18 <- function(liz_data, xvar, xlabel){
   print(paste('SR', xlabel, 'R2 = ', pr2))
   ggsave(filename = paste(xlabel, 'effect on SR18.png', sep = ''), plot = p2,
          device = 'png', width = 4, height = 4, path = '~/Desktop/plots/2018')
+  plts <- list(p1, p2)
+  return(plts)
 }
 
-make_plot_18(liz_data, liz_data$burn_count, 'burn_count')
-make_plot_18(liz_data, liz_data$canopy18, 'canopy18')
-make_plot_18(liz_data, liz_data$inv_ratio18, 'inv_ratio18')
-make_plot_18(liz_data, liz_data$soil_index, 'soil_index')
-make_plot_18(liz_data, liz_data$geo_drainage, 'drainage')
+burnplts18 <- make_plot_18(liz_data, liz_data$burn_count, 'burn_count')
+canopyplts18 <- make_plot_18(liz_data, liz_data$canopy18, 'canopy18')
+invplts18 <- make_plot_18(liz_data, liz_data$inv_ratio18, 'inv_ratio18')
+soilplts18 <- make_plot_18(liz_data, liz_data$soil_index, 'soil_index')
+drainplts18 <- make_plot_18(liz_data, liz_data$geo_drainage, 'drainage')
 
 
 
 
-##################################################################################################################################
+#----------------------------------------------------------------------------------------------------------
 
 # DISSIMILARITY 
-
-png('dissimilarity_invasives_07.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(invasives07, beta_Dnn_all.07), color = 'blue') +
-  geom_point(aes(invasives07, all_jaccard_07), color = 'purple') +
-  ggtitle('INVASIVE RATIO 07') + 
-  xlab('Invasive Ratio') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_canopy_07.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(canopy07, beta_Dnn_all.07), color = 'blue') +
-  geom_point(aes(canopy07, all_jaccard_07), color = 'purple') +
-  ggtitle('CANOPY COVER 07') + 
-  xlab('Canopy Cover') + 
-  ylab('Diversity')
-dev.off()
-
-# png('soil_index_07.png', width = 500, height = 500)
-# ggplot()+
-#   geom_point(aes(liz_data$soil_index, phylo_all_07$PD), color = 'blue') +
-#   geom_point(aes(liz_data$soil_index, phylo_all_07$SR), color = 'purple') +
-#   ggtitle('SOIL INDEX 07') + 
-#   xlab('Soil') + 
-#   ylab('Diversity')
-# dev.off()
-
-png('dissimilarity_elevation_07.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(elevation, beta_Dnn_all.07), color = 'blue') +
-  geom_point(aes(elevation, all_jaccard_07), color = 'purple') +
-  ggtitle('ELEVATION 07') + 
-  xlab('Elevation') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_slope_07.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(slope, beta_Dnn_all.07), color = 'blue') +
-  geom_point(aes(slope, all_jaccard_07), color = 'purple') +
-  ggtitle('SLOPE 07') + 
-  xlab('Slope') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_aspect_07.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(aspect, beta_Dnn_all.07), color = 'blue') +
-  geom_point(aes(aspect, all_jaccard_07), color = 'purple') +
-  ggtitle('ASPECT 07') + 
-  xlab('Aspect') + 
-  ylab('Diversity')
-dev.off()
-
-# 2018
-
-png('dissimilarity_invasives_18.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(invasives18, beta_Dnn_all.18), color = 'blue') +
-  geom_point(aes(invasives18, all_jaccard_18), color = 'purple') +
-  ggtitle('INVASIVE RATIO 18') + 
-  xlab('Invasive Ratio') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_canopy_18.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(canopy18, beta_Dnn_all.18), color = 'blue') +
-  geom_point(aes(canopy18, all_jaccard_18), color = 'purple') +
-  ggtitle('CANOPY COVER 18') + 
-  xlab('Canopy Cover') + 
-  ylab('Diversity')
-dev.off()
-
-# png('soil_index_18.png', width = 500, height = 500)
-# ggplot()+
-#   geom_point(aes(liz_data$soil_index, phylo_all_18$PD), color = 'blue') +
-#   geom_point(aes(liz_data$soil_index, phylo_all_18$SR), color = 'purple') +
-#   ggtitle('SOIL INDEX 18') + 
-#   xlab('Soil') + 
-#   ylab('Diversity')
-# dev.off()
-
-png('dissimilarity_elevation_18.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(elevation, beta_Dnn_all.18), color = 'blue') +
-  geom_point(aes(elevation, all_jaccard_18), color = 'purple') +
-  ggtitle('ELEVATION 18') + 
-  xlab('Elevation') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_slope_18.png', width = 500, height = 500)
-ggplot()+
-  geom_point(aes(slope, beta_Dnn_all.18), color = 'blue') +
-  geom_point(aes(slope, all_jaccard_18), color = 'purple') +
-  ggtitle('SLOPE 18') + 
-  xlab('Slope') + 
-  ylab('Diversity')
-dev.off()
-
-png('dissimilarity_aspect_18.png', width = 500, height = 500)
-ggplot()+
-  stat_density_2d() +
-  geom_point(aes(aspect, beta_Dnn_all.18), color = 'blue') + 
-  #geom_point(aes(aspect, all_jaccard_18), color = 'purple') +
-  ggtitle('ASPECT 18') + 
-  xlab('Aspect') + 
-  ylab('Diversity')
-dev.off()
-
-
-
-
-
 
