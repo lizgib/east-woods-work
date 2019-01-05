@@ -39,8 +39,8 @@ beta_Dnn_all.07 <- comdistnt(temp07, tree)
 # 2018
 ########
 
-#dat.mat.understory.18 <- dat.mat.understory.18[which(rownames(dat.mat.understory.18) %in% intersect(liz_data$plots, rownames(dat.mat.understory.18))),]
-#dat.mat.trees.18 <- dat.mat.trees.18[which(rownames(dat.mat.trees.18) %in% intersect(liz_data$plots, rownames(dat.mat.trees.18))),]
+dat.mat.understory.18 <- dat.mat.understory.18[which(rownames(dat.mat.understory.18) %in% intersect(liz_data$plots, rownames(dat.mat.understory.18))),]
+dat.mat.trees.18 <- dat.mat.trees.18[which(rownames(dat.mat.trees.18) %in% intersect(liz_data$plots, rownames(dat.mat.trees.18))),]
 temp18 <- dat.mat.all.18[which(rownames(dat.mat.all.18) %in% intersect(liz_data$plots, rownames(dat.mat.all.18))),]
 ##################################################################################################################
 

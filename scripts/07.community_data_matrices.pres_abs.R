@@ -40,11 +40,34 @@ com_mat <- function(dat, tr.ewv4){
 dat.18 <- dat.all[which(dat.all$year == '2018'),]
 dat.07 <- dat.all[which(dat.all$year == '2007'),]
 
+# Need to also break up the community matrices into understory and tree layers so we can 
+# calculate phylogenetic diversity of tree and understory layers (will be important for invasive
+# and burn analyses)
+dat.07.understory <- dat.07[dat.07$datset == 'S',]
+dat.07.understory <-rbind(dat.07.understory, dat.07[dat.07$datset == 'H',])
+dat.07.trees <- dat.07[dat.07$datset == 'T',]
+
+dat.18.understory <- dat.18[dat.18$datset == 'S',]
+dat.18.understory <-rbind(dat.18.understory, dat.18[dat.18$datset == 'H',])
+dat.18.trees <- dat.18[dat.18$datset == 'T',]
+
 dat.mat.all.07 <- com_mat(dat.07, tr.ewv4)
 dat.mat.all.18 <- com_mat(dat.18, tr.ewv4)
 
+dat.mat.understory.18 <- com_mat(dat.18.understory, tr.ewv4)
+dat.mat.trees.18 <- com_mat(dat.18.trees, tr.ewv4)
+
+dat.mat.understory.07 <- com_mat(dat.07.understory, tr.ewv4)
+dat.mat.trees.07 <- com_mat(dat.07.trees, tr.ewv4)
+
 write.csv(dat.mat.all.07, 'data/dat.mat.all.07.csv')
 write.csv(dat.mat.all.18, 'data/dat.mat.all.18.csv')
+
+write.csv(dat.mat.understory.07, 'data/dat.mat.understory.07.csv')
+write.csv(dat.mat.understory.18, 'data/dat.mat.understory.18.csv')
+
+write.csv(dat.mat.trees.07, 'data/dat.mat.trees.18.csv')
+write.csv(dat.mat.trees.18, 'data/dat.mat.trees.07.csv')
 
 
 # OK after some testing I've figured it out. The discrepancy between the original data and 

@@ -52,8 +52,6 @@ get_plot_cover <- function(dat){
 # FUNCTION CALL 
 
 dat.all$cover <- as.numeric(as.character(dat.all$cover))
-
-
 dat.07 <- dat.all[which(dat.all$year == '2007'),]
 dat.18 <- dat.all[which(dat.all$year == '2018'),]
 
