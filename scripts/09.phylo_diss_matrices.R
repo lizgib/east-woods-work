@@ -4,65 +4,58 @@
 library(picante)
 library(vegan)
 # trying to make things faster... cophenetic tree to use here 
-tr.ewv4 <- read.tree('outputs/tr.ewv4')
-tree <- cophenetic(tr.ewv4)
+
+liz_data <- read.csv('data/liz_data.csv')
 dat.mat.all.07 <- read.csv('data/dat.mat.all.07.csv', row.names = 1)
 dat.mat.all.18 <- read.csv('data/dat.mat.all.18.csv', row.names = 1)
-liz_data <- read.csv('data/liz_data.csv')
- ##################################################################################################################
- # will probably move this part to a different script later on... need to filter out which plots are
- # included in the analyses bc there are a number of different "filters" i need to look at
- #            1. the marlin plots --> DONe in this script here 
- #            2. only plots within the east woods
- #            3. only plots with trees in them 
- #            4. plots with greater than 3 species in them 
- 
-#dat.mat.understory.07 <- dat.mat.understory.07[which(rownames(dat.mat.understory.07) %in% intersect(liz_data$plots, rownames(dat.mat.understory.07))),]
-#dat.mat.trees.07 <- dat.mat.trees.07[which(rownames(dat.mat.trees.07) %in% intersect(liz_data$plots, rownames(dat.mat.trees.07))),]
-dat.mat.all.07 <- dat.mat.all.07[which(rownames(dat.mat.all.07) %in% intersect(liz_data$plots, rownames(dat.mat.all.07))),]
-##################################################################################################################
+dat.mat.understory.07 <- read.csv('data/dat.mat.understory.07.csv', row.names = 1)
+dat.mat.understory.18 <- read.csv('data/dat.mat.understory.18.csv', row.names = 1)
+dat.mat.trees.07 <- read.csv('data/dat.mat.trees.07.csv', row.names = 1)
+dat.mat.trees.18 <- read.csv('data/dat.mat.trees.18.csv', row.names = 1)
+tr.ewv4 <- read.tree('outputs/tr.ewv4')
+tree <- cophenetic(tr.ewv4)
 
-#pairwise nearest neighbor similarity 
+#------------------------------------------------------------------------------------------------------------
 
-# OKEEEE 11/29 these work but theyre giving me rows with NAs which I dont understand...
-# for now im going to try running the mantel test with mean pairwise distance instead of nearest neighbor dissimilarity...
+dis_mat <- function(dat.mat, liz_data, tree){
+  dat.mat <- dat.mat[which(rownames(dat.mat) %in% intersect(liz_data$plots, rownames(dat.mat))),]
+#  pairwise nearest neighbor similarity.. using this one because it is a more terminal metric (better picks up on envt sensitivity)
+  beta_dnn <- comdistnt(dat.mat, tree)
+# if nearest neighbor is having problems (bc it was in the past and I never figured it out) try mean pairwise distance 
+#  beta_dpw <- comdist(dat.mat, tree)
+  return(beta_dpw)
+}
 
-temp07 <- dat.mat.all.07[which(rownames(dat.mat.all.07) %in% liz_data$plots),]
-
-beta_Dpw_all.07 <- comdist(dat.mat.all.07, tree)
-
-beta_Dnn_all.07 <- comdistnt(temp07, tree)
-
-##################################################################################################################
-
-#########
-# 2018
-########
-
-dat.mat.understory.18 <- dat.mat.understory.18[which(rownames(dat.mat.understory.18) %in% intersect(liz_data$plots, rownames(dat.mat.understory.18))),]
-dat.mat.trees.18 <- dat.mat.trees.18[which(rownames(dat.mat.trees.18) %in% intersect(liz_data$plots, rownames(dat.mat.trees.18))),]
-temp18 <- dat.mat.all.18[which(rownames(dat.mat.all.18) %in% intersect(liz_data$plots, rownames(dat.mat.all.18))),]
-##################################################################################################################
-
-#pairwise nearest neighbor similarity 
-beta_Dnn_all.18 <- comdistnt(temp18, tree)
-
-##################################################################################################################
-# Since these metrics dont automatically compute a species richness equivalent, will do so here with 
-# Jaccard Distances
-
-#understory_jaccard_07 <- vegdist(dat.mat.understory.07, method = 'jaccard')
-#trees_jaccard_07 <- vegdist(dat.mat.trees.07, method = 'jaccard')
-all_jaccard_07 <- vegdist(dat.mat.all.07, method = 'jaccard')
+jaccard_mat <- function(dat.mat, liz_data, tree){
+  dat.mat <- dat.mat[which(rownames(dat.mat) %in% intersect(liz_data$plots, rownames(dat.mat))),]
+  jac_mat <- vegdist(dat.mat, method = 'jaccard')
+  return(jac_mat)
+}
 
 
-#understory_jaccard_18 <- vegdist(dat.mat.understory.18, method = 'jaccard')
-#trees_jaccard_18 <- vegdist(dat.mat.trees.18, method = 'jaccard')
-all_jaccard_18 <- vegdist(dat.mat.all.18, method = 'jaccard')
+#--------------------------------------------------------------------------------------------------------
+
+# 2007 
+phylo_mat_07 <- dis_mat(dat.mat.all.07, liz_data, tree)
+phylo_mat_under07 <- dis_mat(dat.mat.understory.07, liz_data, tree)
+phylo_mat_tree07 <- dis_mat(dat.mat.trees.07, liz_data, tree)
+
+eco_mat07 <- jaccard_mat(dat.mat.all.07, liz_data, tree)
+eco_mat_under07 <- jaccard_mat(dat.mat.understory.07, liz_data, tree)
+eco_mat_tree07 <- jaccard_mat(dat.mat.trees.07, liz_data, tree)
+
+# 2018 
+phylo_mat_18 <- dis_mat(dat.mat.all.18, liz_data, tree)
+phylo_mat_under18 <- dis_mat(dat.mat.understory.18, liz_data, tree)
+phylo_mat_tree18 <- dis_mat(dat.mat.trees.18, liz_data, tree)
+
+eco_mat18 <- jaccard_mat(dat.mat.all.18, liz_data, tree)
+eco_mat_under18 <- jaccard_mat(dat.mat.understory.18, liz_data, tree)
+eco_mat_tree18 <- jaccard_mat(dat.mat.trees.18, liz_data, tree)
 
 
-##################################################################################################################
-# we gotta look at all the environmental variables in terms of dissimilarity between plots
+#--------------------------------------------------------------------------------------------------------
+# we gotta look at all the environmental variables in terms of dissimilarity between plots for Mantel Test
 
 aspect <- dist(liz_data$aspect)
 slope <- dist(liz_data$slope)
@@ -74,16 +67,6 @@ canopy18 <- dist(liz_data$canopy18)
 canopy07 <- dist(liz_data$canopy07)
 soilindex <- dist(liz_data$soil_index)
 drainage <- dist(liz_data$geo_drainage)
-
-row.names(aspect) <- row.names(beta_Dnn_all.07)
-
-# these are all the continuous variables I have so far.. will be looking at expanding this shortly
-
-##################################################################################################################
-
-
-
-
 
 
 
