@@ -4,7 +4,7 @@ library(ape)
 
 
 setwd('~/Documents/GitHub/east_woods_work/')
-liz_data <- read.csv('data/liz_data.csv')
+gibbons_data <- read.csv('data/gibbons_data.csv')
 dat.mat.all.07 <- read.csv('data/dat.mat.all.07.csv', row.names = 1)
 dat.mat.all.18 <- read.csv('data/dat.mat.all.18.csv', row.names = 1)
 dat.mat.understory.07 <- read.csv('data/dat.mat.understory.07.csv', row.names = 1)
@@ -44,23 +44,23 @@ pbd_all_18 <- ses.mntd(dat.mat.all.18, cophenetic(tr.ewv4))
 print('completed 18 MNTD')
 
 #--------------------------------------------------------------------------------------------------------
-# Add these metrics (plot by plot to liz_data and write out)
+# Add these metrics (plot by plot to gibbons_data and write out)
 
-liz_data$SR07 <- phylo_all_07$ntaxa[match(liz_data$plots, phylo_all_07$Plot)]
-liz_data$PD07 <- phylo_all_07$pd.obs[match(liz_data$plots, phylo_all_07$Plot)]
-liz_data$PDunder07 <- phylo_understory_07$pd.obs[match(liz_data$plots, phylo_understory_07$Plot)]
-liz_data$PDtree07 <- phylo_trees_07$pd.obs[match(liz_data$plots, phylo_trees_07$Plot)]
-liz_data$PBD07 <- pbd_all_07$mntd.obs[match(liz_data$plots, phylo_all_07$Plot)]
-liz_data$PBDunder07 <- pbd_understory_07$mntd.obs[match(liz_data$plots, pbd_understory_07$Plot)]
-liz_data$PBDtree07 <- pbd_trees_07$mntd.obs[match(liz_data$plots, pbd_understory_07$Plot)]
+gibbons_data$SR07 <- phylo_all_07$ntaxa[match(gibbons_data$plots, phylo_all_07$Plot)]
+gibbons_data$PD07 <- phylo_all_07$pd.obs[match(gibbons_data$plots, phylo_all_07$Plot)]
+gibbons_data$PDunder07 <- phylo_understory_07$pd.obs[match(gibbons_data$plots, phylo_understory_07$Plot)]
+gibbons_data$PDtree07 <- phylo_trees_07$pd.obs[match(gibbons_data$plots, phylo_trees_07$Plot)]
+gibbons_data$PBD07 <- pbd_all_07$mntd.obs[match(gibbons_data$plots, phylo_all_07$Plot)]
+gibbons_data$PBDunder07 <- pbd_understory_07$mntd.obs[match(gibbons_data$plots, pbd_understory_07$Plot)]
+gibbons_data$PBDtree07 <- pbd_trees_07$mntd.obs[match(gibbons_data$plots, pbd_understory_07$Plot)]
 
-liz_data$SR18 <- phylo_all_18$ntaxa[match(liz_data$plots, phylo_all_18$Plot)]
-liz_data$PD18 <- phylo_all_18$pd.obs[match(liz_data$plots, phylo_all_18$Plot)]
-liz_data$PDunder18 <- phylo_understory_18$pd.obs[match(liz_data$plots, phylo_understory_18$Plot)]
-liz_data$PDtree18 <- phylo_trees_18$pd.obs[match(liz_data$plots, phylo_trees_18$Plot)]
-liz_data$PBD18 <- pbd_all_18$mntd.obs[match(liz_data$plots, phylo_all_18$Plot)]
-liz_data$PBDunder18 <- pbd_understory_18$mntd.obs[match(liz_data$plots, pbd_understory_18$Plot)]
-liz_data$PBDtree18 <- pbd_trees_18$mntd.obs[match(liz_data$plots, pbd_understory_18$Plot)]
+gibbons_data$SR18 <- phylo_all_18$ntaxa[match(gibbons_data$plots, phylo_all_18$Plot)]
+gibbons_data$PD18 <- phylo_all_18$pd.obs[match(gibbons_data$plots, phylo_all_18$Plot)]
+gibbons_data$PDunder18 <- phylo_understory_18$pd.obs[match(gibbons_data$plots, phylo_understory_18$Plot)]
+gibbons_data$PDtree18 <- phylo_trees_18$pd.obs[match(gibbons_data$plots, phylo_trees_18$Plot)]
+gibbons_data$PBD18 <- pbd_all_18$mntd.obs[match(gibbons_data$plots, phylo_all_18$Plot)]
+gibbons_data$PBDunder18 <- pbd_understory_18$mntd.obs[match(gibbons_data$plots, pbd_understory_18$Plot)]
+gibbons_data$PBDtree18 <- pbd_trees_18$mntd.obs[match(gibbons_data$plots, pbd_understory_18$Plot)]
 
 
-write.csv(liz_data, 'data/liz_data.csv')
+write.csv(gibbons_data, 'data/gibbons_data.csv')

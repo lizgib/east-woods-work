@@ -9,21 +9,21 @@ library(ggplot2)
 # INVASIVE SPECIES RATIO
 
 ggplot()+
-  aes(liz_data$plot_invasive_cover_07, liz_data$plot_invasive_cover_18) +
+  aes(gibbons_data$plot_invasive_cover_07, gibbons_data$plot_invasive_cover_18) +
   geom_point() +
   stat_smooth(method = 'lm', formula = x ~ y)
   
 ggplot()+
-  aes(phylo_all_18$PD, liz_data$plot_invasive_cover_18) +
+  aes(phylo_all_18$PD, gibbons_data$plot_invasive_cover_18) +
   geom_point() +  
   stat_smooth(method = 'lm', formula = x ~ y)
 
 ggplot()+
-  aes(phylo_all_18$SR, liz_data$plot_invasive_cover_18) +
+  aes(phylo_all_18$SR, gibbons_data$plot_invasive_cover_18) +
   geom_point()
 
 ggplot()+
-  aes(phylo_all_07$PD, liz_data$plot_invasive_cover_07) + 
+  aes(phylo_all_07$PD, gibbons_data$plot_invasive_cover_07) + 
   geom_point()
 
 

@@ -1,6 +1,6 @@
 # ANALYSIS FALL 2018 
 
-liz_data <- read.csv('data/liz_data.csv')
+gibbons_data <- read.csv('data/gibbons_data.csv')
 dat.mat.all.07 <- 
 #source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
 source('~/Documents/GitHub/east_woods_work/scripts/phylo_metrics.R')
@@ -14,15 +14,15 @@ library(ape)
 
 # MARLIN
 #########
-ashelm <- lapply("AshElm", function(x)  liz_data$plots[which(liz_data$tree_group == x)])
-cherry <- lapply("Cherry", function(x) liz_data$plots[which(liz_data$tree_group == x)])
-bwood <- lapply("B.wood", function(x) liz_data$plots[which(liz_data$tree_group == x)])
-woak <- lapply("WOak", function(x) liz_data$plots[which(liz_data$tree_group == x)])
-buroak <- lapply('BurOak', function(x) liz_data$plots[which(liz_data$tree_group == x)])
-roak <- lapply('ROak', function(x) liz_data$plots[which(liz_data$tree_group == x)])
-maple <-lapply('Maple', function(x) liz_data$plots[which(liz_data$tree_group == x)])
-gash <- lapply('GAsh', function(x) liz_data$plots[which(liz_data$tree_group == x)])
-wnutelm <- lapply('WnutElm', function(x) liz_data$plots[which(liz_data$tree_group == x)])
+ashelm <- lapply("AshElm", function(x)  gibbons_data$plots[which(gibbons_data$tree_group == x)])
+cherry <- lapply("Cherry", function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+bwood <- lapply("B.wood", function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+woak <- lapply("WOak", function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+buroak <- lapply('BurOak', function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+roak <- lapply('ROak', function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+maple <-lapply('Maple', function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+gash <- lapply('GAsh', function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
+wnutelm <- lapply('WnutElm', function(x) gibbons_data$plots[which(gibbons_data$tree_group == x)])
 
 ### ALRIGHT NOT SURE WHAT TIME IT IS BUT 10/27 NOTES:
 # so we are having a problem with the types being returned from lapply and sapply 
@@ -88,22 +88,22 @@ average_diversity$treegrp <- c('ashelm_avg', 'cherry_avg', 'bwood_avg', 'woak_av
 #########
 
 
-elm <- lapply("Ulmus", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-ash <- lapply("Fraxinus", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-bwood <- lapply("Tilia", function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-oak <- lapply('Quercus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-maple <-lapply('Acer', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-wnut <- lapply('Juglans', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-hickory <- lapply('Carya', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-cherry <- lapply('Prunus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-locust <- lapply('Robinia', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-mulberry <- lapply('Morus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-birch <- lapply('Ostrya', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-willow <- lapply('Salix', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-poplar <- lapply('Populus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-spruce <- lapply('Picea', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
-pine <- lapply('Pinus', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)]) 
-fir <- lapply('Pseudotsuga', function(x)  liz_data$plots[which(liz_data$tree_group_07 == x)])
+elm <- lapply("Ulmus", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+ash <- lapply("Fraxinus", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+bwood <- lapply("Tilia", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+oak <- lapply('Quercus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+maple <-lapply('Acer', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+wnut <- lapply('Juglans', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+hickory <- lapply('Carya', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+cherry <- lapply('Prunus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+locust <- lapply('Robinia', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+mulberry <- lapply('Morus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+birch <- lapply('Ostrya', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+willow <- lapply('Salix', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+poplar <- lapply('Populus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+spruce <- lapply('Picea', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
+pine <- lapply('Pinus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)]) 
+fir <- lapply('Pseudotsuga', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_07 == x)])
 
 #### NOTE 10/24 1:23 AM  GO BACK AND SEE THAT YOU ACCOUNTED FOR ALL GENUSES... I KNOW YOU DIDNT BUT WE NEED TO COME UP WITH A WAY OF DOING THIS.
 ## MAYBE WILL JUST HAVE TO USE ALL OF THE GENUSES ? 
@@ -196,22 +196,22 @@ rownames(average_diversity07) <- c('elm_avg', 'ash_avg', 'bwood_avg', 'oak_avg',
 ###########
 
 
-elm <- lapply("Ulmus", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-ash <- lapply("Fraxinus", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-bwood <- lapply("Tilia", function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-oak <- lapply('Quercus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-maple <-lapply('Acer', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-wnut <- lapply('Juglans', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-hickory <- lapply('Carya', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-cherry <- lapply('Prunus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-locust <- lapply('Robinia', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-mulberry <- lapply('Morus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-birch <- lapply('Ostrya', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-willow <- lapply('Salix', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-poplar <- lapply('Populus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-spruce <- lapply('Picea', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
-pine <- lapply('Pinus', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)]) 
-fir <- lapply('Pseudotsuga', function(x)  liz_data$plots[which(liz_data$tree_group_18 == x)])
+elm <- lapply("Ulmus", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+ash <- lapply("Fraxinus", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+bwood <- lapply("Tilia", function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+oak <- lapply('Quercus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+maple <-lapply('Acer', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+wnut <- lapply('Juglans', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+hickory <- lapply('Carya', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+cherry <- lapply('Prunus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+locust <- lapply('Robinia', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+mulberry <- lapply('Morus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+birch <- lapply('Ostrya', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+willow <- lapply('Salix', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+poplar <- lapply('Populus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+spruce <- lapply('Picea', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
+pine <- lapply('Pinus', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)]) 
+fir <- lapply('Pseudotsuga', function(x)  gibbons_data$plots[which(gibbons_data$tree_group_18 == x)])
 
 # get all the PD of each plot with given tree genus
 #####
@@ -342,28 +342,28 @@ ggplot() +
   ylab('Average Phylogenetic Diversity')
 
 #diagnostic (how many plots are which tree type)
-num_group <- as.data.frame(table(liz_data$tree_group))
+num_group <- as.data.frame(table(gibbons_data$tree_group))
 labels <- num_group$Var1
 ggplot() + 
-  aes(liz_data$tree_group) +
+  aes(gibbons_data$tree_group) +
   geom_histogram(stat = 'count') + 
   xlab('Dominant Tree Group') + 
   ylab('Frequency') +
   ggtitle('Frequency of Plot Dominant Tree Group Marlin')
 
-freq_07 <- as.data.frame(table(liz_data$tree_group_07))
+freq_07 <- as.data.frame(table(gibbons_data$tree_group_07))
 labels <-freq_07$Var1
 ggplot() + 
-  aes(liz_data$tree_group_07) +
+  aes(gibbons_data$tree_group_07) +
   geom_histogram(stat = 'count') + 
   xlab('Dominant Tree Group') + 
   ylab('Frequency') +
   ggtitle('Frequency of Plot Dominant Tree Group 2007')
 
-freq_18 <- as.data.frame(table(liz_data$tree_group_18))
+freq_18 <- as.data.frame(table(gibbons_data$tree_group_18))
 labels <-freq_18$Var1
 ggplot() + 
-  aes(liz_data$tree_group_18) +
+  aes(gibbons_data$tree_group_18) +
   geom_histogram(stat = 'count') + 
   xlab('Dominant Tree Group') + 
   ylab('Frequency') +
@@ -371,7 +371,7 @@ ggplot() +
 
 #where/how are they distributed
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$tree_group)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -379,7 +379,7 @@ ggplot() +
   ggtitle('Marlin Dominant Tree Group')
 # 2007
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group_07)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$tree_group_07)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -387,7 +387,7 @@ ggplot() +
   ggtitle('Dominant Tree Group 2007')
 # 2018
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$tree_group_18)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$tree_group_18)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -401,15 +401,15 @@ ggplot() +
 ###########
 
 # first... diagnostic stuff
-hist(liz_data$canopy_18)
-liz_data$canopy_18[which(liz_data$canopy_18 > 200)] <- NA
-hist(liz_data$canopy_18)
-hist(liz_data$canopy_07)
+hist(gibbons_data$canopy_18)
+gibbons_data$canopy_18[which(gibbons_data$canopy_18 > 200)] <- NA
+hist(gibbons_data$canopy_18)
+hist(gibbons_data$canopy_07)
 
 
 ## how is the canopy distributed around the east woods? 
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$canopy_07)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$canopy_07)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -417,7 +417,7 @@ ggplot() +
   coord_equal()
 
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$canopy_18)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$canopy_18)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -429,47 +429,47 @@ ggplot() +
 
 # what is canopy's effect on herb diversity 
 
-fit = lm(liz_data$canopy_07 ~ phylo_understory_07$PD)
+fit = lm(gibbons_data$canopy_07 ~ phylo_understory_07$PD)
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_07,phylo_understory_07$PD), color = 'dark blue') + 
+  geom_point(aes(gibbons_data$canopy_07,phylo_understory_07$PD), color = 'dark blue') + 
   ggtitle('Canopy effect on understory phylodiversity 07') + 
   xlab('Canopy Cover') + 
   ylab('Plot Phylogenetic Diversity') + 
   geom_smooth(method = 'lm', formula = x ~ y)
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_07,phylo_understory_07$SR), color = 'blue') + 
+  geom_point(aes(gibbons_data$canopy_07,phylo_understory_07$SR), color = 'blue') + 
   ggtitle('Canopy effect on Understory Species richness 07') + 
   xlab('Canopy Cover') + 
   ylab('Species richness')
 
-phylo_understory_18 <- phylo_understory_18[which(rownames(phylo_understory_18) %in% intersect(rownames(phylo_understory_18), liz_data$plots)),]
+phylo_understory_18 <- phylo_understory_18[which(rownames(phylo_understory_18) %in% intersect(rownames(phylo_understory_18), gibbons_data$plots)),]
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_18,phylo_understory_18$PD), color = 'dark green') + 
+  geom_point(aes(gibbons_data$canopy_18,phylo_understory_18$PD), color = 'dark green') + 
   ggtitle('Canopy effect on understory phylodiversity 18') + 
   xlab('Canopy Cover') + 
   ylab('Plot Phylogenetic Diversity')
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_18,phylo_understory_18$SR), color = 'green') + 
+  geom_point(aes(gibbons_data$canopy_18,phylo_understory_18$SR), color = 'green') + 
   ggtitle('Canopy effect on understory Species richness 18') + 
   xlab('Canopy Cover') + 
   ylab('Species richness')
 
-liz_data$marlin_canopy[which(liz_data$marlin_canopy > 60)] <- NA
+gibbons_data$marlin_canopy[which(gibbons_data$marlin_canopy > 60)] <- NA
 ggplot()+
-  geom_point(aes(liz_data$plots, liz_data$canopy_07), color = 'dark blue') +
-  geom_point(aes(liz_data$plots, liz_data$canopy_18), color = 'blue') +
-  geom_point(aes(liz_data$plots, liz_data$marlin_canopy), color = 'purple') +
+  geom_point(aes(gibbons_data$plots, gibbons_data$canopy_07), color = 'dark blue') +
+  geom_point(aes(gibbons_data$plots, gibbons_data$canopy_18), color = 'blue') +
+  geom_point(aes(gibbons_data$plots, gibbons_data$marlin_canopy), color = 'purple') +
   ggtitle('Marlin Canopy vs BA approximation') + 
   xlab('Canopy (2007 and 2018)') + 
   ylab('Marlin Canopy Openness')
 
 ggplot()+
-  geom_col(aes(liz_data$plots, liz_data$canopy_18), color = 'blue') +
-  geom_col(aes(liz_data$plots, liz_data$canopy_07), color = 'dark blue')+
+  geom_col(aes(gibbons_data$plots, gibbons_data$canopy_18), color = 'blue') +
+  geom_col(aes(gibbons_data$plots, gibbons_data$canopy_07), color = 'dark blue')+
   ggtitle('Canopy Cover in 2007 and 2018') + 
   xlab('2007') + 
   ylab('2018')
@@ -477,13 +477,13 @@ ggplot()+
 
 # how correlated is this value for canopy with just tree species richness 
 ggplot() + 
-  geom_point(aes(phylo_trees_07$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_07))])) +
+  geom_point(aes(phylo_trees_07$SR, gibbons_data$canopy_07[which(gibbons_data$plots %in% rownames(phylo_trees_07))])) +
   xlab('Tree Species Richness') +
   ylab('Calculated Canopy') + 
   ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2007')
 
 ggplot() + 
-  geom_point(aes(phylo_trees_18$SR, liz_data$canopy_07[which(liz_data$plots %in% rownames(phylo_trees_18))])) +
+  geom_point(aes(phylo_trees_18$SR, gibbons_data$canopy_07[which(gibbons_data$plots %in% rownames(phylo_trees_18))])) +
   xlab('Tree Species Richness') +
   ylab('Calculated Canopy') + 
   ggtitle('How correlated are the canopy cover I calculated and just tree species richness 2018')
@@ -491,7 +491,7 @@ ggplot() +
 
 # what about the marlin data? how does that look in comparison to teh 2007 calculations? 
 ggplot() + 
-  geom_point(aes(liz_data$marlin_canopy[which(liz_data$marlin_canopy < 40)], liz_data$canopy_07[which(liz_data$marlin_canopy < 40)])) +
+  geom_point(aes(gibbons_data$marlin_canopy[which(gibbons_data$marlin_canopy < 40)], gibbons_data$canopy_07[which(gibbons_data$marlin_canopy < 40)])) +
   xlab('Marlin Canopy') +
   ylab('Calculated Canopy') + 
   ggtitle('Marlin Data compared to my calculated canopy')
@@ -505,7 +505,7 @@ ggplot() +
 # make plot of invasive ratio distribution (where are invasives the thickest in EW)
 # make plot of invasive distribution 2007 
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$invasive_ratio_07)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$invasive_ratio_07)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -514,7 +514,7 @@ ggplot() +
 
 # make plot of invasive distribution in 2018
 ggplot() +
-  geom_point(aes(liz_data$lon, liz_data$lat, color = liz_data$invasive_ratio_18)) +
+  geom_point(aes(gibbons_data$lon, gibbons_data$lat, color = gibbons_data$invasive_ratio_18)) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -523,25 +523,25 @@ ggplot() +
 
 
 ggplot() +
-  geom_point(aes(liz_data$invasive_ratio_07, phylo_all_07$SR), color = 'maroon') +
+  geom_point(aes(gibbons_data$invasive_ratio_07, phylo_all_07$SR), color = 'maroon') +
   ylab('Invasives Abundance') + 
   xlab('PD') + 
   ggtitle('Invasive Species Effects on Diversity 2007')
 
 ggplot() + 
-  geom_point(aes(liz_data$plot_invasive_cover_18, phylo_all_18$PD), color = 'turquoise4') + 
+  geom_point(aes(gibbons_data$plot_invasive_cover_18, phylo_all_18$PD), color = 'turquoise4') + 
   ylab('Invasives Abundance') + 
   xlab('PD') + 
   ggtitle('Invasive Species Effects on Diversity 2018')
 
 ggplot() +
-  geom_point(aes(phylo_all_07$SR, liz_data$plot_invasive_cover_07), color = 'maroon') +
+  geom_point(aes(phylo_all_07$SR, gibbons_data$plot_invasive_cover_07), color = 'maroon') +
   ylab('Invasives Abundance') + 
   xlab('SR') + 
   ggtitle('Invasive Species Effects on Species Richness 2007')
 
 ggplot() + 
-  geom_point(aes(phylo_all_18$SR, liz_data$plot_invasive_cover_18), color = 'turquoise4') + 
+  geom_point(aes(phylo_all_18$SR, gibbons_data$plot_invasive_cover_18), color = 'turquoise4') + 
   ylab('Invasives Abundance') + 
   xlab('SR') + 
   ggtitle('Invasive Species Effects on Species Richness 2018')
@@ -576,7 +576,7 @@ lonicera_cover <-
 lonicera_cover$temp <- as.character(lonicera_cover)
 
 ggplot() +
-  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)]), 
+  geom_point(aes(gibbons_data$lon[match(lonicera_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(lonicera_cover$plt, gibbons_data$plots)]), 
              color = lonicera_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
@@ -595,7 +595,7 @@ for (plt in unique(lonicera18$plot)){
 }
 
 ggplot() +
-  geom_point(aes(liz_data$lon[match(lonicera_cover$plt,liz_data$plots)], liz_data$lat[match(lonicera_cover$plt, liz_data$plots)])
+  geom_point(aes(gibbons_data$lon[match(lonicera_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(lonicera_cover$plt, gibbons_data$plots)])
              , color = lonicera_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
@@ -614,7 +614,7 @@ for (plt in unique(alliaria07$plot)){
   alliaria_cover <- rbind(alliaria_cover, cols)
 }
 ggplot() +
-  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(alliaria_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(alliaria_cover$plt, gibbons_data$plots)]), color = alliaria_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -632,7 +632,7 @@ for (plt in unique(alliaria18$plot)){
 }
 
 ggplot() +
-  geom_point(aes(liz_data$lon[match(alliaria_cover$plt,liz_data$plots)], liz_data$lat[match(alliaria_cover$plt, liz_data$plots)]), color = alliaria_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(alliaria_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(alliaria_cover$plt, gibbons_data$plots)]), color = alliaria_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -649,7 +649,7 @@ for (plt in unique(rhamnus07$plot)){
   rhamnus_cover <- rbind(rhamnus_cover, cols)
 }
 ggplot() +
-  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(rhamnus_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(rhamnus_cover$plt, gibbons_data$plots)]), color = rhamnus_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -668,7 +668,7 @@ for (plt in unique(rhamnus18$plot)){
 }
 
 ggplot() +
-  geom_point(aes(liz_data$lon[match(rhamnus_cover$plt,liz_data$plots)], liz_data$lat[match(rhamnus_cover$plt, liz_data$plots)]), color = rhamnus_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(rhamnus_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(rhamnus_cover$plt, gibbons_data$plots)]), color = rhamnus_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -686,7 +686,7 @@ for (plt in unique(rosamult07$plot)){
   rosamult_cover <- rbind(rosamult_cover, cols)
 }
 ggplot() +
-  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(rosamult_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(rosamult_cover$plt, gibbons_data$plots)]), color = rosamult_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -704,7 +704,7 @@ for (plt in unique(rosamult18$plot)){
 }
 
 ggplot() +
-  geom_point(aes(liz_data$lon[match(rosamult_cover$plt,liz_data$plots)], liz_data$lat[match(rosamult_cover$plt, liz_data$plots)]), color = rosamult_cover$temp) +
+  geom_point(aes(gibbons_data$lon[match(rosamult_cover$plt,gibbons_data$plots)], gibbons_data$lat[match(rosamult_cover$plt, gibbons_data$plots)]), color = rosamult_cover$temp) +
   ylab('Latitude') + 
   xlab('Longitude') + 
   scale_size () + 
@@ -714,18 +714,18 @@ ggplot() +
 #----------------------------------------------------------------------------------------------------------------
 
 # another thing I forgot to look at was the SR and PD correlation with invasive ratios
-shared_plots <- intersect(as.factor(rownames(phylo_all_18)), liz_data$plots)
+shared_plots <- intersect(as.factor(rownames(phylo_all_18)), gibbons_data$plots)
 
 pd_plots_18 <- phylo_all_18$PD[which(rownames(phylo_all_18) %in% shared_plots)]
 
 ggplot() + 
-  geom_point(aes(liz_data$invasive_ratio_18[which(liz_data$plots %in% shared_plots)], pd_plots_18), color = 'dark blue') + 
+  geom_point(aes(gibbons_data$invasive_ratio_18[which(gibbons_data$plots %in% shared_plots)], pd_plots_18), color = 'dark blue') + 
   ggtitle('Invasive presence impact on phylodiversity 18') + 
   xlab('Invasive Presence(Ratio)') + 
   ylab('Plot Phylogenetic Diversity')
 
 ggplot() + 
-  geom_point(aes(liz_data$invasive_ratio_18,phylo_understory_18$SR), color = 'dark blue') + 
+  geom_point(aes(gibbons_data$invasive_ratio_18,phylo_understory_18$SR), color = 'dark blue') + 
   ggtitle('Invasive presence impact on Species richness 18') + 
   xlab('Invasive Presence (Ratio)') + 
   ylab('Species richness')
@@ -733,50 +733,50 @@ ggplot() +
 
 ##################################################################################################################
 # making plot filters based on com_class variable 
-wooded_com_class <- c(liz_data$plots[which(liz_data$com_class == "Mesic woodland")], 
-                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic forest, Mesic-wet mesic shrubland")],
-                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Savanna")], 
-                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic woodland, Mesic woodland")],
-                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic woodland, Mesic woodland")],
-                      liz_data$plots[which(liz_data$com_class == "Mesic savanna, Mesic woodland")], 
-                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic woodland")],
-                      liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland, Mesic savanna, Mesic woodland")],
-                      liz_data$plots[which(liz_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Mesic woodland")])
-wooded_plots <- liz_data$plots[match(wooded_com_class, rownames(liz_data))]
+wooded_com_class <- c(gibbons_data$plots[which(gibbons_data$com_class == "Mesic woodland")], 
+                      gibbons_data$plots[which(gibbons_data$com_class == "Mesic-wet mesic forest, Mesic-wet mesic shrubland")],
+                      gibbons_data$plots[which(gibbons_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Savanna")], 
+                      gibbons_data$plots[which(gibbons_data$com_class == "Mesic-wet mesic woodland, Mesic woodland")],
+                      gibbons_data$plots[which(gibbons_data$com_class == "Dry mesic woodland, Mesic-wet mesic woodland, Mesic woodland")],
+                      gibbons_data$plots[which(gibbons_data$com_class == "Mesic savanna, Mesic woodland")], 
+                      gibbons_data$plots[which(gibbons_data$com_class == "Mesic-wet mesic shrubland, Mesic woodland")],
+                      gibbons_data$plots[which(gibbons_data$com_class == "Mesic-wet mesic shrubland, Mesic savanna, Mesic woodland")],
+                      gibbons_data$plots[which(gibbons_data$com_class == "Dry mesic woodland, Mesic-wet mesic forest, Mesic woodland")])
+wooded_plots <- gibbons_data$plots[match(wooded_com_class, rownames(gibbons_data))]
 
 
-savanna_com_class <- c(savanna_com_class, liz_data$plots[which(liz_data$com_class =="Wet mesic prairie and savanna")], 
-                        liz_data$plots[which(liz_data$com_class == "Mesic-wet mesic shrubland")], 
-                        savanna_com_class, liz_data$plots[which(liz_data$com_class == "Savanna")])
+savanna_com_class <- c(savanna_com_class, gibbons_data$plots[which(gibbons_data$com_class =="Wet mesic prairie and savanna")], 
+                        gibbons_data$plots[which(gibbons_data$com_class == "Mesic-wet mesic shrubland")], 
+                        savanna_com_class, gibbons_data$plots[which(gibbons_data$com_class == "Savanna")])
 
 
-savanna_plots <- liz_data$plots[match(savanna_com_class, rownames(liz_data))]
+savanna_plots <- gibbons_data$plots[match(savanna_com_class, rownames(gibbons_data))]
 
 ggplot() + 
-  geom_point(aes(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)], phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)]),
+  geom_point(aes(gibbons_data$canopy_18[which(gibbons_data$plots %in% wooded_plots)], phylo_understory_18$PD[which(gibbons_data$plots %in% wooded_plots)]),
   color = 'dark blue') + 
   ggtitle('Canopy in Wooded Plots 18') + 
   xlab('Canopy') + 
   ylab('Phylogenetic Diversity 18')
 
-fit <- lm(liz_data$canopy_18[which(liz_data$plots %in% wooded_plots)] ~ phylo_understory_18$PD[which(liz_data$plots %in% wooded_plots)])
+fit <- lm(gibbons_data$canopy_18[which(gibbons_data$plots %in% wooded_plots)] ~ phylo_understory_18$PD[which(gibbons_data$plots %in% wooded_plots)])
 
-fit2 <- lm(liz_data$canopy_18 ~ phylo_understory_18$PD)
+fit2 <- lm(gibbons_data$canopy_18 ~ phylo_understory_18$PD)
 
-fit3 <- lm(liz_data$canopy_07 ~ phylo_understory_07$PD)
+fit3 <- lm(gibbons_data$canopy_07 ~ phylo_understory_07$PD)
 
 ##################################################################################################################
  # EAST WOODS PLOTS ONLY 
 
-east_woods <- liz_data$plots[which(liz_data$area_name == 'East Woods')]
+east_woods <- gibbons_data$plots[which(gibbons_data$area_name == 'East Woods')]
 
-fit4 <- lm(liz_data$canopy_18[which(liz_data$plots %in% east_woods)] ~ phylo_understory_18$PD[which(liz_data$plots %in% east_woods)])
-fit5 <- lm(liz_data$canopy_07[which(liz_data$plots %in% east_woods)] ~ phylo_understory_07$PD[which(liz_data$plots %in% east_woods)])
+fit4 <- lm(gibbons_data$canopy_18[which(gibbons_data$plots %in% east_woods)] ~ phylo_understory_18$PD[which(gibbons_data$plots %in% east_woods)])
+fit5 <- lm(gibbons_data$canopy_07[which(gibbons_data$plots %in% east_woods)] ~ phylo_understory_07$PD[which(gibbons_data$plots %in% east_woods)])
 
-hidden_lake <- liz_data$plots[which(liz_data$area_name == 'Hidden Lake')]
+hidden_lake <- gibbons_data$plots[which(gibbons_data$area_name == 'Hidden Lake')]
 
-fit6 <- lm(liz_data$canopy_18[which(liz_data$plots %in% hidden_lake)] ~ phylo_understory_18$PD[which(liz_data$plots %in% hidden_lake)])
-fit7 <- lm(liz_data$canopy_07[which(liz_data$plots %in% hidden_lake)] ~ phylo_understory_07$PD[which(liz_data$plots %in% hidden_lake)])
+fit6 <- lm(gibbons_data$canopy_18[which(gibbons_data$plots %in% hidden_lake)] ~ phylo_understory_18$PD[which(gibbons_data$plots %in% hidden_lake)])
+fit7 <- lm(gibbons_data$canopy_07[which(gibbons_data$plots %in% hidden_lake)] ~ phylo_understory_07$PD[which(gibbons_data$plots %in% hidden_lake)])
 
 
 

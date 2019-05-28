@@ -2,7 +2,7 @@
 # like plot_correlations.R except now looking at the pairwise differences between plots in 
 # terms of diversity and each environmental variable 
 
-liz_data <- read.csv('~/Documents/GitHub/east_woods_work/data/liz_data.csv')
+gibbons_data <- read.csv('~/Documents/GitHub/east_woods_work/data/gibbons_data.csv')
 source('~/Documents/GitHub/east_woods_work/scripts/02.falltranslationkey.R')
 source('~/Documents/GitHub/east_woods_work/scripts/10.phylo_diss_matrices.R')
 
@@ -17,8 +17,8 @@ summary(canopy.07.pd)
 canopy.07.sr <- lm(all_jaccard_07 ~ canopy07)
 summary(canopy.07.sr)
 
-# soil.07.pd <- lm(phylo_all_07$PD ~ liz_data$soil_index)
-# soil.07.sr <- lm(phylo_all_07$SR ~ liz_data$soil_index)
+# soil.07.pd <- lm(phylo_all_07$PD ~ gibbons_data$soil_index)
+# soil.07.sr <- lm(phylo_all_07$SR ~ gibbons_data$soil_index)
 
 elevation.07.pd <- lm(beta_Dnn_all.07 ~ elevation)
 summary(elevation.07.pd)
@@ -46,8 +46,8 @@ summary(canopy.18.pd)
 canopy.18.sr <- lm(all_jaccard_18 ~ canopy18)
 summary(canopy.18.sr)
 
-# soil.18.pd <- lm(phylo_all_18$PD ~ liz_data$soil_index)
-# soil.18.sr <- lm(phylo_all_18$SR ~ liz_data$soil_index)
+# soil.18.pd <- lm(phylo_all_18$PD ~ gibbons_data$soil_index)
+# soil.18.sr <- lm(phylo_all_18$SR ~ gibbons_data$soil_index)
 
 elevation.18.pd <- lm(beta_Dnn_all.18 ~ elevation)
 summary(elevation.18.pd)

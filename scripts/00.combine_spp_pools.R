@@ -6,38 +6,38 @@
 
 #setwd('~/Documents/morton arb/east_woods_phylogeny/DATA/')
 #git version 
-setwd('~/Documents/GitHub/east_woods_work/data/survey_data/')
+setwd('~/Documents/GitHub/east_woods_work/data/East_Woods')
 
 # READ IN DATA
 
 #2007 
 
-dat.herb.spring.07 <- read.csv('spp.herb.2007.csv', as.is = T)[1:6] 
+dat.herb.spring.07 <- read.csv('Inventory_2007/spp.herb.2007.csv', as.is = T)[1:6] 
 
-dat.herb.sum.07 <- read.csv('sum.spp.herb.2007.csv', as.is = T)[1:6]
+dat.herb.sum.07 <- read.csv('Inventory_2007/sum.spp.herb.2007.csv', as.is = T)[1:6]
 
-dat.shrub.spring.07 <- read.csv('spp.shrub.2007.csv', as.is = T)[1:6]
+dat.shrub.spring.07 <- read.csv('Inventory_2007/spp.shrub.2007.csv', as.is = T)[1:6]
 
-dat.shrub.sum.07 <- read.csv('sum.spp.shrub.2007.csv', as.is = T)[1:6]
+dat.shrub.sum.07 <- read.csv('Inventory_2007/sum.spp.shrub.2007.csv', as.is = T)[1:6]
 
-dat.tree.spring.07 <- read.csv('spp.tree.2007.csv', as.is = T)[1:6]
+dat.tree.spring.07 <- read.csv('Inventory_2007/spp.tree.2007.csv', as.is = T)[1:6]
 
-dat.tree.sum.07 <- read.csv('sum.spp.tree.2007.csv', as.is = T)[1:6]
+dat.tree.sum.07 <- read.csv('Inventory_2007/sum.spp.tree.2007.csv', as.is = T)[1:6]
 
 #-----------------------------------------------------------------------------------------------------------
 #2018
 
-dat.herb.spring.18 <- read.csv('final.herbs.2018.csv', as.is = T)[3:6]
+dat.herb.spring.18 <- read.csv('Inventory_2018/final.herbs.2018.csv', as.is = T)[3:6]
 
-dat.herb.sum.18 <- read.csv('sum.herbs.2018.csv', as.is = T)[3:6]
+dat.herb.sum.18 <- read.csv('Inventory_2018/sum.herbs.2018.csv', as.is = T)[3:6]
 
-dat.shrub.spring.18 <- read.csv('final.shrubs.2018.csv', as.is = T)[3:8]
+dat.shrub.spring.18 <- read.csv('Inventory_2018/final.shrubs.2018.csv', as.is = T)[3:8]
 
 dat.shrub.spring.18$Category..Seedling.S...Sapling.U...Shrub.SH. <- NULL
 
 dat.shrub.spring.18$Sapling.Category...5cm.or...5cm <- NULL
 
-dat.tree.spring.18 <- read.csv('final.trees.2018.csv', as.is = T)[3:6]
+dat.tree.spring.18 <- read.csv('Inventory_2018/final.trees.2018.csv', as.is = T)[3:6]
 
 
 #-----------------------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ dat.18 <- rbind(dat.herbs18, dat.shrubs18, dat.trees18)
 #-----------------------------------------------------------------------------------------------------------
 #2007 + 2018
 
-#neeeeed to make sure that the species dont have any weird spacing or characters in the name that will
+# need to make sure that the species dont have any weird spacing or characters in the name that will
 # mess up later analysis
 
 # CLEANING SOME FINAL THINGS UP 
