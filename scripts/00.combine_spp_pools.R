@@ -6,96 +6,108 @@
 
 #setwd('~/Documents/morton arb/east_woods_phylogeny/DATA/')
 #git version 
-setwd('~/Documents/GitHub/east_woods_work/data/East_Woods')
+library(readxl)
+setwd('~/Documents/GitHub/east_woods_work/')
 
+#-----------------------------------------------------------------------------------------------------------
 # READ IN DATA
+#-----------------------------------------------------------------------------------------------------------
+# 2007 
+path.2007  = '~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2007/'
+#path.2007 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2007/'
 
-#2007 
+herb.spring.07 <- read_excel(file.path(path.2007, "Vegetation Sampling-Final_1_17_07.xls"), sheet = "Ground Layer", skip = 1)
+herb.spring.07 <- herb.spring.07[,-c(5,6,7,8)]
+# herb cover = % of plot covered
+names(herb.spring.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.herb.spring.07 <- read.csv('Inventory_2007/spp.herb.2007.csv', as.is = T)[1:6] 
+herb.sum.07 <- read_excel(file.path(path.2007, "Summer Vegetation Sampling-RevisedFinal_2_20.CORRECTED PLOTS.xls"), sheet = "Ground Layer", skip = 1)
+herb.sum.07 <- herb.sum.07[,-c(5,6,7,8)]
+names(herb.sum.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.herb.sum.07 <- read.csv('Inventory_2007/sum.spp.herb.2007.csv', as.is = T)[1:6]
+shrub.spring.07 <- read_excel(file.path(path.2007, "Vegetation Sampling-Final_1_17_07.xls"), sheet = "Shrub Layer", skip = 1)
+shrub.spring.07 <- shrub.spring.07[,-c(5,6,7)]
+# number of live stems = cover 
+names(shrub.spring.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.shrub.spring.07 <- read.csv('Inventory_2007/spp.shrub.2007.csv', as.is = T)[1:6]
+shrub.sum.07 <- read_excel(file.path(path.2007, "Summer Vegetation Sampling-RevisedFinal_2_20.CORRECTED PLOTS.xls"), sheet = "Shrub Layer", skip = 1)
+shrub.sum.07 <- shrub.sum.07[,-c(5,6,7)]
+names(shrub.sum.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.shrub.sum.07 <- read.csv('Inventory_2007/sum.spp.shrub.2007.csv', as.is = T)[1:6]
+tree.spring.07 <- read_excel(file.path(path.2007, "Vegetation Sampling-Final_1_17_07.xls"), sheet = "Tree Plots", skip = 1)
+tree.spring.07 <- tree.spring.07[,-c(5,6)]
+# DBH = cover
+names(tree.spring.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.tree.spring.07 <- read.csv('Inventory_2007/spp.tree.2007.csv', as.is = T)[1:6]
+tree.sum.07 <- read_excel(file.path(path.2007, "Vegetation Sampling-Final_1_17_07.xls"), sheet = "Tree Plots", skip = 1)
+tree.sum.07 <- tree.sum.07[,-c(5,6)]
+names(tree.sum.07) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
 
-dat.tree.sum.07 <- read.csv('Inventory_2007/sum.spp.tree.2007.csv', as.is = T)[1:6]
+#-----------------------------------------------------------------------------------------------------------
+# 2018
+# path.2018 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory_2018/'
+path.2018 = '~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/'
 
+herb.spring.18 <- read_excel(file.path(path.2018, "18-0073 Morton 2018 Spring Veg Data_AES-edits_Oct-22.xlsx"), sheet = "Herbaceous")
+herb.spring.18 <- herb.spring.18[,-c(1,2,7,8,9)]
+# again herb cover = % plot covered
+names(herb.spring.18) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
+
+herb.sum.18 <- read_excel(file.path(path.2018, "18-0073 Morton 2018 Summer Herb Data Sheet_AESedits_Oct-22.xlsx"), sheet = "Summer Herbaceous")
+herb.sum.18 <- herb.sum.18[,-c(1,2,7,8,9)]
+names(herb.sum.18) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
+
+shrub.spring.18 <- read_excel(file.path(path.2018, "18-0073 Morton 2018 Spring Veg Data_AES-edits_Oct-22.xlsx"), sheet = "Shrub Layer")
+shrub.spring.18 <- shrub.spring.18[,-c(1,2,6,7,9)]
+# shrub cover = number live stems 
+names(shrub.spring.18) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
+
+tree.spring.18 <- read_excel(file.path(path.2018, "18-0073 Morton 2018 Spring Veg Data_AES-edits_Oct-22.xlsx"), sheet = "Tree Layer")
+tree.spring.18 <- tree.spring.18[,-c(1,2,7,8,9,10)]
+# tree cover = DBH
+names(tree.spring.18) <- c("PlotID", "Spp.Code", "Spp.Name", "Cover")
+
+# #-----------------------------------------------------------------------------------------------------------
+# COMBINE SPP POOLS
+#2007
+
+herb.sum.07$sample_period <- 'SUM'
+herb.spring.07$sample_period <- 'SPR'
+
+herb07 <- rbind(herb.spring.07, herb.sum.07)
+herb07$datset <- 'H'
+
+shrub.sum.07$sample_period <- 'SUM'
+shrub.spring.07$sample_period <- 'SPR'
+shrub.sum.07$datset <- 'S'
+shrub.spring.07$datset <- 'S'
+shrub07 <- rbind(shrub.sum.07, shrub.spring.07)
+
+tree.sum.07$sample_period <- 'SUM'
+tree.spring.07$sample_period <- 'SPR'
+tree.sum.07$datset <- 'T'
+tree.spring.07$datset <- 'T'
+
+tree07 <- rbind(tree.spring.07, tree.sum.07)
+
+dat.07 <- rbind(herb07, shrub07, tree07)
 #-----------------------------------------------------------------------------------------------------------
 #2018
 
-dat.herb.spring.18 <- read.csv('Inventory_2018/final.herbs.2018.csv', as.is = T)[3:6]
+herb.sum.18$sample_period <- 'SUM'
+herb.spring.18$sample_period <- 'SPR'
 
-dat.herb.sum.18 <- read.csv('Inventory_2018/sum.herbs.2018.csv', as.is = T)[3:6]
+herb18 <- rbind(herb.sum.18, herb.spring.18)
+herb18$datset <- 'H'
 
-dat.shrub.spring.18 <- read.csv('Inventory_2018/final.shrubs.2018.csv', as.is = T)[3:8]
+shrub.spring.18$sample_period <- 'SPR'
+shrub18 <- shrub.spring.18
+shrub18$datset <- 'S'
 
-dat.shrub.spring.18$Category..Seedling.S...Sapling.U...Shrub.SH. <- NULL
-
-dat.shrub.spring.18$Sapling.Category...5cm.or...5cm <- NULL
-
-dat.tree.spring.18 <- read.csv('Inventory_2018/final.trees.2018.csv', as.is = T)[3:6]
-
-
-#-----------------------------------------------------------------------------------------------------------
-# COMBINE SPP POOLS 
-#2007 
-
-dat.herb.sum.07$sample_period <- 'SUM'
-dat.herb.spring.07$sample_period <- 'SPR'
-
-names(dat.herb.sum.07) <- names(dat.herb.spring.07)
-dat.herbs07 <- rbind(dat.herb.spring.07, dat.herb.sum.07)
-dat.herbs07$datset <- 'H'
-
-dat.shrub.sum.07$sample_period <- 'SUM'
-dat.shrub.spring.07$sample_period <- 'SPR'
-dat.shrub.sum.07$datset <- 'S'
-dat.shrub.spring.07$datset <- 'S'
-
-names(dat.shrub.sum.07) <- names(dat.herbs07)
-names(dat.shrub.spring.07) <- names(dat.herbs07)
-dat.shrubs07 <- rbind(dat.shrub.sum.07, dat.shrub.spring.07)
-
-
-dat.tree.sum.07$sample_period <- 'SUM'
-dat.tree.spring.07$sample_period <- 'SPR'
-dat.tree.sum.07$datset <- "T"
-dat.tree.spring.07$datset <- 'T'
-
-names(dat.tree.sum.07) <- names(dat.herbs07)
-names(dat.tree.spring.07) <- names(dat.herbs07)
-dat.trees07 <- rbind(dat.tree.spring.07, dat.tree.sum.07)
-
-
-dat.07 <- rbind(dat.herbs07, dat.shrubs07, dat.trees07) 
-#-----------------------------------------------------------------------------------------------------------
-#2018 
-
-names(dat.herb.sum.18) <- names(dat.07[1:4])
-names(dat.herb.spring.18) <- names(dat.07[1:4])
-
-dat.herb.sum.18$sample_period <- 'SUM'
-dat.herb.spring.18$sample_period <- 'SPR'
-
-dat.herbs18 <- rbind(dat.herb.sum.18, dat.herb.spring.18)
-dat.herbs18$datset <- 'H'
-
-names(dat.shrub.spring.18) <- names(dat.07[1:4])
-
-dat.shrub.spring.18$sample_period <- 'SPR'
-dat.shrubs18 <- dat.shrub.spring.18
-dat.shrubs18$datset <- 'S'
-
-names(dat.tree.spring.18) <- names(dat.07[1:4])
-
-dat.tree.spring.18$sample_period <- 'SPR'
-dat.trees18 <- dat.tree.spring.18
-dat.trees18$datset <- 'T' 
-dat.18 <- rbind(dat.herbs18, dat.shrubs18, dat.trees18)
+tree.spring.18$sample_period <- 'SPR'
+tree18 <- tree.spring.18
+tree18$datset <- 'T'
+dat.18 <- rbind(herb18, shrub18, tree18)
 
 #-----------------------------------------------------------------------------------------------------------
 #2007 + 2018
@@ -103,15 +115,13 @@ dat.18 <- rbind(dat.herbs18, dat.shrubs18, dat.trees18)
 # need to make sure that the species dont have any weird spacing or characters in the name that will
 # mess up later analysis
 
-# CLEANING SOME FINAL THINGS UP 
+# CLEANING SOME FINAL THINGS UP
 
-dat.07$species <- trimws(dat.07$species)
-dat.18$species <- trimws(dat.18$species)
-dat.07$freq <- NULL
-dat.07$native <- NULL
-dat.07$plot <- gsub('-', '', dat.07$plot)
+dat.07$Spp.Name <- trimws(dat.07$Spp.Name)
+dat.18$Spp.Name <- trimws(dat.18$Spp.Name)
+dat.07$PlotID <- gsub('-', '', dat.07$PlotID)
 
-#just adding a column to make keeping track of the years easier 
+#just adding a column to make keeping track of the years easier
 dat.07$year <- 2007
 dat.18$year <- 2018
 
@@ -119,12 +129,13 @@ dat.all <- rbind(dat.18, dat.07)
 
 # Noww... I think this may be a problem with the new survey data. the plots between 2007 and 2018 are not matching up:
 
-plots_both_years <- intersect(dat.07$plot, dat.18$plot)
-dat.07 <- dat.07[which(dat.07$plot %in% plots_both_years),]
-dat.18 <- dat.18[which(dat.18$plot %in% plots_both_years),]
-dat.all <- dat.all[which(dat.all$plot %in% plots_both_years),]
+plots_both_years <- intersect(dat.07$PlotID, dat.18$PlotID)
+dat.07 <- dat.07[which(dat.07$PlotID %in% plots_both_years),]
+dat.18 <- dat.18[which(dat.18$PlotID %in% plots_both_years),]
+dat.all <- dat.all[which(dat.all$PlotID %in% plots_both_years),]
 
-write.csv(dat.all, '../dat.all.csv', row.names = F, quote = F)
-rm(list = ls())
+# write.csv(dat.all, '../dat.all.csv', row.names = F, quote = F)
+# clear out global environment 
+# rm(list = ls())
 
 
