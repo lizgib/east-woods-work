@@ -19,7 +19,7 @@ length(spp07_uncleaned)   # 318 species reported in 2007
 length(spp18_uncleaned)   # 442 species reported in 2018 
 length(allspp_uncleaned)  # 598 species between years 
 
-#####################################################################################################
+#---------------------------------------------------------------------------------------------------------
 
 # CLEANED 
 
@@ -52,7 +52,7 @@ whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_cleaned, s
 
 write.csv(whatschanged, 'outputs/tnrs.spp_compare_years.csv', row.names = F, quote = F)
 
-#####################################################################################################
+#---------------------------------------------------------------------------------------------------------
 
 # UNCLEANED 
 
@@ -86,13 +86,13 @@ whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_uncleaned,
 write.csv(whatschanged, 'outputs/uncleaned.spp_compare_years.csv', row.names = F, quote = F)
 
 
-######################################################################################################
+#---------------------------------------------------------------------------------------------------------
 
 
 # raw name  # cleaned name # num plots 2007 # num plots 2018 
 
 new_dat <- data.frame(allspp_uncleaned)
-
+tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is =T))
 new_dat$cleaned_name <- tnrs_all$Accepted_name[match(allspp_uncleaned, tnrs_all$Name_submitted)]
 
 num_plots_07 <- c()
