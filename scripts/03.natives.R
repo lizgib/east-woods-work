@@ -4,7 +4,7 @@
 #################
 
 
-dat.all <- read.csv('data/dat.all.csv')
+dat.all <- read.csv('data/species/dat.all.csv')
 setwd('~/Documents/GitHub/east_woods_work/')
 usda_spp_dat <- read.csv('data/species/usda_spp_info.csv')
 

@@ -133,7 +133,7 @@ dat.07 <- dat.07[which(dat.07$plot %in% plots_both_years),]
 dat.18 <- dat.18[which(dat.18$plot %in% plots_both_years),]
 dat.all <- dat.all[which(dat.all$plot %in% plots_both_years),]
 
-write.csv(dat.all, 'data/dat.all.csv', row.names = F, quote = F)
+write.csv(dat.all, 'data/species/dat.all.csv', row.names = F, quote = F)
 # clear out global environment 
 # rm(list = ls())
 

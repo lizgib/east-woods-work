@@ -1,5 +1,5 @@
 
-dat.all <- read.csv('data/dat.all.csv')
+dat.all <- read.csv('data/species/dat.all.csv')
 dat.07 <- dat.all[which(dat.all$year == '2007'),]
 dat.18 <- dat.all[which(dat.all$year == '2018'),]
 
@@ -11,21 +11,21 @@ spp07_uncleaned <- sort(unique(dat.07$species)) # do the same for the uncleaned 
 spp18_uncleaned <- sort(unique(dat.18$species))
 allspp_uncleaned <- sort(unique(dat.all$species))
 
-length(spp07_cleaned)   # 285 species reported in 2007
-length(spp18_cleaned)   # 346 species reported in 2018 
-length(allspp_cleaned)  # 437 species between years 
+length(spp07_cleaned)   # 285 species reported in 2007   # as of....6/3 282
+length(spp18_cleaned)   # 346 species reported in 2018               # 408 
+length(allspp_cleaned)  # 437 species between years                  # 475
 
-length(spp07_uncleaned)   # 318 species reported in 2007
-length(spp18_uncleaned)   # 442 species reported in 2018 
-length(allspp_uncleaned)  # 598 species between years 
+length(spp07_uncleaned)   # 318 species reported in 2007             # 314
+length(spp18_uncleaned)   # 442 species reported in 2018             # 439
+length(allspp_uncleaned)  # 598 species between years                # 587 
 
 #---------------------------------------------------------------------------------------------------------
 
 # CLEANED 
 
-both_07_and_18 <- sort(intersect(spp07_cleaned, spp18_cleaned))  # 194 species in both 2007 and 2018
-in_07_not_18 <- sort(setdiff(spp07_cleaned, spp18_cleaned))  # 91 species found only in 2007 
-in_18_not_07 <- sort(setdiff(spp18_cleaned, spp07_cleaned))  # 152 species found only in 2018
+both_07_and_18 <- sort(intersect(spp07_cleaned, spp18_cleaned))  # 194 species in both 2007 and 2018 # this is now 215
+in_07_not_18 <- sort(setdiff(spp07_cleaned, spp18_cleaned))  # 91 species found only in 2007  # now 67
+in_18_not_07 <- sort(setdiff(spp18_cleaned, spp07_cleaned))  # 152 species found only in 2018 # now 193
 
 both <- c()
 only_07 <- c()
@@ -50,7 +50,7 @@ spp_counts_18 <- data.frame(table(dat.18$accepted_name))
 whatschanged$freq_07  <- spp_counts_07$Freq[match(whatschanged$allspp_cleaned, spp_counts_07$Var1)]
 whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_cleaned, spp_counts_18$Var1)]
 
-write.csv(whatschanged, 'outputs/tnrs.spp_compare_years.csv', row.names = F, quote = F)
+write.csv(whatschanged, 'data/species/tnrs.spp_compare_years.csv', row.names = F, quote = F)
 
 #---------------------------------------------------------------------------------------------------------
 
@@ -83,7 +83,7 @@ spp_counts_18 <- data.frame(table(dat.18$species))
 whatschanged$freq_07  <- spp_counts_07$Freq[match(whatschanged$allspp_uncleaned, spp_counts_07$Var1)]
 whatschanged$freq_18  <- spp_counts_18$Freq[match(whatschanged$allspp_uncleaned, spp_counts_18$Var1)]
 
-write.csv(whatschanged, 'outputs/uncleaned.spp_compare_years.csv', row.names = F, quote = F)
+write.csv(whatschanged, 'data/species/uncleaned.spp_compare_years.csv', row.names = F, quote = F)
 
 
 #---------------------------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ write.csv(whatschanged, 'outputs/uncleaned.spp_compare_years.csv', row.names = F
 # raw name  # cleaned name # num plots 2007 # num plots 2018 
 
 new_dat <- data.frame(allspp_uncleaned)
-tnrs_all <- data.frame(read.csv('outputs/complete_tnrs_list.csv', as.is =T))
+tnrs_all <- data.frame(read.csv('data/species/tnrs_results.csv', as.is =T))
 new_dat$cleaned_name <- tnrs_all$Accepted_name[match(allspp_uncleaned, tnrs_all$Name_submitted)]
 
 num_plots_07 <- c()
@@ -115,5 +115,5 @@ new_dat$num_plots_18 <- num_plots_18
 # Raw name -- Cleaned name from TNRS -- 2007 total plots -- 2018 total plots
 names(new_dat) <- c('Raw_name', 'Cleaned_name_from_TNRS', '2007_total_plots', '2018_total_plots')
 
-write.csv(new_dat, 'outputs/plot_species_record.csv', row.names = F, quote = F)
-rm(list = ls())
+write.csv(new_dat, 'data/species/plot_species_record.csv', row.names = F, quote = F)
+#rm(list = ls())
