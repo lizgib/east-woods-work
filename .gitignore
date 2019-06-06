@@ -1,3 +1,4 @@
+*.DS_Store
 morton2019.txt
 data/*
 *.csv
