@@ -4,11 +4,11 @@ library(RColorBrewer)
 theme_set(theme_minimal())
 source('~/Documents/GitHub/east_woods_work/scripts/ordination.R')
 
-dat.plots <- read.csv('~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/Analyses_Rollinson/point_info_GIS.csv')
-dat.plots$PlotID <- gsub('-', '', dat.plots$PlotID)
-ord_outliers <- dat.plots[which(dat.plots$PlotID %in% c('R79', 'LL123')),]
-east_woods <- dat.plots[which(dat.plots$PlotID %in% ew_plots),]
-hidden_lake <- dat.plots[which(dat.plots$AreaName == 'Hidden Lake'),]
+#dat.plots <- read.csv('~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/Analyses_Rollinson/point_info_GIS.csv')
+#dat.plots$PlotID <- gsub('-', '', dat.plots$PlotID)
+#ord_outliers <- dat.plots[which(dat.plots$PlotID %in% c('R79', 'LL123')),]
+#east_woods <- dat.plots[which(dat.plots$PlotID %in% ew_plots),]
+#hidden_lake <- dat.plots[which(dat.plots$AreaName == 'Hidden Lake'),]
 burned_plots_map <- east_woods[which(east_woods$PlotID %in% burned),]
 unburned_plots_map <- east_woods[which(east_woods$PlotID %in% unburned),]
 
