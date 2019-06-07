@@ -9,9 +9,10 @@ dat <- read.csv('~/Documents/GitHub/east_woods_work/data/Community_Matrix/2018/d
 plots.env <- read.csv('/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2018/Analyses_Rollinson/data_processed/point_info_GIS.csv')
 #plots.env <- read.csv('~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/Analyses_Rollinson/point_info_GIS.csv')
 plots.env$PlotID <- gsub('-', '', plots.env$PlotID)
-plots.burn <- read.csv('/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2018/Analyses_Rollinson/data_processed/point_info_GIS_burnhistory.csv')
-#plots.burn <- read.csv('~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/Analyses_Rollinson/point_info_GIS_burnhistory.csv')
-plots.burn$PlotID <- gsub('-', '', plots.burn$PlotID)
+plots.env$MgmtUnit <- ifelse(is.na(plots.env$wooded), "Non-Wooded", 
+                             ifelse(plots.env$wooded=="Hidden Lake", "Hidden Lake", 
+                                    ifelse(plots.env$unit=="South 40 South", "Annual Burn", 
+                                           ifelse(!is.na(plots.env$unit), "Mixed Management", "No Management"))))
 
 # first clean up spp pool 
 # this shouldnt even really be in this script needs to move somewhere else before com mat are made
@@ -51,30 +52,34 @@ ggplot()+
 
 # Burned Plots / Managed Areas
 
-plots.burn <- plots.burn[which(plots.burn$PlotID %in% ew_plots$PlotID),]
-burned <- plots.burn[which(!is.na(plots.burn$)),]
-unburned <- plots.burn[which(is.na(plots.burn$Burn_Date)),]
+# plots.burn <- plots.burn[which(plots.burn$PlotID %in% ew_plots$PlotID),]
+# burned <- plots.burn[which(!is.na(plots.burn$)),]
+# unburned <- plots.burn[which(is.na(plots.burn$Burn_Date)),]
 
 hulls <- data.frame(ord_ew$points)
-hulls$burn_stat <- ifelse(row.names(hulls) %in% burned$PlotID, 'Burned', 'Unburned')
+hulls$MgmtUnit <- ew_plots$MgmtUnit[which(ew_plots$PlotID %in% row.names(hulls))]
+# hulls$burn_stat <- ifelse(row.names(hulls) %in% burned$PlotID, 'Burned', 'Unburned')
+
 
 plot(ord_ew, type = 'n')
 points(ord_ew, display = 'sites', cex = 0.8, pch = 21, col = 'red', bg = 'yellow')
 #text(ord_ew, display = 'sites', cex = 0.6)
-title('(TREES) EW plots Burned and Unburned')
-ordiellipse(ord_ew, hulls$burn_stat, col = c('black', 'blue'), lwd = 2, label= FALSE)
-ordispider(ord_ew, hulls$burn_stat, col = c('black', 'blue'), label = T)
-legend('topleft', legend = unique(hulls$burn_stat), col = c('black', 'blue'), pch = 21, pt.bg = c('black', 'blue'), cex = 0.8)
+title('East Woods Plots Management')
+ordiellipse(ord_ew, hulls$MgmtUnit, col = c('cyan4', 'coral1', 'darkgray'), lwd = 2, label= F)
+ordispider(ord_ew, hulls$MgmtUnit, col = c('cyan3', 'coral3', 'darkgray'), label = T)
+legend('topleft', legend = unique(hulls$MgmtUnit), col = c('cyan4', 'coral1', 'darkgray'), pch = 21, pt.bg = c('cyan4', 'coral1', 'darkgray'), cex = 0.8)
 
-ggplot()+ 
-  geom_point(aes(ew_plots$lon, ew_plots$lat),  cex = 0.8, pch = 21, col = 'red', bg = 'yellow') + 
-  geom_point(aes(burned$lon, burned$lat), color = 'black', pch = 21, bg = 'darkslategray') + 
-  geom_point(aes(unburned$lon, unburned$lat), color = 'blue3', pch = 21, bg = 'blue') + 
+
+ggplot(data = ew_plots, aes(x = lon, y = lat, color = factor(MgmtUnit)))+ 
+  geom_point() + 
+  #geom_point(aes(ew_plots$lon, ew_plots$lat),  cex = 0.8, pch = 21, col = 'red', bg = 'yellow') + 
+  #geom_point(aes(MixMgmt$lon, MixMgmt$lat), color = 'black', pch = 21, bg = 'darkslategray') + 
+ # geom_point(aes(AnnualBurn$lon, AnnualBurn$lat), color = 'blue3', pch = 21, bg = 'blue') + 
   xlab('Longitude') +
   ylab('Latitude') +
   scale_size () +
   coord_equal() +
-  ggtitle('Burned vs Unburned East Woods Plots')
+  ggtitle('East Woods Plots Management')
 
 
 # Community class
