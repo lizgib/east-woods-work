@@ -31,5 +31,5 @@ ggplot()+
   ylab('Latitude') +
   scale_size () +
   coord_equal() 
-# qhy are these not the same plots!!!
+# why are these not the same plots!!!
 

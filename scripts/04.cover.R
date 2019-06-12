@@ -9,7 +9,7 @@
 #-----------------------------------------------------------------------------------------------------------
 # DATA 
 setwd('~/Documents/GitHub/east_woods_work/')
-dat.all <- read.csv('data/dat.all.csv')
+#dat.all <- read.csv('data/dat.all.csv')
 
 #-----------------------------------------------------------------------------------------------------------
 # FUNCTIONS 
@@ -51,43 +51,43 @@ get_plot_cover <- function(dat){
 
 # FUNCTION CALL 
 
-dat.all$cover <- as.numeric(as.character(dat.all$cover))
-dat.07 <- dat.all[which(dat.all$year == '2007'),]
-dat.18 <- dat.all[which(dat.all$year == '2018'),]
-
-# Canopy/Tree level 
-
-trees07 <- dat.07[which(dat.07$datset == 'T'),]
-trees18 <- dat.18[which(dat.07$datset == 'T'),]
-trees07 <- get_BA(trees07)
-trees18 <- get_BA(trees18)
-
-trees07 <- get_plot_cover(trees07)
-trees18 <- get_plot_cover(trees18)
-
-trees07 <- trees07[order(trees07$plot),]
-trees18 <- trees18[order(trees18$plot),]
-
-# Understory
-understory07 <- dat.07[which(dat.07$datset == 'H'),]
-understory07 <- rbind(understory07, dat.07[which(dat.07$datset == 'S'),])
-
-understory18 <- dat.18[which(dat.18$datset == 'H'),]
-understory18 <- dat.18[which(dat.18$datset == 'S'),]
-
-understory07 <- get_plot_cover(understory07)
-understory18 <- get_plot_cover(understory18)
-
-understory07 <- understory07[order(understory07$plot),]
-understory18 <- understory18[order(understory18$plot),]
-
-# write out 
-
-trees.all <- rbind(trees07, trees18)
-understory.all <- rbind(understory07, understory18)
-
-write.csv(trees.all, 'data/trees.all.csv', row.names = F, quote = F)
-write.csv(understory.all, 'data/understory.all.csv', row.names = F, quote = F)
+# dat.all$cover <- as.numeric(as.character(dat.all$cover))
+# dat.07 <- dat.all[which(dat.all$year == '2007'),]
+# dat.18 <- dat.all[which(dat.all$year == '2018'),]
+# 
+# # Canopy/Tree level 
+# 
+# trees07 <- dat.07[which(dat.07$datset == 'T'),]
+# trees18 <- dat.18[which(dat.07$datset == 'T'),]
+# trees07 <- get_BA(trees07)
+# trees18 <- get_BA(trees18)
+# 
+# trees07 <- get_plot_cover(trees07)
+# trees18 <- get_plot_cover(trees18)
+# 
+# trees07 <- trees07[order(trees07$plot),]
+# trees18 <- trees18[order(trees18$plot),]
+# 
+# # Understory
+# understory07 <- dat.07[which(dat.07$datset == 'H'),]
+# understory07 <- rbind(understory07, dat.07[which(dat.07$datset == 'S'),])
+# 
+# understory18 <- dat.18[which(dat.18$datset == 'H'),]
+# understory18 <- dat.18[which(dat.18$datset == 'S'),]
+# 
+# understory07 <- get_plot_cover(understory07)
+# understory18 <- get_plot_cover(understory18)
+# 
+# understory07 <- understory07[order(understory07$plot),]
+# understory18 <- understory18[order(understory18$plot),]
+# 
+# # write out 
+# 
+# trees.all <- rbind(trees07, trees18)
+# understory.all <- rbind(understory07, understory18)
+# 
+# write.csv(trees.all, 'data/trees.all.csv', row.names = F, quote = F)
+# write.csv(understory.all, 'data/understory.all.csv', row.names = F, quote = F)
 #rm(list = ls())
 
 
