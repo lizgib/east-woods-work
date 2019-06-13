@@ -1,9 +1,9 @@
-#MAKE THE WORKING DATASETS 
+# MAKE THE WORKING DATASETS 
 # combine the species pool from spring and sum surveys for 2007 and 2018 and then 
 # combine 2007 and 2018 total species pools
-#OUTPUT: dat.all.csv
 
-#git version 
+# for now all I care about from the survey data is the species name and the plot ID
+
 library(readxl)
 setwd('~/Documents/GitHub/east_woods_work/')
 
@@ -11,8 +11,7 @@ setwd('~/Documents/GitHub/east_woods_work/')
 # READ IN DATA
 #-----------------------------------------------------------------------------------------------------------
 # 2007 
-path.2007  = '~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2007/'
-#path.2007 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2007/'
+path.2007 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2007/'
 
 herb.spring.07 <- read_excel(file.path(path.2007, "Vegetation Sampling-Final_1_17_07.xls"), sheet = "Ground Layer", skip = 1)
 herb.spring.07 <- herb.spring.07[,-c(5,6,7,8)]
@@ -43,8 +42,7 @@ names(tree.sum.07) <- c("plot", "spp.code", "species", "cover")
 
 #-----------------------------------------------------------------------------------------------------------
 # 2018
-# path.2018 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory_2018/'
-path.2018 = '~/Documents/GitHub/east_woods_work/data/East_Woods/Inventory_2018/'
+path.2018 = '/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2018/Final Data from AES/Final data (4th round) from AES.10.24.2018/'
 
 herb.spring.18 <- read_excel(file.path(path.2018, "18-0073 Morton 2018 Spring Veg Data_AES-edits_Oct-22.xlsx"), sheet = "Herbaceous")
 herb.spring.18 <- herb.spring.18[,-c(1,2,7,8,9)]
@@ -90,6 +88,7 @@ tree.spring.07$datset <- 'T'
 tree07 <- rbind(tree.spring.07, tree.sum.07)
 
 dat.07 <- rbind(herb07, shrub07, tree07)
+
 #-----------------------------------------------------------------------------------------------------------
 #2018
 
@@ -126,12 +125,13 @@ dat.18$year <- 2018
 
 dat.all <- rbind(dat.18, dat.07)
 
-# Noww... I think this may be a problem with the new survey data. the plots between 2007 and 2018 are not matching up:
+# I think this may be a problem with the new survey data. the plots between 2007 and 2018 are not matching up:
 
 plots_both_years <- intersect(dat.07$plot, dat.18$plot)
 dat.07 <- dat.07[which(dat.07$plot %in% plots_both_years),]
 dat.18 <- dat.18[which(dat.18$plot %in% plots_both_years),]
 dat.all <- dat.all[which(dat.all$plot %in% plots_both_years),]
+
 
 write.csv(dat.all, 'data/species/dat.all.csv', row.names = F, quote = F)
 # clear out global environment 

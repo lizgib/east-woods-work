@@ -218,18 +218,26 @@ ord_ew <- metaMDS(dat_ew)
 # write.csv(oup, 'outputs/clust_07.csv', quote = F) # save the cluster IDs to file
 
 #-------------------
-
-temp <- ew_plots[,c('unit', 'MgmtUnit')]
+dat.ord <- as.data.frame(ord_ew$points)
+temp <- ew_plots[,c('aspect', 'elev', 'slope')]
 
 (fit <- envfit(ord_ew, temp, perm = 999, na.rm = T))
 scores(fit, "vectors")
-plot(ord_ew)
+plot(ord_ew, 'sites')
+plot(ord_ew, type = 'n')
 plot(fit, p.max = 0.05, col = "red")
 
 ord <- cca(dat_ew ~ MgmtUnit + unit, ew_plots, na.action = na.omit)
 plot(ord, type="p")
+plot(ord, type="s")
 fit <- envfit(ord, temp, perm = 999, display = "lc", na.rm = T)
 plot(fit, p.max = 0.05, col = "red")
 
-
+ggplot(data = ew_plots, aes(x = lon, y = lat, size = dat.ord$MDS2, col = dat.ord$MDS2)) +
+  geom_point()+
+  xlab('Longitude') +
+  ylab('Latitude') +
+  scale_size () +
+  coord_equal() +
+  ggtitle('Ordination all plots 2018 (MDS2)')
 

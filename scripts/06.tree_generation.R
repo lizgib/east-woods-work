@@ -7,7 +7,7 @@ source('https://raw.githubusercontent.com/andrew-hipp/morton/master/R/label.elem
 library(ggtree)
 dat.all <- read.csv('data/species/dat.all.csv')
 
-if(!exists('tr.zanne')) tr.zanne <- read.tree('data/species/phylo.zanne.tre')
+if(!exists('tr.zanne')) tr.zanne <- read.tree('data/phylo.zanne.tre')
 
 dat.all <- dat.all[!is.na(dat.all),]
 dat.all$accepted_name <- gsub('[ ,.] ', '_', dat.all$accepted_name)

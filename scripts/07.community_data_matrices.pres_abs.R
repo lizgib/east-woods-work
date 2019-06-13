@@ -4,11 +4,11 @@
 # 2018 
 
 setwd('~/Documents/GitHub/east_woods_work/')
-dat.all <- read.csv('data/dat.all.csv')
+dat.all <- read.csv('data/species/dat.all.csv')
 library(ape)
 library(reshape2)
 library(vegan)
-tr.ewv4 <- read.tree('~/Documents/GitHub/east_woods_work/outputs/tr.ewv4')
+tr.ewv4 <- read.tree('~/Documents/GitHub/east_woods_work/outputs/tr.ew.Spring19')
 #---------------------------------------------------------------------------------------------------
 # FUNCTIONS 
 
@@ -43,13 +43,16 @@ dat.07 <- dat.all[which(dat.all$year == '2007'),]
 # Need to also break up the community matrices into understory and tree layers so we can 
 # calculate phylogenetic diversity of tree and understory layers (will be important for invasive
 # and burn analyses)
-dat.07.understory <- dat.07[dat.07$datset == 'S',]
-dat.07.understory <-rbind(dat.07.understory, dat.07[dat.07$datset == 'H',])
+#dat.07.understory <- dat.07[dat.07$datset == 'S',]
+#dat.07.understory <-rbind(dat.07.understory, dat.07[dat.07$datset == 'H',])
 dat.07.trees <- dat.07[dat.07$datset == 'T',]
+dat.07.understory <-dat.07[which(!dat.07$species %in% unique(dat.07.trees$species)),]
 
-dat.18.understory <- dat.18[dat.18$datset == 'S',]
-dat.18.understory <-rbind(dat.18.understory, dat.18[dat.18$datset == 'H',])
+
+#dat.18.understory <- dat.18[dat.18$datset == 'S',]
+#dat.18.understory <-rbind(dat.18.understory, dat.18[dat.18$datset == 'H',])
 dat.18.trees <- dat.18[dat.18$datset == 'T',]
+dat.18.understory <- dat.18[which(!dat.18$species %in% unique(dat.18.trees$species)),]
 
 dat.mat.all.07 <- com_mat(dat.07, tr.ewv4)
 dat.mat.all.18 <- com_mat(dat.18, tr.ewv4)
