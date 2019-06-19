@@ -58,11 +58,12 @@ tree07 <- data.frame(tree07)
 tree07 <- tree07[which(!is.na(tree07$DBH.live)),]
 # cover in Basal Area 
 tree07$cover <- pi*(tree07$DBH.live/2)^2
-# some of the manual species cleaning dr. rollinson did 
-tree07$Spp.Name <- car::recode(tree07$Spp.Name, "'rttf'='Acer spp'; '??'='ERROR'; 'Hickory spp'='Carya spp'; 'Fraxinus - Collections'='Fraxinus spp'; 'Unidentified spp'='Unidentified'; 'NONE'='No trees'; 'Cladrastis lutea'='Cladrastis kentukea'")
 tree07 <- tree07[,-c(4,5,6)]
 tree07 <- tree07[,c(1,2,3,5,4)]
 names(tree07) <- c("plot", "spp.code", "species", "cover", "sample_period")  
+
+tree07$species <- car::recode(tree07$species, "'rttf'='Acer spp'; '??'='ERROR'; 'Hickory spp'='Carya spp'; 'Fraxinus - Collections'='Fraxinus spp'; 'Unidentified spp'='Unidentified'; 'NONE'='No trees'; 'Cladrastis lutea'='Cladrastis kentukea'")
+
 
 #-----------------------------------------------------------------------------------------------------------
 # 2018
@@ -87,7 +88,6 @@ tree18 <- tree18[which(tree18$`Canopy Position` != 'S'),]
 tree18$`DBH cm` <- as.numeric(tree18$`DBH cm`)
 tree18$cover <- pi*(tree18$`DBH cm`/2)^2
 # more manual cleaning by dr rollinson
-tree18$`Species Name` <- car::recode(tree18$`Species Name`, "'Quercus alb'='Quercus alba'; 'tilia americana'='Tilia americana'; 'Cladastris kentukea'='Cladrastis kentukea'")
 tree18 <- tree18[,-c(1,2,6,7,8,9,10)]
 names(tree18) <- c("plot", "spp.code", "species", "cover")
 

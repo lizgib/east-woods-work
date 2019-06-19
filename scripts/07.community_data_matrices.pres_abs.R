@@ -46,13 +46,13 @@ dat.07 <- dat.all[which(dat.all$year == '2007'),]
 #dat.07.understory <- dat.07[dat.07$datset == 'S',]
 #dat.07.understory <-rbind(dat.07.understory, dat.07[dat.07$datset == 'H',])
 dat.07.trees <- dat.07[dat.07$datset == 'T',]
-dat.07.understory <-dat.07[which(!dat.07$species %in% unique(dat.07.trees$species)),]
+  dat.07.understory <-dat.07[which(!dat.07$accepted_name %in% unique(dat.07.trees$accepted_name)),]
 
 
 #dat.18.understory <- dat.18[dat.18$datset == 'S',]
 #dat.18.understory <-rbind(dat.18.understory, dat.18[dat.18$datset == 'H',])
 dat.18.trees <- dat.18[dat.18$datset == 'T',]
-dat.18.understory <- dat.18[which(!dat.18$species %in% unique(dat.18.trees$species)),]
+dat.18.understory <- dat.18[which(!dat.18$accepted_name %in% unique(dat.18.trees$accepted_name)),]
 
 dat.mat.all.07 <- com_mat(dat.07, tr.ewv4)
 dat.mat.all.18 <- com_mat(dat.18, tr.ewv4)
@@ -63,14 +63,14 @@ dat.mat.trees.18 <- com_mat(dat.18.trees, tr.ewv4)
 dat.mat.understory.07 <- com_mat(dat.07.understory, tr.ewv4)
 dat.mat.trees.07 <- com_mat(dat.07.trees, tr.ewv4)
 
-write.csv(dat.mat.all.07, 'data/dat.mat.all.07.csv')
-write.csv(dat.mat.all.18, 'data/dat.mat.all.18.csv')
+write.csv(dat.mat.all.07, 'data/Community_Matrix/2007/dat.mat.all.07.csv')
+write.csv(dat.mat.all.18, 'data/Community_Matrix/2018/dat.mat.all.18.csv')
 
-write.csv(dat.mat.understory.07, 'data/dat.mat.understory.07.csv')
-write.csv(dat.mat.understory.18, 'data/dat.mat.understory.18.csv')
+write.csv(dat.mat.understory.07, 'data/Community_Matrix/2007/dat.mat.understory.07.csv')
+write.csv(dat.mat.understory.18, 'data/Community_Matrix/2018/dat.mat.understory.18.csv')
 
-write.csv(dat.mat.trees.07, 'data/dat.mat.trees.18.csv')
-write.csv(dat.mat.trees.18, 'data/dat.mat.trees.07.csv')
+write.csv(dat.mat.trees.07, 'data/Community_Matrix/2007/dat.mat.trees.07.csv')
+write.csv(dat.mat.trees.18, 'data/Community_Matrix/2018/dat.mat.trees.18.csv')
 
 
 # OK after some testing I've figured it out. The discrepancy between the original data and 

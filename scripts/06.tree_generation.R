@@ -19,9 +19,7 @@ tre.ew2.pruned <- drop.tip(tre.ew2, which(!tre.ew2$tip.label %in% row.names(tre.
 write.tree(tre.ew2.pruned, 'outputs/tr.ew.Spring19')
 
 
-
-p <- ggtree(tre.ew2.pruned, layout = 'circular')+ 
+tiff('outputs/tr.ew.Spring19.tiff', units = 'in', height = 10, width = 12, res = 400)
+ggtree(tre.ew2.pruned, layout = 'rectangular') + 
   geom_tiplab(fontface = 'italic', size = 0.5)
-p
-
-
+dev.off()
