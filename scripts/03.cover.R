@@ -7,19 +7,6 @@
 
 # both of these i am just setting up to take dat.all, not individually masked dataframes like before
 
-get_BA <- function(dat){
-  BA <- c() #calculate the basal area (just the area of the trunk)
-  for (c in dat$cover){
-      c <- c * 0.0328084 #converting the cm DBH into feet  (so the final area is in sq feet)
-    basal_area <- pi * (c/2)**2
-    BA <- c(BA, basal_area)
-  }
-  dat$cover <- BA # im replacing the cover column so I can use the other function on it (wouldnt work if I 
-                  # renamed BA)
-  return(dat)
-  
-}
-
 
 get_plot_cover <- function(dat){
   dat <- dat[which(!is.na(dat$cover)),]
@@ -39,36 +26,6 @@ get_plot_cover <- function(dat){
   return(dat)
 }
 
-get_invasive_cover <- function(plots.env, dat){
-  # ------
-  # returns a new dataframe with the invasive cover of each plot
-  # -----
-  dat <- get_plot_cover(dat)
-  
-  invasives <- dat[grep('Alliaria', dat$accepted_name),]
-  invasives <- rbind(invasives, dat[grep('Lonicera', dat$accepted_name),])
-  invasives <- rbind(invasives, dat[grep('Rhamnus', dat$accepted_name),]) # nothing showing up here I think its being included in tree matrix...
-  invasives <- rbind(invasives, dat[grep('Ligustrum', dat$accepted_name),])                          
-  invasives <- rbind(invasives, dat[grep('Euonymus',  dat$accepted_name),])    
-  invasives <- rbind(invasives, dat[grep('Rosa multiflora', dat$accepted_name),])    
-  invasives <- rbind(invasives, dat[grep('Lythrum salicaria', dat$accepted_name),])    
-  invasives <- rbind(invasives, dat[grep('Dipsacus', dat$accepted_name),])    
-  invasives <- rbind(invasives, dat[grep('Celastrus orbiculatus', dat$accepted_name),])    
-  invasives <- rbind(invasives, dat[grep('Ficaria verna', dat$accepted_name),])
-  
-  plot_invasive_cover <- c()
-  for (p in row.names(plots.env)){
-    if(p %in% invasives$plot){
-      plot_invasive_cover <- c(plot_invasive_cover, sum(invasives$spp_percent_total_cover[which(invasives$plot == p)]))
-    }
-    else{
-      plot_invasive_cover <- c(plot_invasive_cover, 0)
-    }
-  }
-  plots.env$InvCover <- plot_invasive_cover
-  newdf <- plots.env['InvCover']
-  return(newdf)
-}
 
 get_dominant_tree_group <- function(tree.dat){
   # -----------

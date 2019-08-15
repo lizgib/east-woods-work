@@ -6,7 +6,7 @@
 
 #source('~/Documents/GitHub/east_woods_work/scripts/01.combine_spp_pools.R')
 setwd('~/Documents/GitHub/east_woods_work/')
-dat.all <- read.csv('data/species/dat.all.csv')
+dat.all <- read.csv('data/Species/dat.all.csv')
 library(magrittr)
 library(readxl)
 library(dbplyr)
@@ -18,7 +18,7 @@ all.spp.sorted <- sapply(dat.all$species, function(x) x) %>%
   sort
 
 all.spp.sorted <- data.frame(all.spp.sorted)
-write.csv(all.spp.sorted, 'data/species/all.spp.sorted.csv', row.names = F, quote = F)
+write.csv(all.spp.sorted, 'data/Species/all.spp.sorted.csv', row.names = F, quote = F)
 #take these species lists and run through http://tnrs.iplantcollaborative.org/TNRSapp.html
 #TNRS OUTPUT: complete_tnrs_list.csv
 #---------------------------------------------------------------------------------------------------------
@@ -27,7 +27,7 @@ write.csv(all.spp.sorted, 'data/species/all.spp.sorted.csv', row.names = F, quot
 
 # LAST UPDATED TRANSLATION KEY: 06/12/19
 
-tnrs_all <- data.frame(read.csv('data/species/tnrs_results.csv'))
+tnrs_all <- data.frame(read.csv('data/Species/TNRS_results.csv'))
 
 #---------------------------------------------------------------------------------------------------------
 #append the accepted name to each of the spp pool dataframes
@@ -41,7 +41,7 @@ dat.all$accepted_name <- tnrs_all$Accepted_name[match(dat.all$species, tnrs_all$
 dat.all$species <- as.character(dat.all$species)
 dat.all$accepted_name <-as.character(dat.all$accepted_name)
 
-removed_spp <- read_excel(file.path('/Volumes/GoogleDrive/My Drive/East Woods/URF 2018 Gibbons/Data/removed_spp.xlsx'), sheet = "Sheet1")
+removed_spp <- read_excel(file.path('/Volumes/GoogleDrive/My Drive/East Woods/URF 2018 Gibbons/Data/Species/removed_spp.xlsx'), sheet = "Sheet1")
 # look through the species names (not the accepted ones) and modify the accepted name category based on the value in removed/resolved column 
 # gonna do this the ugly way firs because it is quicker but will make it look nicer later 
 removed_spp$`Species Name` <- as.character(removed_spp$`Species Name`)
@@ -54,7 +54,7 @@ for (spp in dat.all$species){
 dat.all$accepted_name <- accepted_name2
 
 
-write.csv(dat.all, 'data/species/dat.all.csv', row.names = F, quote = F)
+write.csv(dat.all, 'data/Species/dat.all.csv', row.names = F, quote = F)
 
 
 # rm(list = ls())

@@ -18,16 +18,17 @@ plots.env$MgmtUnit <- ifelse(is.na(plots.env$wooded), "Non-Wooded",
                                     ifelse(plots.env$unit=="South 40 South", "Annual Burn",
                                            ifelse(!is.na(plots.env$unit), "Mixed Management", "No Management"))))
 
-
+plots.env$MgmtUnit[is.na(plots.env$MgmtUnit)] <- "No Management"
+plots.env$MgmtUnit <- as.factor(plots.env$MgmtUnit)
 #-----------------------------------------
 # Dominant tree genus
 
-dat.all <- read.csv('data/species/dat.all.csv', as.is = T)
+dat.all <- read.csv('data/Species/dat.all.csv', as.is = T)
 tree07 <- dat.all[which(dat.all$datset == 'T' & dat.all$year == '2007' & dat.all$sample_period == 'SUM'),]
 tree18 <- dat.all[which(dat.all$datset == 'T' & dat.all$year == '2018'),]
 
 
-source('scripts/cover.R')   
+source('scripts/03.cover.R')   
 
 tree_type_plots_18 <- get_dominant_tree_group(tree18)
 plots.env$DomGenus18 <- tree_type_plots_18$tree_type[match(row.names(plots.env), tree_type_plots_18$unique.tree.dat.plot.)]
@@ -113,8 +114,11 @@ plots.env$rootdevdep <- plots.soil$rootdevdep[match(rownames(plots.env), plots.s
 
 plots.burn <- read.csv('/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2018/Analyses_Rollinson/data_processed/point_info_GIS_burnhistory.csv')
 plots.burn$PlotID <- gsub('-', '', plots.burn$PlotID)
+plots.burn$Year <- as.numeric(plots.burn$Year)
 burn_counts <- as.data.frame(table(plots.burn$PlotID[which(!is.na(plots.burn$Burn_Date))]))
+burn_counts_before_07 <- as.data.frame(table(plots.burn$PlotID[which(!is.na(plots.burn$Burn_Date) & plots.burn$Year <= 2007)]))
 plots.env$BurnCount <- burn_counts$Freq[match(rownames(plots.env), burn_counts$Var1)]
+plots.env$BurnCount07 <- burn_counts_before_07$Freq[match(rownames(plots.env), burn_counts_before_07$Var1)]
 plots.env$BurnCount[is.na(plots.env$BurnCount)] <- 0
 
 
@@ -130,10 +134,11 @@ sheet_2 <- read_excel('/Volumes/GoogleDrive/My Drive/East Woods/Inventory 2018/A
 
 # extract the dry weight of each sample and the % organic matter
 
-# using sheet B because it looked more standardized for each sample
+# using sheet A because B had a lot of NAs. Would probably prefer to use B later when data is 
+# updated because it looks more standardized
 
-topsoil <- sheet_B[which(sheet_B$`layer (cm)` == '0-10'),]
-deepsoil <- sheet_B[which(sheet_B$`layer (cm)` == '10-20'),]
+topsoil <- sheet_A[which(sheet_A$`layer (cm)` == '0-10'),]
+deepsoil <- sheet_A[which(sheet_A$`layer (cm)` == '10-20'),]
 
 
 # there are a lot of NAs in these columns due to missing values in the spreadsheet 
@@ -142,27 +147,30 @@ deepsoil <- sheet_B[which(sheet_B$`layer (cm)` == '10-20'),]
 plots.env$TopOrgMat <- topsoil$`% OM`[match(rownames(plots.env), topsoil$`Plot ID`)]
 plots.env$LowOrgMat <- deepsoil$`% OM`[match(rownames(plots.env), deepsoil$`Plot ID`)]
 
-plots.env$TopDryWgt <- topsoil$DWE[match(rownames(plots.env), topsoil$`Plot ID`)]
-plots.env$LowDryWgt <- deepsoil$DWE[match(rownames(plots.env), deepsoil$`Plot ID`)]
+plots.env$TopDryWgt <- topsoil$`Air-dried weight (g)`[match(rownames(plots.env), topsoil$`Plot ID`)]
+plots.env$LowDryWgt <- deepsoil$`Air-dried weight (g)`[match(rownames(plots.env), deepsoil$`Plot ID`)]
+
+plots.env$TopWetWgt <- topsoil$`Wet weight (g)`[match(rownames(plots.env), topsoil$`Plot ID`)]
+plots.env$LowWetWgt <- deepsoil$`Wet weight (g)`[match(rownames(plots.env), deepsoil$`Plot ID`)]
 
 # also throwing in the % water content even though she said it might not be the best data (collected
 # over a month so not as reliable)
 
-plots.env$TopWtrContent <- topsoil$`residual water content (%)`[match(rownames(plots.env), topsoil$`Plot ID`)]
-plots.env$LowWtfContent <- deepsoil$`residual water content (%)`[match(rownames(plots.env), deepsoil$`Plot ID`)]
+plots.env$TopWtrContent <- topsoil$`water content (%)`[match(rownames(plots.env), topsoil$`Plot ID`)]
+plots.env$LowWtrContent <- deepsoil$`water content (%)`[match(rownames(plots.env), deepsoil$`Plot ID`)]
 
 #------
 # adding in distance to edge variables (computed in QGIS)
 
 # dist to path (in meters)
 
-path_dist <- read.csv('~/Desktop/dist_to_path.csv')
+path_dist <- read.csv('~/Documents/GIS/EdgeDistance/dist_to_path.csv')
 path_dist <- path_dist[,c('field_1','HubDist')]
 names(path_dist) <- c('PlotID', 'PathDist')
 plots.env$PathDist <- path_dist$PathDist[match(rownames(plots.env), path_dist$PlotID)]
 
 
-road_dist <- read.csv('~/Desktop/dist_to_road.csv')
+road_dist <- read.csv('~/Documents/GIS/EdgeDistance/dist_to_road.csv')
 road_dist <- road_dist[,c('field_1','HubDist')]
 names(road_dist) <-  c('PlotID', 'RoadDist')
 plots.env$RoadDist <- road_dist$RoadDist[match(rownames(plots.env), road_dist$PlotID)]
@@ -179,10 +187,10 @@ plots.env$RoadPathDist <- road_or_path$HubDist[match(rownames(plots.env), road_o
 sol_rad <- read.csv('~/Documents/GIS/pt_sol_rad_coord.csv')
 plots.env$SolRad <- sol_rad$T0[match(plots.env$x.utm16, sol_rad$xcoord)]
 
-ggplot(data = plots.env, aes(x = lon, y = lat, size = SolRad, col = SolRad))+
-  geom_point() + 
-  coord_equal()
-
-
 save(plots.env, file = 'data/plots.env.RData')
 write.csv(plots.env, '~/Documents/GitHub/east_woods_work/data/plots.env.csv')
+
+
+
+
+

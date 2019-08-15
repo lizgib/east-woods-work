@@ -2,8 +2,6 @@
 # combine the species pool from spring and sum surveys for 2007 and 2018 and then 
 # combine 2007 and 2018 total species pools
 
-# for now all I care about from the survey data is the species name and the plot ID
-
 library(readxl)
 setwd('~/Documents/GitHub/east_woods_work/')
 
@@ -61,9 +59,6 @@ tree07$cover <- pi*(tree07$DBH.live/2)^2
 tree07 <- tree07[,-c(4,5,6)]
 tree07 <- tree07[,c(1,2,3,5,4)]
 names(tree07) <- c("plot", "spp.code", "species", "cover", "sample_period")  
-
-tree07$species <- car::recode(tree07$species, "'rttf'='Acer spp'; '??'='ERROR'; 'Hickory spp'='Carya spp'; 'Fraxinus - Collections'='Fraxinus spp'; 'Unidentified spp'='Unidentified'; 'NONE'='No trees'; 'Cladrastis lutea'='Cladrastis kentukea'")
-
 
 #-----------------------------------------------------------------------------------------------------------
 # 2018
@@ -158,7 +153,8 @@ dat.18 <- dat.18[which(dat.18$plot %in% plots_both_years),]
 dat.all <- dat.all[which(dat.all$plot %in% plots_both_years),]
 
 
-write.csv(dat.all, 'data/species/dat.all.csv', row.names = F, quote = F)
+write.csv(dat.all, 'data/Species/dat.all.csv', row.names = F, quote = F)
+#write.csv(dat.all, '/Volumes/GoogleDrive/My Drive/East Woods/URF 2018 Gibbons/Data/Species/dat.all.csv', row.names = F, quote = F)
 # clear out global environment 
 # rm(list = ls())
 

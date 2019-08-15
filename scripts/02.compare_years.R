@@ -1,5 +1,5 @@
 
-dat.all <- read.csv('data/species/dat.all.csv')
+dat.all <- read.csv('data/Species/dat.all.csv')
 dat.all$species <- as.factor(dat.all$species)
 dat.all$accepted_name <- as.factor(dat.all$accepted_name)
 dat.07 <- dat.all[which(dat.all$year == '2007'),]
@@ -27,8 +27,7 @@ length(allspp_uncleaned)  # 582 species between years
 # raw name  # cleaned name # num plots 2007 # num plots 2018 
 
 new_dat <- data.frame(allspp_uncleaned)
-tnrs_all <- data.frame(read.csv('data/species/tnrs_results.csv', as.is =T))
-new_dat$cleaned_name <- tnrs_all$Accepted_name[match(allspp_uncleaned, tnrs_all$Name_submitted)]
+new_dat$cleaned_name <- dat.all$accepted_name[match(new_dat$allspp_uncleaned, dat.all$species)]
 
 num_plots_07 <- c()
 for (spp in new_dat$allspp_uncleaned){
@@ -57,7 +56,7 @@ new_dat$spp_counts_18  <- spp_counts_18$Freq[match(new_dat$cleaned_name, spp_cou
 # Raw name -- Cleaned name from TNRS -- 2007 total plots -- 2018 total plots
 names(new_dat) <- c('Raw_name', 'Cleaned_name', '2007_total_plots', '2018_total_plots', '2007_total_species', '2018_total_species')
 
-write.csv(new_dat, 'data/species/plot_species_record.csv', row.names = F, quote = F)
+write.csv(new_dat, 'data/Species/plot.species.counts.csv', row.names = F, quote = F)
 #rm(list = ls())
 
 

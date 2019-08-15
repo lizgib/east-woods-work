@@ -174,8 +174,8 @@ ecos_plot_pie(omega = fit18$omega,
 
 # save population membership to file 
 
-omega_out07 <- paste('figures/Summer 2019/EcoStructure/Omega/2007/k', k, outfile07, '.csv', sep = '')
-omega_out18 <- paste('figures/Summer 2019/EcoStructure/Omega/2018/k', k, outfile18, '.csv', sep = '')
+omega_out07 <- paste('figures/Summer 2019/EcoStructure/Omega/2007/k', k, '_', outfile07, '.csv', sep = '')
+omega_out18 <- paste('figures/Summer 2019/EcoStructure/Omega/2018/k', k, '_',  outfile18, '.csv', sep = '')
 
 write.csv(as.data.frame(fit07$omega), omega_out07, quote = F)
 write.csv(as.data.frame(fit18$omega), omega_out18, quote = F)
