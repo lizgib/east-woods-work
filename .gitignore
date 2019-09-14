@@ -8,3 +8,9 @@ data/*
 *.txt
 tr.ewv4
 phylo.zanne.tre
+data/* 
+figures/*
+outputs/* 
+*.Rhistory
+*.RData
+
