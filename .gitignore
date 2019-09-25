@@ -18,3 +18,9 @@ RF_runs_lab_pipeline.sh
 data_processing.sh 
 EcoStructure_runs.sh 
 *.sh
+14.prepare_data_for_RF.R
+15.analyze_ML.R
+16.feature_selection.R 
+*.py 
+old_scripts/* 
+
