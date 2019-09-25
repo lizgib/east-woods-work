@@ -1,157 +1,56 @@
 # east-woods-work
-Work done over summer 2018 URF program at the Morton Arboretum. Includes survey data processing, phylogenetic metrics, and community analyses
+Overview: 
+This repository contains primary scripts used to perform analyses on East Woods survey data to assess community structure and changes over the last 11 years. Scripts include some data cleaning, diversity calculations, and community analyses (which make use of EcoStructure package found here: https://github.com/kkdey/ecostructure. 
+Contact: Elizabeth Gibbons | gibbon70@msu.edu | gibbonsliz7@yahoo.com 
 
 
-
-SCRIPT DESCRIPTIONS: 
-Morton Project: June 2018 - December 2018
-
-
+WORKFLOW:
 00.combine_spp_pools.R
-
-	Input: Reads in all the survey data from 2007 (spring and summer surveys) and 2018 (also spring 
-	and summer surveys)
-	Outputs: Generates 3 dataframes: dat.07, dat.18. and dat.all. These include all tree, shrub, and
-	herb species reported in the data as well as the following: 
-	
-	plot = ID for survey plot 
-	code = first three letters of genus, first three letters of species 
-	species = reported genus and species ID
-	cover = differs for each vegetative type. 
-		herbs = percent cover (out of 100% plot cover)
-		trees = DBH
-		shrubs = # live stems
-	datset = keeps track of which survey dataset the species was recorded in (survey broken into 
-	three datasets T = tree layer, H = herb layer, S = shrub layer) 
-	year = 2007 or 2018 
-	
-	"plot"    "code"       "species"    "cover"    "datset"   "year"  
-	A107	  QUEALB     Quercus alba      54.6 	   T 	   2007 
-	
+	- combines all survey data from spring and summer surveys in 2007 and 2018 into compatible format
 	
 01.falltranslationkey.R	
-
-	Input: Reads in the dat.all object
-	Output: Returns dat.all with new column "accepted_name"
-	- Finds the TNRS accepted name for all species ID in survey data 
+	- Finds TNRS accepted name for species ID from raw survey data
 	
+02.compare_years.R
 
-02.compare_years.R 
-	
-	Input: Accepts all three dataframes: dat.07, dat.18, and dat.all
-	Output: Table of all unique species from both years and record of which were present in 
-	2007 only, 2018 only, and those present in both 2007 and 2018
-	- compares the which species were identified in 2007 vs 2018 (gets a count for each) 
-	  across the whole East Woods
-	
-03.natives.R
-
-	Input: dat.all dataframe with all species recorded in 2007 and 2018, USDA plants 
-	record of invasive and native species in Illinois, csv file of remaining species 
-	missing native ID which have been manually assigned native/invasive 
-	Output: new column added to dat.all for nativestatus (n = native, i = invasive, 
-	x = exotic, NA = no ID)
-	- gives each species a native/nonnative identifier based on USDA plants data and manual 
-	  identification
+03.generate_phylogeny.R 
+	- generates phylogeny using supertree approach, pruning tips from supertree from Zanne et al	
 
 04.cover.R 
+	- function to calculates percent of total cover for each species reported in plot. This function also calculates an estimate for how much cover there is in a plot (summing all cover estimates collected in survey data
+	- additional function to get estimate of which tree genus is dominant in plot (based on which tree species has most abundant cover)
 
-	Input: dat.all 
-	Output: understory.all.csv, trees.all.csv
-	- computes total plot cover and the relative percents of total cover for each species
-	  within a plot. Also converts tree cover from DBH to Basal Area 
-	  
 05.envt_data.R 
+	- gathers collection of plot level environmental variable from various sources on the East Woods google drive. Includes topography based variables and hillshade extracted from GIS rasters as well as some management and 
+		
+06.community_matrix.R
+    - generates presence absence based community matrix
+	 
+07.diversity_metrics.R
+    - calculates plot level alpha and beta diversity using species richness, and phylogenetic diversity metrics (PD, MPD, MNTD, PSV)
+	 
+08.spp_correlation.R 
+    - look for phylogenetic signal by determining correlation of each species with selected continuous environmental variables and map the R2 on phylogeny 
+
+09.ecostructure.R 
+    - apply the EcoStructure model
+
+10.define_ecostructure_communities.R
+    - assign each plot to a community based on its membership in each cluster and investigate environmental variables in plots from each of these groups. 
 	
-	Input: understory.all.csv, trees.all.csv, various GIS files from Morton GIS drive 
-	Output: liz_data.csv dataframe 
-	-extracts environmental variables from each source and does a few calculations to get
-	 items like invasive ratio, soil index, drainage, and canopy cover. Full list of variables
-	 incorporated: 
-	 	1. Latitude 
-	 	2. Longitude
-	 	3. Soil Texture (Categorical)
-	 	4. Soil Drainage (Categorical)
-	 	5. Canopy07 (Basal Area) 
-	 	6. Canopy18 (Basal Area) 
-	 	7. Plot Burn Frequency 
-	 	8. Slope
-	 	9. Aspect 
-	 	10. Elevation 
-	 	11. Invasive Ratio 07 
-	 	12. Invasive Ratio 18 
-	 	13. Dominant Tree Genus 
-	 	14. Soil Index (Calculated)
-	 	15. Plot Drainage (Calculated) 
-	 	16. Area Name (East Woods or Hidden Lake) 
-	 	17. Community Class (type of community) 
-	 	*18. Plan to incorporate a %ACM/ECM trees ratio soon 
-	 	
-06.tree_generation.R
-
-	Input: dat.all.csv
-	Output: tr.ewv4 
-	-uses a quick and dirty tree generation approach by slicing and appending tips from 
-	 a large pregenerated tree (phylo.zanne.tre) to create phylogeny for East Woods species 
-	 from both 2007 and 2018 species pools
-	 
-07.community_data_matrix.pres_abs.R
-
-	Input: dat.all.csv
-	Output: dat.mat.07, dat.mat.18
-	-generates two community matrices for 2007 and 2018 on a presence absence basis (binary)
-	 *may later also generate matrices for different layers (dat.mat.understory.18 and 
-	 dat.mat.trees.18) 
-	 
-08.phylo_metrics.R 
-
-	Input: community matrices, tr.ewv4 
-	Output: appends 4 more columns to liz_data (SR07, PD07, SR18, PD18) 
-	-calculates plot level phylogenetic diversity using picante and ape 
-		ses.pd and ses.mntd --> gives us phylogenetic diversity, number of taxa, and 
-		phylo-betadiversity
-
-09.phylo_diss_matrices.R 
-
-	Input: 
-	Output: 
-	-calculates the plot dissimilarity for each environmental variable and diversity metric.
-	 Uses Jaccard for species richness, comdist and comdistnt for phylogenetic diversity, 
-	 and euclidean distances for environmental variables 
-	 
-10.analyzing_data.R
-
-	Input: liz_data.csv
-	Output: 
-	-generates some preliminary plots and analyses looking at the distributions of various 
-	 environmental factors and their immediate effects on diversity 
-	 
-11.multiple_regression.R 
+11.ordination.R 
+    - another look at the difference between plots using NMDS
 	
-	Input: liz_data.csv
-	Output: Rsq table
-	
-12.mantel.R
-
-	Input: dissimilarity matrices 
-	Output: partial Rsq table 
-	-performs a Multiple Mantel test on all plot dissimilarities to evaluate 
-	 partial R2 of each 
+12.what_is_difference_bt_communities.R
+    - Determine if there is a significant difference between groups for any variables
 	 
-13.spp_correlation.R
- 	
- 	Input: community matrices, liz_data.csv
- 	Output: heatmap 
- 	-determines the correlations between the presence of each species and the presence of 
- 	 each environmetal factor. Generates a heatmap for visualizing phylogenetic signal of 
- 	 these correlations (does one clade respond more strongly to a particular variable than
- 	 other clades?) 
- 	 
-14.make_plots.R 
-	
-	Input: liz_data.csv
-	Output: plots 
-	-generates plots from each of the regression analyses
+13.difference_bt_years.R
+    - determine which plots have changed community class between years 
+
+14.what_predicts_change.R
+    - investigate what environmental variables may be associated with that changing community class in plots between 2007 and 2018
+
+
  	
  
  	 
