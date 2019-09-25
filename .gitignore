@@ -13,4 +13,8 @@ figures/*
 outputs/* 
 *.Rhistory
 *.RData
-
+RF_runs.sh
+RF_runs_lab_pipeline.sh 
+data_processing.sh 
+EcoStructure_runs.sh 
+*.sh
