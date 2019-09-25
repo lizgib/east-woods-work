@@ -1,10 +1,11 @@
 # east-woods-work
-Overview: 
+## OVERVIEW: 
 This repository contains primary scripts used to perform analyses on East Woods survey data to assess community structure and changes over the last 11 years. Scripts include some data cleaning, diversity calculations, and community analyses (which make use of EcoStructure package found here: https://github.com/kkdey/ecostructure. 
-Contact: Elizabeth Gibbons | gibbon70@msu.edu | gibbonsliz7@yahoo.com 
+### Contact:
+Elizabeth Gibbons | gibbon70@msu.edu | gibbonsliz7@yahoo.com 
 
 
-WORKFLOW:
+## WORKFLOW:
 00.combine_spp_pools.R
 	- combines all survey data from spring and summer surveys in 2007 and 2018 into compatible format
 	
